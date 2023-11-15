@@ -26,6 +26,7 @@ export default function Homepage() {
           </div>
 
           <Search />
+          
           <section className="mx-2">
             <div className="tab-content" id="categoryTab">
               <div
