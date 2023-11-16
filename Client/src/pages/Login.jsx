@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => (window.onscroll = null);
+  };
   return (
     <>
       <Container>
-        <Navbar />
+        <Navbar isScrolled={isScrolled}/>
         <div>
           <div className="boxContainer">
             <div className="formcontent">
@@ -37,11 +43,14 @@ const Login = () => {
               <div className="d-flex justify-content-center">
                 <button className="btn btn-success">Submit</button>
               </div>
-              <p>
+              <p className="mb-0" >
                 Don't have an account?{" "}
                 <span>
                   <Link to="/register">Signup</Link>
                 </span>
+              </p>
+              <p className="text-center">
+              <Link to="/forgot-password">Forgot Password</Link>
               </p>
             </div>
           </div>
@@ -53,6 +62,12 @@ const Login = () => {
 
 export default Login;
 const Container = styled.div`
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
   .boxContainer {
     height: 100vh;
     display: flex;
