@@ -5,8 +5,7 @@ import { FaSearch, FaPowerOff } from "react-icons/fa";
 
 const Navbar = ({ isScrolled }) => {
   const navigate = useNavigate();
-
-  const links = [
+const links = [
     { name: "Home", link: "/" },
     { name: "About", link: "/about" },
     { name: "Contact", link: "/contact" },
