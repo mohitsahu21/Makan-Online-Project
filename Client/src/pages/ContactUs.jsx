@@ -25,7 +25,7 @@ function ContactUs() {
              </div>
         <div className='row mb-5'>
             <div className='col-12 col-md-6'>
-                  <ul className="list">
+                  <ul className="list p-0">
                     <div className="d-flex align-items-center gap-3">
                     <span className="display-6"><FaLocationDot/></span>
                       <li className='mt-4'>
@@ -107,12 +107,8 @@ const Container = styled.div`
  
   .boxContainer {
 
-    @media screen and (min-width: 992px)  {
-        height: 100vh;
-    }
 
-    
-    
+
     .list{
         list-style: none;
     }
