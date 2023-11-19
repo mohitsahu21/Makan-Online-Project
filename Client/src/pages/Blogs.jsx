@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
@@ -6,6 +6,15 @@ import BlogPost from "../components/BlogPost";
 
 function Blogs() {
     const [isScrolled, setIsScrolled] = useState(true);
+    const [blogPosts, setBlogPosts] = useState([]);
+    useEffect(() => {
+        // Fetch data from your backend API
+        fetch('your-backend-api-url')
+          .then(response => response.json())
+          .then(data => setBlogPosts(data))
+          .catch(error => console.error('Error fetching data:', error));
+      }, []);
+
   return (
     <>
     <Container>
@@ -27,7 +36,12 @@ function Blogs() {
       </form>
             </div>
         </div>
-    
+       
+         {/* <div>
+      {blogPosts.map(post => (
+        <BlogPost key={post.id} post={post} />
+      ))}
+       </div> */}
 
         <div className="row mt-5 cardBox">
             <div className="col-12 col-md-4 mb-4 ">
