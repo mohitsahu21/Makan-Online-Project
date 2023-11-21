@@ -20,7 +20,8 @@ export default function Homepage() {
     <Wrapper>
       <div>
         <div className="container-fluid px-0">
-          <Navbar isScrolled={isScrolled} />
+        <Navbar isScrolled={isScrolled} /> 
+     
           <div className="bannerdiv">
             <Banner />
           </div>

@@ -9,7 +9,7 @@ export default function Suggestions() {
           Doaguru.com Suggestions
         </h3>
         <div className="row">
-          <div className="col-lg-3 px-md-4 mb-lg-0 mb-3">
+          <div className="col-lg-3 col-md-6 px-md-4 mb-lg-0 mb-3">
             <div className="border border-1 rounded-2 d-flex justify-content-between px-3 py-2 mb-2">
               <span className="fw-semibold">₹ 249,500</span>
               <span className="text-muted">7 hours ago</span>
@@ -29,7 +29,7 @@ export default function Suggestions() {
               <div>Las Vegos, NV 89145</div>
             </div>
           </div>
-          <div className="col-lg-3 px-md-4 mb-lg-0 mb-3">
+          <div className="col-lg-3 col-md-6 px-md-4 mb-lg-0 mb-3">
             <div className="border border-1 rounded-2 d-flex justify-content-between px-3 py-2 mb-2">
               <span className="fw-semibold">₹ 249,500</span>
               <span className="text-muted">7 hours ago</span>
@@ -49,7 +49,7 @@ export default function Suggestions() {
               <div>Las Vegos, NV 89145</div>
             </div>
           </div>
-          <div className="col-lg-3 px-md-4 mb-lg-0 mb-3">
+          <div className="col-lg-3 col-md-6 px-md-4 mb-lg-0 mb-3">
             <div className="border border-1 rounded-2 d-flex justify-content-between px-3 py-2 mb-2">
               <span className="fw-semibold">₹ 249,500</span>
               <span className="text-muted">7 hours ago</span>
@@ -69,7 +69,7 @@ export default function Suggestions() {
               <div>Las Vegos, NV 89145</div>
             </div>
           </div>
-          <div className="col-lg-3 px-md-4 mb-lg-0 mb-3">
+          <div className="col-lg-3 col-md-6 px-md-4 mb-lg-0 mb-3">
             <div className="border border-1 rounded-2 d-flex justify-content-between px-3 py-2 mb-2">
               <span className="fw-semibold">₹ 249,500</span>
               <span className="text-muted">7 hours ago</span>
