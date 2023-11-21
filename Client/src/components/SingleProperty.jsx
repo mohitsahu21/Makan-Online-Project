@@ -11,7 +11,7 @@ import RelatedProperty from "./RelatedProperty";
 
 
 function SingleProperty() {
-    const [isScrolled, setIsScrolled] = useState(true);
+    const [isScrolled, setIsScrolled] = useState(false);
 
 
   return (

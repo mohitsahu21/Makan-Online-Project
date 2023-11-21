@@ -5,15 +5,15 @@ import { Link } from "react-router-dom";
 import BlogPost from "../components/BlogPost";
 
 function Blogs() {
-    const [isScrolled, setIsScrolled] = useState(true);
+    const [isScrolled, setIsScrolled] = useState(false);
     const [blogPosts, setBlogPosts] = useState([]);
-    useEffect(() => {
-        // Fetch data from your backend API
-        fetch('your-backend-api-url')
-          .then(response => response.json())
-          .then(data => setBlogPosts(data))
-          .catch(error => console.error('Error fetching data:', error));
-      }, []);
+    // useEffect(() => {
+    //     // Fetch data from your backend API
+    //     fetch('your-backend-api-url')
+    //       .then(response => response.json())
+    //       .then(data => setBlogPosts(data))
+    //       .catch(error => console.error('Error fetching data:', error));
+    //   }, []);
 
   return (
     <>

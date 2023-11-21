@@ -15,12 +15,12 @@ function BlogPost({post}) {
     <div className="card-body">
         
         <p className="card-text d-inline"><span className="fs-5"><BiCategoryAlt /></span> Selling a home</p>
-      <h5 className="card-title mt-2">7 Home Staging Secrets: Lighting Can Make All The Difference</h5>
+        <Link to="/blog/single-blog" style={{textDecoration: 'none'}} >  <h5 className="card-title mt-2">7 Home Staging Secrets: Lighting Can Make All The Difference</h5> </Link>
       <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
       <p className="card-text"><small className="text-body-secondary"> <span className="fs-5"><CgCalendarDates /></span>  AUGUST 24, 2022</small></p>
     </div>
   </div>
-  
+
   </Container>
   </>
   )

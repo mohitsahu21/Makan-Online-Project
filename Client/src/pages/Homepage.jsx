@@ -10,12 +10,9 @@ import Pricedrop from "../components/Pricedrop";
 import Luxuaryhouse from "../components/Luxuaryhouse";
 import Navbar from "../components/Navbar";
 export default function Homepage() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(true);
 
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
-  };
+  
   return (
     <Wrapper>
       <div>

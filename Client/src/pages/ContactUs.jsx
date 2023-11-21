@@ -7,7 +7,7 @@ import { BiSolidContact } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 
 function ContactUs() {
-    const [isScrolled, setIsScrolled] = useState(true);
+    const [isScrolled, setIsScrolled] = useState(false);
   
     // window.onscroll = () => {
     //   setIsScrolled(window.pageYOffset === 0 ? false : true);

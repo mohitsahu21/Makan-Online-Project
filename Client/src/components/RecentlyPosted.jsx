@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function RecentlyPosted() {
@@ -15,6 +16,7 @@ export default function RecentlyPosted() {
               <span className="text-muted">7 hours ago</span>
             </div>
             <div className="card mb-2">
+              <Link to="single-property">
               <img
                 src="https://res.cloudinary.com/dsujv9zbq/image/upload/v1698845847/110_ut34vq.jpg"
                 alt=""
@@ -22,11 +24,14 @@ export default function RecentlyPosted() {
                 height="207px"
                 className="card-img"
               />
+              </Link>
             </div>
             <div className="border border-1 rounded-2 px-3 py-2 mb-2">
+              <Link style={{textDecoration: 'none'}}  to="single-property">
               <div>2 Beds2 Baths 1,188 Sq Ft</div>
               <div>350 S Durango Dr Unit 224</div>
               <div>Las Vegos, NV 89145</div>
+              </Link>
             </div>
           </div>
           <div className="col-lg-3 px-md-4 mb-lg-0 mb-3">

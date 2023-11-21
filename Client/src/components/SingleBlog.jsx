@@ -7,7 +7,7 @@ import { CgCalendarDates } from "react-icons/cg";
 
 
 function SingleBlog() {
-    const [isScrolled, setIsScrolled] = useState(true);
+    const [isScrolled, setIsScrolled] = useState(false);
   return (
     <>
     <Container>
