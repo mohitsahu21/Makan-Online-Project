@@ -7,17 +7,24 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
+import AdminHome from "./pages/Admin/AdminHome";
+import House from "./components/AdminComp/House";
 
 function App() {
+  
   return (
     <>
+    <div className="" style={{overflowX:"hidden"}}>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<AdminHome />} />
+        <Route path="/house" Component={House} />
       </Routes>
       <Footer />
+      </div>
     </>
   );
 }
