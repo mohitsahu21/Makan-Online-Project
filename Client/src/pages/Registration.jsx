@@ -2,14 +2,49 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+import cogoToast from 'cogo-toast';
 
 const Registration = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [formData,setFormData] = useState({});
+  const [error,setError] = useState(false);
+  const [loading,setLoading] = useState(false);
 
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
+  const handleChange = (e) =>{
+    setFormData({...formData,[e.target.name] : e.target.value})
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try{
+      setLoading(true);
+      const res = await axios.post("http://localhost:4000/api/auth/register" , formData)
+      setLoading(false)
+      console.log(res)
+      if(res.data.success === true){
+        cogoToast.success(`${res.data.message}`)
+      }
+      setError(false)
+    }
+    catch(error){
+      setLoading(false)
+      setError(true)
+      console.log(error.response.data.error)
+      cogoToast.error(`${error.response.data.error}`)
+
+    }
+
+  }
+
+
+  
+  
+
+  // window.onscroll = () => {
+  //   setIsScrolled(window.pageYOffset === 0 ? false : true);
+  //   return () => (window.onscroll = null);
+  // };
   return (
     <>
       <Container>
@@ -27,6 +62,8 @@ const Registration = () => {
                   placeholder="Enter your fullname"
                   name="name"
                   className="form-control"
+                  onChange={handleChange}
+
                 />
               </div>
               <div className="mb-3">
@@ -38,6 +75,9 @@ const Registration = () => {
                   placeholder="Enter your email"
                   name="email"
                   className="form-control"
+                  onChange={handleChange}
+
+
                 />
               </div>
               <div className="mb-3">
@@ -50,6 +90,9 @@ const Registration = () => {
                   name="phone"
                   maxLength={10}
                   className="form-control"
+                  onChange={handleChange}
+
+
                 />
               </div>
               <div className="mb-3">
@@ -61,10 +104,13 @@ const Registration = () => {
                   placeholder="Enter your password"
                   name="password"
                   className="form-control"
+                  onChange={handleChange}
+
                 />
               </div>
               <div className="d-flex justify-content-center">
-                <button className="btn btn-success">Submit</button>
+                <button disabled={loading} className="btn btn-success" onClick={handleSubmit}>
+                  {loading ? 'Loading...' : "Submit" }</button>
               </div>
               <p>
                 Allready have an account?{" "}
