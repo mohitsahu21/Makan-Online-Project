@@ -12,6 +12,8 @@ import ContactUs from "./pages/ContactUs";
 import Blogs from "./pages/Blogs";
 import SingleBlog from "./components/SingleBlog";
 import SingleProperty from "./components/SingleProperty";
+import AddProperty from "./pages/Admin/AddProperty";
+import PopularCategory from "./components/PopularCategory";
 
 function App() {
   return (
@@ -26,6 +28,11 @@ function App() {
         <Route path="/blog" element={<Blogs/>} />
         <Route path="/blog/single-blog" element={<SingleBlog/>} />
         <Route path="/single-property" element={<SingleProperty/>} />
+        <Route path="/admin" element={<AddProperty/>} />
+        <Route path={`/popular-apartment-searches/:name`} element={<PopularCategory/>}  />
+        <Route path={`/popular-house-searches/`} element={<AddProperty/>}  />
+        <Route path={`/popular-villa-searches/`} element={<AddProperty/>}  />
+        <Route path={`/popular-plot-searches/`} element={<AddProperty/>}  />
 
       </Routes>
       <Footer />

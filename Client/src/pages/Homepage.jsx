@@ -43,6 +43,21 @@ export default function Homepage() {
               </div>
               <div
                 className="tab-pane fade"
+                id="villa-tab-pane"
+                role="tabpanel"
+                aria-labelledby="villaTab"
+              >
+                <section className="p-md-3">
+                  <RecentlyPosted />
+                  <Suggestions />
+                  <MostViewed />
+                  <Poshhouse />
+                  <Pricedrop />
+                  <Luxuaryhouse />
+                </section>
+              </div>
+              <div
+                className="tab-pane fade"
                 id="plot-tab-pane"
                 role="tabpanel"
                 aria-labelledby="plotTab"
@@ -58,9 +73,9 @@ export default function Homepage() {
               </div>
               <div
                 className="tab-pane fade"
-                id="commercial-tab-pane"
+                id="apartment-tab-pane"
                 role="tabpanel"
-                aria-labelledby="commercialTab"
+                aria-labelledby="apartmentTab"
               >
                 <section className="p-md-3">
                   <RecentlyPosted />

@@ -197,14 +197,27 @@ export default function () {
                   <li className="nav-item" role="presentation">
                     <button
                       className="nav-link"
-                      id="commercialTab"
+                      id="apartmentTab"
                       data-bs-toggle="tab"
-                      data-bs-target="#commercial-tab-pane"
+                      data-bs-target="#apartment-tab-pane"
                       type="button"
                       role="tab"
-                      aria-controls="commercial-tab-pane"
+                      aria-controls="apartment-tab-pane"
                     >
-                      Commercial
+                      Apartment
+                    </button>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link"
+                      id="villaTab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#villa-tab-pane"
+                      type="button"
+                      role="tab"
+                      aria-controls="villa-tab-pane"
+                    >
+                      Villa
                     </button>
                   </li>
                 </ul>
