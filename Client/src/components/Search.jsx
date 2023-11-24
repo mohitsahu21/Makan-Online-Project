@@ -211,7 +211,7 @@ export default function () {
               <div className="search-container row justify-content-center mt-2">
                 <div className="main col-lg-6 col-md-8 col-10 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
                   <div className="row " id="inner-col">
-                    <div className="col-lg-4">
+                    <div className="col-lg-4" id="res1">
                      
                         
                   <div className="d-flex align-items-center">
@@ -230,7 +230,7 @@ export default function () {
                   </div>
                   
                   </div>
-                  <div className="col-lg-3">
+                  <div className="col-lg-3" id="res2">
                   <select className=" w-auto px-3 py-1 mx-4" id="mySelect">
                     <option value="Flat+1" selected>
                       Flat+1
@@ -238,13 +238,13 @@ export default function () {
                     <option value="Commercial">Commercial</option>
                     <option value="Plots">Plots</option>
                   </select></div>
-                  <div className="col-lg-3 align-items-center">
+                  <div className="col-lg-3 align-items-center" id="res3">
                     <i
                       class="bi bi-currency-rupee fs-5"
                       style={{ color: "red" }}
                     ></i>
                     <select
-                      className="w-auto px-3 py-1 mx-2"
+                      className="w-auto px-3 py-1 "
                       id="budget"
                       placeholder="Budget"
                     >
@@ -254,7 +254,7 @@ export default function () {
                       <option value="Plots">Plots</option>
                     </select>
                   </div>
-                  <div className="col-lg-2">
+                  <div className="col-lg-2" id="res4">
                   <button className="btn btn-danger px-3 fs-5" id="btnsearch">Search</button></div>
                   </div>
                 </div>
@@ -325,5 +325,36 @@ const Wrapper = styled.div`
       gap: 1rem;
     }
   }
+  #res1{
+    @media screen and (max-width: 768px) {
+      margin-left: 1rem;
+    }
+  }
+  #res2{
+    @media screen and (max-width: 768px) {
+      margin-left: 1rem;
+    }
+  }
+  #res3{
+    
+    @media screen and (max-width: 768px) {
+      margin-left: 1.5rem;
+    }
+  }
+  #budget{
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    background-color: white;
+    @media screen and (max-width: 768px) {
+      margin-left: -0.3rem;
+    }
+  }
+  #mySelect{
+   
+    @media screen and (max-width: 768px) {
+      background-color: white;
+    }
+  }
+
 
 `;

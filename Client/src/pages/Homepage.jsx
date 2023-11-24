@@ -8,19 +8,17 @@ import MostViewed from "../components/MostViewed";
 import Poshhouse from "../components/Poshhouse";
 import Pricedrop from "../components/Pricedrop";
 import Luxuaryhouse from "../components/Luxuaryhouse";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
+import NavbarMob from "../components/Navbar/NavbarMob";
 export default function Homepage() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
-  };
+ 
   return (
     <Wrapper>
       <div>
         <div className="container-fluid px-0">
-        <Navbar isScrolled={isScrolled} /> 
+        <div className="nav1"><Navbar /> </div>
+        <div className="nav2"><NavbarMob /> </div>
+        
      
           <div className="bannerdiv">
             <Banner />
@@ -138,5 +136,22 @@ const Wrapper = styled.div`
 
   .bannerdiv {
     position: relative;
+  }
+  .nav1{
+    display: block;
+    @media screen and (max-width: 768px) {
+   
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+    @media screen and (max-width: 768px) {
+   
+   display: block;
+   
+ }
+   
   }
 `;

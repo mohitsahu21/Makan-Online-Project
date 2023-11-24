@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
-
+import logo from '../../images/Makaan_logo.jpg'
 function SiderbarMob() {
   return (
     <Wrapper>
@@ -14,7 +14,7 @@ function SiderbarMob() {
     </button>
     <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div className="offcanvas-header">
-        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+        <h5 className="offcanvas-title d-flex gap-2 " id="offcanvasNavbarLabel"><img src={logo} height={30} width={30} alt="" /><h6 className='mt-1'>Makaan Online</h6></h5>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div className="offcanvas-body">
@@ -37,9 +37,9 @@ function SiderbarMob() {
                 <a className="nav-link px-0 align-middle d-flex gap-2">
                   <i className="fs-4 bi  bi-building"></i> <br />
                  
-                  <span className="d-none d-sm-inline" id="navleft">
+                  <span className=" d-sm-inline" id="navleft">
       <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
+        <Dropdown.Toggle variant="" id="dropdown-basic">
           Property
         </Dropdown.Toggle>
 
@@ -58,7 +58,7 @@ function SiderbarMob() {
                 <a className="d-flex gap-2 text-decoration-none">
                   <i className="fs-4 bi bi-receipt-cutoff"></i>
                   <br />
-                  <span className="d-none d-sm-inline" id="navleft">
+                  <span className=" d-sm-inline" id="navleft">
       <Dropdown>
         <Dropdown.Toggle variant="" id="dropdown-basic">
           Types
@@ -82,9 +82,9 @@ function SiderbarMob() {
                   <br />
                  
                 
-                  <span className="d-none d-sm-inline" id="navleft">
+                  <span className=" d-sm-inline" id="navleft">
       <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
+        <Dropdown.Toggle variant="" id="dropdown-basic">
           Blog
         </Dropdown.Toggle>
 
@@ -139,5 +139,10 @@ const Wrapper = styled.div`
       width: 70%;
     }
   }
+  .dropdown-toggle::after {
+ 
+ margin-left: 1rem;
+   
+}
 
 `

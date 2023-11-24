@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 import { Link } from "react-router-dom";
 
 const Registration = () => {

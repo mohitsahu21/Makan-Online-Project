@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { BsFacebook, BsWhatsapp, BsInstagram } from "react-icons/bs";
 import { BiLogoInstagramAlt, BiLogoWhatsappSquare } from "react-icons/bi";
 
+import logo from '../images/Makaan_logo.jpg'
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <>
@@ -62,11 +65,50 @@ const Footer = () => {
                   <li>House for Sale in Madan Mahal</li>
                   <li>House for Sale in Ranjhi</li>
                 </ul>
+                <div className="">
+                <ul>
+                  <li> <img src={logo} height={100} width={200} alt="" className="rounded-3" /> </li>
+                  <li><h5 className="mt-3 mx-5">Follow us on</h5></li>
+                  <li><div className="d-flex gap-5 mt-3">
+                    
+                  <BsFacebook size={30}    onMouseOver={({ target }) =>
+                        (target.style.color = "blue")
+                      }
+                      onMouseOut={({ target }) =>
+                        (target.style.color = "white")
+                      } />
+                  <BsInstagram size={30} onMouseOver={({ target }) =>
+                        (target.style.color = "red")
+                      }
+                      onMouseOut={({ target }) =>
+                        (target.style.color = "white")
+                      }  />
+                  <Link className="text-white" to={"https://wa.me/+918839280515"}><BsWhatsapp size={30} onMouseOver={({ target }) =>
+                        (target.style.color = "green")
+                      }
+                      onMouseOut={({ target }) =>
+                        (target.style.color = "white")
+                        
+                    } /></Link>
+                        
+                </div></li>
+                 
+                </ul>
+                 
+                   
+                </div>
+              
+              
               </div>
+             
+              <div>
+                  <h5 className="text-white text-center">@2023 Doaguruinfosystems. All Right Reserved</h5> 
+                
+                </div>
             </div>
           </div>
         </div>
-        <div className="container-fluid">
+        {/* <div className="container-fluid">
           <div className="container pt-3 pb-3">
             <div className="row">
               <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
@@ -88,7 +130,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </Container>
     </>
   );
