@@ -21,6 +21,12 @@ function SingleProperty() {
     <div className="container-fluid mt-5">
         <div className="row">
             <div className="col-12 mt-4">
+            <small> <span className="text-muted">All You Need To Know About 1596 Sq.Ft. 3 BHK Residential Independent House </span></small>
+                <h3 className="mt-3">
+                1596 Sq.Ft. 3 BHK Residential Independent House / Villa for Sale in Katara Hills
+                </h3>
+                <div className="d-flex gap-3 justify-content-start"><span className="text-muted "><FaLocationDot/> Katara Hills,Bhopal</span>   <h4 className="me-2 text-info"><FaRupeeSign /> 2,49,500</h4>
+              </div>
             <div id="carouselExampleIndicators" className="carousel slide">
   <div className="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
@@ -52,14 +58,8 @@ function SingleProperty() {
 
         <div className="row">
             <div className="col-12 col-lg-8 mt-5">
-                <small> <span className="text-muted">All You Need To Know About 1596 Sq.Ft. 3 BHK Residential Independent House </span></small>
-                <h3 className="mt-3">
-                1596 Sq.Ft. 3 BHK Residential Independent House / Villa for Sale in Katara Hills
-                </h3>
-                <div className="d-flex justify-content-between"><span className="text-muted "><FaLocationDot/> Katara Hills,Bhopal</span>   <h4 className="me-2 text-info"><FaRupeeSign /> 2,49,500</h4>
-              </div>
-
-              <h5 className="mt-4">PROPERTY DETAILS</h5>
+              
+              <h5 className="">PROPERTY DETAILS</h5>
               <div className="row mt-3 property-detail">
                 <div className="col-4">
                     <span className="d-block">Property Id</span>
@@ -247,7 +247,7 @@ const Container = styled.div`
 
 .carousel-item{
     @media only screen and (min-width: 992px) {
-        height: 70vh;
+        height: 80vh;
     img{
       height: 100%;
         
