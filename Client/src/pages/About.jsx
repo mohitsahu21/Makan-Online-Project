@@ -11,20 +11,18 @@ import profile from '../images/dummy-profile.jpg'
 import Navbar from "../components/Navbar";
 
 
-
 function About() {
   return (
     <>
       <Container>
         <Navbar/>
-        
         <div>
-          <div className=" container-fluid mt-5">
+          <div className="mt-5 container-fluid">
             <div className="container-fluid" id="About">
               <div className="row">
                 <div className="col-12">
                   <div className="row">
-                    <div className="col-lg-12 col-xl-6  col-sm-12 mt-5 d-block">
+                    <div className="col-lg-6 col-sm-12 col mt-5 d-block">
                       <h1 className="About mt-5 d-flex  justify-content-start">About Us</h1>
                       <p>At makan.com, we understand that people everywhere are searching for a home to
                         call their own. A home is a cherished memory that lasts forever, where the walls
@@ -49,7 +47,7 @@ function About() {
                         shareholders.</p>
                     </div>
 
-                    <div className=" col-lg-6 col-xl-6 col-sm-12 mt-5 ">
+                    <div className=" col-lg-6 col-sm-12 col-xxl-6 mt-5 ">
                       <img src={house} alt='House' className='main-img img-fluid' />
                     </div>
                   </div>
@@ -71,7 +69,7 @@ function About() {
                         <div className='col-7 col-sm-12 mission-2'>
                           <img src={cull} className=" w-100 " alt="Our-Vslue" />
                         </div>
-                        <div className='house-misssion col-lg-5'>
+                        <div className='house-mission col-lg-5'>
                           <h3>Our Mission</h3>
                           <p>We find our joy in breaking rules and making some of
                             our own. we are a team of enthusiastic game changers,
@@ -162,8 +160,8 @@ function About() {
                               an MBA from Harvard Business School.</p>
                           </div>
 
-                          <div className='col-lg-6 '>
-                            <img src={honer} alt='House' />
+                          <div className='col-lg-6  '>
+                            <img src={honer} alt='House' className='pretty-house' />
                           </div>
 
                           <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -209,26 +207,26 @@ function About() {
           </div>
         </div>
 
-      
-          <div className='container-fluid map-box'>
-            <div className="row">
-             
-              <div className="col-lg-8 col-sm-12 first-child">
-                   <h3 className=" map-main">Find Us Hear</h3>
-                <div className="map-container border border-primary rounded mt-3">
-                  <iframe className="map" title='makanonline' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3668.179981810829!2d79.92040930961065!3d23.163630310964717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3981b116195eee4f%3A0x62196cfaef1c23c7!2sDOAGURU%20INFO%20SYSTEMS-%20Best%20Digital%20Marketing%20Company%20in%20Jabalpur%7CBest%20Software%20company%20in%20jabalpur%7CIT%20Company%20in%20Jabalpur!5e0!3m2!1sen!2sin!4v1700317566925!5m2!1sen!2sin" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-              </div>
-              <div className='col-lg-4 col-sm-12 secand-child'>
-                <h3>Makan.com</h3>
-                <p>1815 Wright Town,
-                   Jabalpur, Madhya pradesh INDIA
-                   482002
-                  Phone:+91-7440992424
-                  Fax: +91-01X4-4866XXX</p>
+
+        <div className='container-fluid map-box'>
+          <div className="row">
+
+            <div className="col-lg-8 col-sm-12 first-child">
+              <h3 className=" map-main">Find Us Hear</h3>
+              <div className="map-container border border-primary rounded mt-3">
+                <iframe className="map" title='makanonline' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3668.179981810829!2d79.92040930961065!3d23.163630310964717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3981b116195eee4f%3A0x62196cfaef1c23c7!2sDOAGURU%20INFO%20SYSTEMS-%20Best%20Digital%20Marketing%20Company%20in%20Jabalpur%7CBest%20Software%20company%20in%20jabalpur%7CIT%20Company%20in%20Jabalpur!5e0!3m2!1sen!2sin!4v1700317566925!5m2!1sen!2sin" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
+            <div className='col-lg-4 col-sm-12 secand-child'>
+              <h3>Makan.com</h3>
+              <p>1815 Wright Town,
+                Jabalpur, Madhya pradesh INDIA
+                482002
+                Phone:+91-7440992424
+                Fax: +91-01X4-4866XXX</p>
+            </div>
           </div>
+        </div>
       </Container >
     </>
   )
@@ -236,129 +234,220 @@ function About() {
 export default About;
 
 const Container = styled.div`
-body{ 
+ body{
   overflow: hidden;
   margin:0;
   padding:0;
   border:Border-box;
   font-family: 'Open Sans', sans-serif;
   background-color:#ffcaca;
+  font-weight:600;
+}
+h1{
+    color:#ce3132;
+    margin-left: 28px;
+    margin-top: -35px;
+  @media only screen and (max-width: 750px) {
+    margin-left:20px;
+ }
 }
 
-h1{font-size:4.5 rem;
-  font-weight:600;
-  color:#ce3132;
-  margin-left: 28px;
-  margin-top: -35px;
-}
  h2{
-  font-size:4.5 rem;
-  font-weight:600;
-  color:#ce3132;
-  margin-left: 156px;
-  margin-top: -35px;
+    color:#ce3132;
+    margin-left:156px;
+    margin-top:-35px;
+  @media only screen and (max-width: 750px) {
+    margin-left:114px;
+ }
   @media only screen and (min-width:751px )and (max-width:1024px)  {
-  margin-left:70px;
-  } 
+    margin-left:70px;
+  }
+  @media only screen and (min-width:1600px) and (max-width: 3200px) {
+    margin-top:15px;
+    margin-left:460px;
+    font-size:70px;
 }
+}
+
 h3{
-  font-size:3.0 rem;
-  font-weight:600;
-  color:#ce3132;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+   color:#ce3132;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+  @media only screen and (max-width: 750px) {
+    font-size:20px;
+  }
+  @media only screen and (min-width:1600px) and (max-width: 3200px) {
+    font-size:50px;
+  }
 }
-h4{font-size:2.5 rem;
-  font-weight:600;
-  color:#ce3132;
-  margin-top:16px;
-  margin-left:25px;
+h4{
+   color:#ce3132;
+   margin-top:16px;
+   margin-left:25px;
+  @media only screen and (max-width: 750px) {
+    margin-top: 16px;
+    margin-left: 20px;
+  }
   @media only screen and (min-width: 1024px) and (max-width: 1600px) {
     margin-bottom:-7px;
 }
 }
 h5{
-  font-size:2.5 rem;
-  font-weight:600;
-  color:#ce3132;
-  margin-top:100px;
-  @media only screen and (min-width:751px )and (max-width:1024px)  {
-  margin-top:10px;
-  margin-left:60px;
+    color:#ce3132;
+    margin-top:100px;
+  @media only screen and (max-width: 750px) {
+    margin-top: 15px;
+    margin-left: 75px;
   }
-  @media only screen and (min-width: 1024px) and (max-width: 1600px) {
+  @media only screen and (min-width:751px )and (max-width:1000px)  {
+    margin-top:10px;
+    margin-left:60px;
+  }
+  @media only screen and (min-width:1001px )and (max-width:1024px)  {
+    margin-top:100px;
+    margin-left:30px;
+  }
+  @media only screen and (min-width: 1025px) and (max-width: 1600px) {
     margin-left: 38px;
 }
-
+  @media only screen and (min-width:1600px) and (max-width: 3200px) {
+    font-size:40px;
+    margin-top:240px;
+    margin-left:-365px;
+  }
 }
-h6{font-size:2.0 rem;
-  font-weight:600;
-  color:#ce3132;
-  margin-left:22px;
+
+h6{
+   color:#ce3132;
+   margin-left:22px;
+  @media only screen and (max-width: 750px) {
+    margin-left: 125px;
+  }
   @media only screen and (min-width:751px )and (max-width:1024px)  {
-  margin-left:80px;
+    margin-left:80px;
   }
   @media only screen and (min-width: 1024px) and (max-width: 1600px) {
     margin-left: 60px
   }
+  @media only screen and (min-width:1600px) and (max-width: 3200px) {
+    font-size:30px;
+    margin-left:-265px;
+  }
 }
-p{font-size:1.5 rem;
-  font-weight:600;
-  color:gray;
-  margin-top:25px;
-  margin-left:25px;
+
+p{
+   color:gray;
+   margin-top:25px;
+   margin-left:25px;
+  @media only screen and (max-width: 750px) {
+    margin-top:2px;
+    margin-left:20px;
+  }
   @media only screen and (min-width: 1024px) and (max-width: 1600px) {
     margin-top: 10px;
   }
+  @media only screen and (min-width:1600px) and (max-width: 3200px) {
+    font-size:29px;
+  }
 }
+
+pre{
+   font-weight:600;
+   font-family: 'Open Sans', sans-serif;
+   color:gray;
+  @media only screen and (max-width: 750px) {
+    font-size:9px;
+  }
+  @media only screen and (min-width:1600px) and (max-width:3200px){
+      margin-top:25px;
+      font-size:30px;
+    }
+}
+
 .main-img{
   width: 725px;
   height: 576px;
   border-radius:25px;
   margin-bottom:50px;
+  @media only screen and (max-width: 750px) {
+    display:none;
+  }
+   @media only screen and (min-width:1023px )and (max-width:1025px)  {
+    height:660px;
+  }  
+  @media only screen and (min-width:1600px) and (max-width:3200px){
+    width:1560px;
+    height:745px;
+  }
 }
+
 .carousel-item{
- width:100%;
-height:500px;
-object-fit:cover;
+  width:100%;
+  height:500px;
+  object-fit:cover;
+@media only screen and (min-width:1600px) and (max-width:3200px){
+  height:900px;
+}
 }
 .into-center{
-  display:grid;
-  place-items:center;
-  height:90vh;
-  @media screen and (min-width:751px) and (max-width:1024px){
-  height:30vh;
+    display:grid;
+    place-items:center;
+    height:90vh;
+  @media only screen and (max-width: 750px) {
+    height:5vh;
   }
-  @media screen and (min-width:1024px) and (max-width:1600px){
-  height:70vh;
+  @media screen and (min-width:751px) and (max-width:1025px){
+    height:30vh;
+  }
+  @media screen and (min-width:1025px) and (max-width:1600px){
+    height:70vh;
+  }
+  @media only screen and (min-width:1600px) and (max-width:3200px){
+    height:95vh;
   }
 }
-pre{
-  font-size:1.25rem;
-  font-weight:600;
-  font-family: 'Open Sans', sans-serif;
-  color:gray;
-}
+
 .passport{
-  width:200px;
-  height:200px;
-  margin-left: 133px;
-  margin-top: 19px;
-  @media only screen and (min-width:751px )and (max-width:1024px)  {
-  margin-left:31px;
+     width:200px;
+     height:200px;
+     margin-left: 133px;
+     margin-top: 19px;
+  @media only screen and (max-width: 750px) {
+     margin-left: 65px;
+     margin-top: 5px;
   }
+  @media only screen and (min-width:1600px) and (max-width:3200px){
+      margin-left:509px;
+    }
+  @media only screen and (min-width:751px )and (max-width:1024px)  {
+    margin-left:31px;
+  }
+}
+.pretty-house {
+  @media only screen and (min-width:1600px) and (max-width:3200px){
+    margin-left: 121px;
+    width: 1000px;
+    margin-top: 100px
+    }
 }
 .logo{
-  width:450px;
-  display:grid;
-  place-content:center;
-  height:20vh;
-  margin-left: 125px;
-  margin-top: 25px;
+    width:450px;
+    display:grid;
+    place-content:center;
+    height:20vh;
+    margin-left: 125px;
+    margin-top: 25px;
+  @media only screen and (max-width: 750px) {
+    width: 200px;
+    display: grid;
+    place-content: center;
+    margin-left: 50px;
+    margin-top: 150px;
+  }
   @media only screen and (min-width:751px )and (max-width:1024px)  {
-  margin-top:0px;
-  height:10vh;
+    margin-top:0px;
+    height:10vh;
   }
 
 }
@@ -370,152 +459,122 @@ pre{
   background-color:#FF7722;
   object-fit:cover;
 }
+
 #Rea-Group{
   margin-top: 20px;
   margin-bottom: 100px;
   display:none;
 }
 .rea{
-  display:grid;
-  place-content:center;
-  height:40vh;
-}
-.house-misssion{
-  display:grid;
-  place-content:center;
-  height:75vh;  
-}
-.Box-2{
-  margin-top:50px;
-}
-.ceo{
-  background-color:#EDf2F0;
-  object-fit:cover;
-}
-.map-box{
-  width:95%;
-  height:100%;
-  background-color:#EDf2F0;
-  margin-bottom:100px;
-}
-.map {
-    width: 100%;
-    height:99%;
-    border-radius:15px; 
-    border:none;
-}
-.map-container { 
-    width:100%;
-    height:25rem; 
-  }
-.first-child{
-    padding: 40px 0px 40px 20px;
-    @media only screen and (max-width:768px) {
-      padding: 40px 15px 40px 15px;
-    }
-  }
-
-.secand-child{
-  display:grid;
-  place-content:center;
-  height:80vh;
-   border-radius:15px;
-  @media only screen and (max-width:768px) {
-      padding: 40px 15px 40px 15px;
-      height:30vh;
-    }
-    @media only screen and (max-width:1024px) {
-      height:30vh;
-    }
-    
-
-}
-
-@media only screen and (max-width: 750px) {
- h1{
-  margin-left:17px; 
- }
-  h2{
-  margin-left:135px; 
- }
- p{
-    margin-top: 25px;
-    margin-left: 12px;
- }
-.house-misssion{
-  display:none;
- }
- h3{
-  font-size:20px;
- } 
- 
- h4{
-    margin-top: 16px;
-    margin-left: 12px;
-   }
- h5{
-  margin-top: 8px;
-  margin-left: 120px;
- }
- h6{
-    margin-left: 150px;
- }
- pre{
-  font-size:9px;
-  font-weight:600;
-  color:gray;
- }
- 
- .main-img{
-    display:none;
-  }
-  
-  .into-center{
     display:grid;
-    place-items:center;
-    height:5vh;
-
-  }
-  .passport{
-    width:200px;
-  height:200px;
-  margin-left: 85px;
-  margin-top: 19px;
-
-  }
-  .value{
-    display:none;
-    height:487px;
-  }
-  .rea{
+    place-content:center;
+    height:40vh;
+  @media only screen and (max-width: 750px) {
     width: 300px;
     display: grid;
     place-content: center;
     margin-left: 28px;
     margin-top:25px ;
   }
-  .logo{
-    width: 200px;
-    display: grid;
-    place-content: center;
-    margin-left: 50px;
-    margin-top: 150px;
+}
+.house-mission{
+   display:grid;
+   place-content:center;
+   height:75vh;
+}
+.Box-2{
+  margin-top:50px;
+}
+.ceo{
+   background-color:#EDf2F0;
+   object-fit:cover;
+  @media only screen and (min-width:1600px) and (max-width:3200px){
+      height:1000px;
+    }
+}
+.map-box{
+    width:97%;
+    height:100%;
+    background-color:#EDf2F0;
+    margin-bottom:100px;
+  @media only screen and (max-width:1024px){
+    margin-top:25px;
   }
-  #Our{
-    margin-top:50px; 
-  }
-  .Group{
-    margin-left:-93px;
-  }
-  #Our-Value{
-    height:265px;
-  }
+  @media only screen and (min-width:1600px) and (max-width:3200px){
+     margin-top:450px;
+     height:1000px;
+    }
+  @media only screen and (max-width:750px){
+      margin-top:25px;
+    }
+}
+.map {
+    width: 100%;
+    height:99%;
+    border-radius:15px;
+    border:none;
+}
+.map-container {
+      width:100%;
+      height:25rem;
+    @media only screen and (min-width:1600px) and (max-width:3200px){
+      height:50rem;
+    }
 
   }
-@media only screen and (min-width:751px) and (max-width:1024px) {
-  .ceo-row{
+.first-child{
+      padding: 40px 0px 40px 20px;
+  @media only screen and (max-width:768px) {
+      padding: 40px 15px 40px 15px;
+    }
+  }
+
+.secand-child{
+     display:grid;
+     place-content:center;
+     height:80vh;
+     border-radius:15px;
+  @media only screen and (max-width:768px) {
+      padding: 40px 15px 40px 15px;
+      height:30vh;
+    }
+  @media only screen and (max-width:1024px) {
+      height:30vh;
+    }
+  @media only screen and (min-width:1600px) and (max-width:3200px){
+      height:90vh;
+    }
+}
+#Our-Value{
+  @media only screen and (max-width: 750px) {
+    height:265px;
+  }
+  @media only screen and (min-width:1600px) and (max-width:3200px){
+      height:1000px;
+    }
+}
+#Our{
+  height:500px;
+  @media only screen and (max-width: 750px) {
+    margin-top:50px;
+  }
+}
+.value{
+    @media only screen and (max-width: 750px) {
+    display:none;
+    height:487px;
+  }
+}
+.Group{
+  @media only screen and (max-width: 750px) {
+    margin-left:-93px;
+  }
+.ceo-row{
+  @media only screen and (min-width:751px) and (max-width:1024px) {
     margin-top:25px;
   }
 }
-
+}
 `;
+
+
