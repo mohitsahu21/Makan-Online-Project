@@ -42,7 +42,7 @@ function Sidebar() {
 
         <Dropdown.Menu>
           <Dropdown.Item href="#/house">Add Property</Dropdown.Item>
-          <Dropdown.Item href="#/villa">All Property</Dropdown.Item>
+          <Dropdown.Item href="#/villa"><Link to="/allproperties">All Property</Link></Dropdown.Item>
           
         </Dropdown.Menu>
       </Dropdown>
