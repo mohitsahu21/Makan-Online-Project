@@ -1,16 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
+import axios from 'axios';
+import cogoToast from 'cogo-toast';
+import { signInFailure,signInStart,signInSuccess } from "../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [formData,setFormData] = useState({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {currentUser,loading,error} = useSelector((state) => state.user)
 
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
+  const handleChange = (e) =>{
+    setFormData({...formData,[e.target.name] : e.target.value})
   };
-  return (
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(signInStart());
+      const res = await axios.post("http://localhost:4000/api/auth/login", formData);
+  
+      if (res.data && res.data.success === true) {
+        dispatch(signInSuccess(res.data));
+        console.log(res.data);
+        cogoToast.success(`${res.data.message}`);
+        navigate("/");
+        return;
+      }
+      if (res.data && res.data.success === false) {
+        dispatch(signInFailure(res.data));
+        cogoToast.error(`${res.data.message}`);
+        return;
+      }
+    } catch (err) {
+      if (err.response && err.response.data) {
+        dispatch(signInFailure(err.response.data));
+        console.log(error);
+        cogoToast.error(`${err.response.data.message}`);
+      }
+    }
+
+  }
+
+  useEffect(()=>{
+     if(currentUser){
+      cogoToast.error(`Already loged In`);
+      navigate("/")
+     }
+  },[])
+
+
+  // window.onscroll = () => {
+  //   setIsScrolled(window.pageYOffset === 0 ? false : true);
+  //   return () => (window.onscroll = null);
+  // };
+  return !currentUser && (
     <>
       <Container>
         <Navbar isScrolled={isScrolled}/>
@@ -27,6 +75,8 @@ const Login = () => {
                   placeholder="Enter your email"
                   name="email"
                   className="form-control"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -38,10 +88,14 @@ const Login = () => {
                   placeholder="Enter your password"
                   name="password"
                   className="form-control"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="d-flex justify-content-center">
-                <button className="btn btn-success">Submit</button>
+                <button disabled={loading} className="btn btn-success" onClick={handleSubmit}>
+                {loading ? 'Loading...' : "Submit" }
+                  </button>
               </div>
               <p className="mb-0" >
                 Don't have an account?{" "}

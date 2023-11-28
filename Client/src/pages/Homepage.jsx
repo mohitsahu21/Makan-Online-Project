@@ -9,6 +9,7 @@ import Poshhouse from "../components/Poshhouse";
 import Pricedrop from "../components/Pricedrop";
 import Luxuaryhouse from "../components/Luxuaryhouse";
 import Navbar from "../components/Navbar";
+import NavbarMob from "../components/NavbarMob";
 export default function Homepage() {
   const [isScrolled, setIsScrolled] = useState(true);
 
@@ -17,7 +18,8 @@ export default function Homepage() {
     <Wrapper>
       <div>
         <div className="container-fluid px-0">
-          <Navbar isScrolled={isScrolled} />
+          <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+          <div className="nav2"><NavbarMob /> </div>
           <div className="bannerdiv">
             <Banner />
           </div>
@@ -150,5 +152,22 @@ const Wrapper = styled.div`
 
   .bannerdiv {
     position: relative;
+  }
+  .nav1{
+    display: block;
+    @media screen and (max-width: 768px) {
+   
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+    @media screen and (max-width: 768px) {
+   
+   display: block;
+   
+ }
+   
   }
 `;

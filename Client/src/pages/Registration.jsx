@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
+
+
 
 const Registration = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [formData,setFormData] = useState({});
   const [error,setError] = useState(false);
   const [loading,setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) =>{
     setFormData({...formData,[e.target.name] : e.target.value})
@@ -24,13 +27,14 @@ const Registration = () => {
       console.log(res)
       if(res.data.success === true){
         cogoToast.success(`${res.data.message}`)
+        navigate("/login");
       }
       setError(false)
     }
     catch(error){
       setLoading(false)
       setError(true)
-      console.log(error.response.data.error)
+      console.log(error.response)
       cogoToast.error(`${error.response.data.error}`)
 
     }
@@ -63,6 +67,7 @@ const Registration = () => {
                   name="name"
                   className="form-control"
                   onChange={handleChange}
+                  required
 
                 />
               </div>
@@ -76,6 +81,7 @@ const Registration = () => {
                   name="email"
                   className="form-control"
                   onChange={handleChange}
+                  required
 
 
                 />
@@ -91,6 +97,7 @@ const Registration = () => {
                   maxLength={10}
                   className="form-control"
                   onChange={handleChange}
+                  required
 
 
                 />
@@ -105,6 +112,7 @@ const Registration = () => {
                   name="password"
                   className="form-control"
                   onChange={handleChange}
+                  required
 
                 />
               </div>

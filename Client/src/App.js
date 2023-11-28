@@ -16,6 +16,7 @@ import AddProperty from "./pages/Admin/AddProperty";
 import PopularCategory from "./components/PopularCategory";
 
 function App() {
+  
   return (
     <> 
       <Routes>
