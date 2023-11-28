@@ -28,7 +28,7 @@ const userRegistration = async (req, res) => {
     }
 
 
-    // Hash the "password" and "cpassword"
+    // Hash the "password" 
     const saltRounds = 10;
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
    
@@ -138,7 +138,7 @@ const loginController = async (req, res) => {
         expiresIn: "7d",
       });
 
-      res.status(200).send({
+      res.cookie('access_token' , token , { httpOnly : true}).status(200).send({
         success: true,
         message: "Login successfully",
         user: {
@@ -150,10 +150,12 @@ const loginController = async (req, res) => {
         },
         token,
       });
+
     });
   } catch (error) {
     console.log(error);
-    res.status(500).send({ success: false, message: "Error in login", error });
+    console.error("Error in registration:", error);
+    res.status(500).json({ success: false, message: "Error in login",error: error.message });
   }
 };
 

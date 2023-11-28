@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const dotenv = require("dotenv");
+
 dotenv.config();
 
 const db = mysql.createConnection({
@@ -17,5 +18,7 @@ db.connect((err) => {
     console.log("Connected to db1!");
   }
 });
+
+
 
 module.exports = { db };
