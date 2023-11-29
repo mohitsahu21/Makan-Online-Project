@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import Sidebar from '../../components/AdminComp/Sidebar'
-import NavbarAd from '../../components/AdminComp/NavbarAd'
+import Sidebar from '../components/Sidebar'
+import NavbarAd from '../components/NavbarAd'
 import { Card } from 'react-bootstrap'
-import Cards from '../../components/AdminComp/Cards'
-import Chart from '../../components/AdminComp/Chart'
-import BarChart from '../../components/AdminComp/BarChart'
-import SiderbarMob from '../../components/AdminComp/SiderbarMob'
+import Cards from '../components/Cards'
+import Chart from '../components/Chart'
+import BarChart from '../components/BarChart'
+import SiderbarMob from '../components/SiderbarMob'
 
 
 function AdminHome() {

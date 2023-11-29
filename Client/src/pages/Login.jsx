@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar/Navbar";
 import { Link } from "react-router-dom";
 
+
 const Login = () => {
   return (
     <>
@@ -40,7 +41,7 @@ const Login = () => {
               <p>
                 Don't have an account?{" "}
                 <span>
-                  <Link to="/register">Signup</Link>
+                  <Link to="/admin_register">Signup</Link>
                 </span>
               </p>
             </div>

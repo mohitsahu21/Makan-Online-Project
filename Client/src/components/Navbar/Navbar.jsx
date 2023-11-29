@@ -69,23 +69,7 @@ const Wrapper = styled.div`
   .li:hover{
     color: #712cf9;
   }
-   #sider{
-    display: block;
-    @media screen and (max-width: 768px) {
    
-    display: none;
-    
-  }
-}
-  #sider1{
-    display: none;
-    @media screen and (max-width: 768px) {
-   
-   display: block;
-   
- }
-   
-  }
   .btn{
     font-weight: bold;
          text-decoration: none;

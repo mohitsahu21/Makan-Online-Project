@@ -22,7 +22,7 @@ function Sidebar() {
                   <i className="fs-4 bi bi-house-door-fill"></i>
                   <br />
                   <span className=" d-none d-sm-inline mt-2 mx-2" id="navleft1">
-                    Dashboard
+                  <Link to="/" className=" text-decoration-none text-black">Dashboard</Link>  
                   </span>{" "}
                 </a>
              
@@ -62,10 +62,14 @@ function Sidebar() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item ><Link to='/house'>House</Link></Dropdown.Item>
-          <Dropdown.Item href="#/villa">Villa</Dropdown.Item>
-          <Dropdown.Item href="#/plot">Plot</Dropdown.Item>
-          <Dropdown.Item href="#/apartment">Apartment</Dropdown.Item>
+          <Dropdown.Item ><Link to='/admin_house' className=" text-decoration-none text-black">House</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/admin_villa" className=" text-decoration-none text-black">Villa</Link></Dropdown.Item>
+          <Dropdown.Item><Link  to="/admin_plot" className=" text-decoration-none text-black">Plot</Link></Dropdown.Item>
+          <Dropdown.Item ><Link  to="/admin_land" className=" text-decoration-none text-black">Land</Link></Dropdown.Item>
+          <Dropdown.Item ><Link  to="/admin_flat" className=" text-decoration-none text-black">Flat</Link></Dropdown.Item>
+          <Dropdown.Item ><Link  to="/admin_farmhouse" className=" text-decoration-none text-black">FarmHouse</Link></Dropdown.Item>
+          <Dropdown.Item ><Link  to="/admin_farmland" className=" text-decoration-none text-black">FarmLand</Link></Dropdown.Item>
+          <Dropdown.Item ><Link  to="/admin_commerical" className=" text-decoration-none text-black">Commercial</Link></Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </span>
@@ -85,8 +89,8 @@ function Sidebar() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item href="#/house">All Blog</Dropdown.Item>
-          <Dropdown.Item href="#/villa">Add Blog</Dropdown.Item>
+          <Dropdown.Item ><Link to="/all_blogs">All Blog</Link></Dropdown.Item>
+          <Dropdown.Item ><Link to="/add_blog">Add Blog</Link></Dropdown.Item>
           
         </Dropdown.Menu>
       </Dropdown>
@@ -130,20 +134,13 @@ const Wrapper = styled.div`
   #sidebar {
     margin-top: 4.6rem;
     width: 15rem;
-    height: 50rem;
+    height: 43rem;
     background-color: white;
     box-shadow: 5px 2px 2px #f4f6f9;
 
-    @media screen and (max-width: 768px) {
-      width: 3rem;
-      height: 200rem;
-    }
-    @media screen and (min-width: 768px) and (max-width: 1020px) {
-      width: 5rem;
-      height: 151rem;
-    }
+
     @media screen and (min-width: 1020px) and (max-width: 1600px) {
-      height: 50rem;
+      height: 43rem;
     }
   }
   .bi {

@@ -7,9 +7,8 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
-import AdminHome from "./pages/Admin/AdminHome";
-import House from "./components/AdminComp/House";
-import AllProperties from "./components/AdminComp/AllProperties";
+
+
 
 function App() {
   
@@ -21,9 +20,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<AdminHome />} />
-        <Route path="/house" Component={House} />
-        <Route path="/allproperties" Component={AllProperties} />
+      
+       
+
       </Routes>
       <Footer />
       </div>

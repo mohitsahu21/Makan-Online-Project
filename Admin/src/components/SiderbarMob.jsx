@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
-import logo from '../../images/Makaan_logo.jpg'
+import logo from '../images/Makaan_logo.jpg'
 function SiderbarMob() {
   return (
     <Wrapper>
@@ -89,7 +89,7 @@ function SiderbarMob() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item href="#/house">All Blog</Dropdown.Item>
+          <Dropdown.Item href="/all_blogs">All Blog</Dropdown.Item>
           <Dropdown.Item href="#/villa">Add Blog</Dropdown.Item>
           
         </Dropdown.Menu>
