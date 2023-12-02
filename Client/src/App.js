@@ -14,6 +14,7 @@ import SingleBlog from "./components/SingleBlog";
 import SingleProperty from "./components/SingleProperty";
 import AddProperty from "./pages/Admin/AddProperty";
 import PopularCategory from "./components/PopularCategory";
+import AddImages from "./pages/Admin/AddImages";
 
 function App() {
   
@@ -29,7 +30,11 @@ function App() {
         <Route path="/blog" element={<Blogs/>} />
         <Route path="/blog/single-blog" element={<SingleBlog/>} />
         <Route path="/single-property" element={<SingleProperty/>} />
+        <Route path="/property/:propertyId" element={<SingleProperty/>} />
+
         <Route path="/admin" element={<AddProperty/>} />
+        <Route path="/admin/add-property" element={<AddProperty/>} />
+        <Route path="/admin/add-property/add-images/:propertyId" element={<AddImages/>} />
         <Route path={`/popular-apartment-searches/:name`} element={<PopularCategory/>}  />
         <Route path={`/popular-house-searches/`} element={<AddProperty/>}  />
         <Route path={`/popular-villa-searches/`} element={<AddProperty/>}  />
