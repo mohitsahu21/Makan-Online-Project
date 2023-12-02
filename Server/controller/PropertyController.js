@@ -74,7 +74,7 @@ const uploadImages =  (req, res) => {
 
     // Process each image and save its path to the database
     images.forEach((image, index, array) => {
-        const imagePath = '/uploads/' + image.filename; // Store the path relative to the 'uploads' directory
+        const imagePath = 'http://localhost:4000/uploads/' + image.filename; // Store the path relative to the 'uploads' directory
 
         // Insert the image path into the database
         db.query(
@@ -98,6 +98,84 @@ const uploadImages =  (req, res) => {
     });
 
 };
+
+//Method to get all property details 
+
+const getAllProperty = (req, res) =>{
+    const sql = 'SELECT * FROM properties'; // Replace properties with your actual table name
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching properties from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            res.status(200).json({ data: results, message: 'Properties fetched successfully' });
+        }
+    });
+
+}
+
+ //Method to get all property Images 
+const getAllPropertyImages = (req, res) =>{
+    const sql = 'SELECT * FROM properties_images'; // Replace properties with your actual table name
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching properties from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            res.status(200).json({ data: results, message: 'Properties images fetched successfully' });
+        }
+    });
+
+}
+
+//Method to get one property by Id
+
+const getPropertyById = (req, res) => {
+    const propertyId = req.params.propertyId;
+     // Assuming the parameter name in the route is 'propertyId'
+    const sql = 'SELECT * FROM properties WHERE id = ?'; // Replace properties with your actual table name
+
+    db.query(sql, [propertyId], (err, results) => {
+        if (err) {
+            console.error('Error fetching property from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if (results.length > 0) {
+                res.status(200).json({ data: results[0], message: 'Property fetched successfully' });
+            } else {
+                res.status(404).json({ error: 'Property not found' });
+            }
+        }
+    });
+}
+
+//Method to get one property by Id
+
+const getPropertyImagesById = (req, res) => {
+    const propertyId = req.params.propertyId;
+     // Assuming the parameter name in the route is 'propertyId'
+    const sql = 'SELECT * FROM properties_images WHERE property_id = ?'; // Replace properties with your actual table name
+
+    db.query(sql, [propertyId], (err, results) => {
+        if (err) {
+            console.error('Error fetching property from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if (results.length > 0) {
+                res.status(200).json({ data: results, message: 'Property images fetched successfully' });
+            } else {
+                res.status(404).json({ error: 'Property not found' });
+            }
+        }
+    });
+}
+
+
+
+
+
 
 // const addProperty = async (req, res) => {
 //     try {
@@ -151,4 +229,4 @@ const uploadImages =  (req, res) => {
 
 
 
-module.exports = {addProperty , uploadImages}
+module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById }

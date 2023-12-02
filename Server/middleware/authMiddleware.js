@@ -15,7 +15,7 @@ const authenticate = async (req, res, next) => {
     const user = await verifyAdminToken(token);
 
     if (!user) {
-        return res.status(401).json({ error: 'Unauthorized - Invalid token' });
+        return res.status(401).json({ success:false,message: 'Unauthorized - Invalid token' });
     }
 
     // Attach the user to the request for later use
