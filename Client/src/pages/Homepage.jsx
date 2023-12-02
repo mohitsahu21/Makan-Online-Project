@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner from "../components/Banner";
 import Search from "../components/Search";
@@ -10,8 +10,30 @@ import Pricedrop from "../components/Pricedrop";
 import Luxuaryhouse from "../components/Luxuaryhouse";
 import Navbar from "../components/Navbar";
 import NavbarMob from "../components/NavbarMob";
+import axios from 'axios';
 export default function Homepage() {
-  const [isScrolled, setIsScrolled] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [properties, setProperties] = useState([])
+  const [propertiesImages,setPropertiesImages] = useState([])
+
+  const getAllPropeties = async() =>{
+    const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+    setProperties(response.data)
+  }
+  const getAllPropetiesImages = async() =>{
+    const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+    setPropertiesImages(response.data)
+  }
+
+
+
+  // useEffect( ()=>{
+  //    getAllPropeties()
+  //    getAllPropetiesImages()
+     
+  // },[])
+
+
 
   
   return (
