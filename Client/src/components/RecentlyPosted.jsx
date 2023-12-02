@@ -1,63 +1,104 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { BiCategoryAlt } from "react-icons/bi";
 import { CgCalendarDates } from "react-icons/cg";
+import axios from 'axios';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { responsive } from "./responsive";
+import CarouselPlaceholder from "./CarouselPlaceholder"
+import { FaRupeeSign } from "react-icons/fa";
 
 export default function RecentlyPosted() {
+ 
+
+  const [properties, setProperties] = useState(null);
+  const [propertiesImages, setPropertiesImages] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const getAllProperties = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+      setProperties(response.data);
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+    }
+  }
+
+  const getAllPropertiesImages = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+      setPropertiesImages(response.data);
+    } catch (error) {
+      console.error('Error fetching property images:', error);
+    } finally {
+      setLoading(false); // Set loading to false regardless of success or error
+    }
+  }
+
+  useEffect(() => {
+    getAllProperties();
+    getAllPropertiesImages();
+  }, []);
+
+  console.log(properties);
+  console.log(propertiesImages);
+
   return (
     <Wrapper>
       <div className="mb-4">
         <h3 className="post-heading fw-semibold mb-3 ms-lg-3">
           Recently Posted
         </h3>
-        <div className="row  cardBox">
-            <div className="col-12 col-md-4 mb-4 ">
-    <div className="card shadow p-3 mb-5 bg-white rounded">
-   <Link to="/single-property" > <img  src="https://res.cloudinary.com/dsujv9zbq/image/upload/v1698845847/110_ut34vq.jpg" className="card-img-top" alt="..."/> </Link>
-    <div className="card-body">
-        
-    <p className="card-text d-inline"><span className="fs-5"><BiCategoryAlt /></span> Jabalpur</p>
-        <Link to="/single-property" style={{textDecoration: 'none'}} >  <h6 className="card-title mt-2">2 Beds2 Baths 1,188 Sq Ft
-350 S Durango Dr Unit 224
-Las Vegos, NV 89145</h6> </Link>
-      <h5 className="card-text">₹ 2,00,000</h5>
-      <p className="card-text"><small className="text-body-secondary"> <span className="fs-5"><CgCalendarDates /></span> 7 hours ago</small></p>
-    </div>
-  </div>
-  </div>
 
-  <div className="col-12 col-md-4 mb-4 ">
-    <div className="card shadow p-3 mb-5 bg-white rounded">
-   <Link to="/single-property" > <img  src="https://res.cloudinary.com/dsujv9zbq/image/upload/v1698845847/110_ut34vq.jpg" className="card-img-top" alt="..."/> </Link>
-    <div className="card-body">
-        
-    <p className="card-text d-inline"><span className="fs-5"><BiCategoryAlt /></span> Jabalpur</p>
-        <Link to="/single-property" style={{textDecoration: 'none'}} >  <h6 className="card-title mt-2">2 Beds2 Baths 1,188 Sq Ft
-350 S Durango Dr Unit 224
-Las Vegos, NV 89145</h6> </Link>
-      <h5 className="card-text">₹ 2,00,000</h5>
-      <p className="card-text"><small className="text-body-secondary"> <span className="fs-5"><CgCalendarDates /></span> 7 hours ago</small></p>
-    </div>
-  </div>
-  </div>
+        {loading ? (
+          // <p>Loading...</p>
+              <CarouselPlaceholder/>
+        ) : (
 
-  <div className="col-12 col-md-4 mb-4 ">
-    <div className="card shadow p-3 mb-5 bg-white rounded">
-   <Link to="/single-property" > <img  src="https://res.cloudinary.com/dsujv9zbq/image/upload/v1698845847/110_ut34vq.jpg" className="card-img-top" alt="..."/> </Link>
-    <div className="card-body">
-        
-    <p className="card-text d-inline"><span className="fs-5"><BiCategoryAlt /></span> Jabalpur</p>
-        <Link to="/single-property" style={{textDecoration: 'none'}} >  <h6 className="card-title mt-2">2 Beds2 Baths 1,188 Sq Ft
-350 S Durango Dr Unit 224
-Las Vegos, NV 89145</h6> </Link>
-      <h5 className="card-text">₹ 2,00,000</h5>
-      <p className="card-text"><small className="text-body-secondary"> <span className="fs-5"><CgCalendarDates /></span> 7 hours ago</small></p>
-    </div>
-  </div>
-  </div>
-  </div>
-
+        // Render the component only if data is available
+        properties && properties.data && properties.data.length > 0 ? (
+          <div className="row cardBox">
+            <Carousel responsive={responsive} showDots={true}>
+              
+              {properties.data.map((property) => {
+                const matchingImages = propertiesImages?.data.filter(
+                  (image) => image.property_id == property.id
+                );
+                const imageSrc = matchingImages && matchingImages.length  > 0  ? matchingImages[0].image : null;
+                console.log(imageSrc)
+                return (
+                  <div className="col-12 col-md-4 mb-4" key={property.id}>
+                    <div className="card shadow p-3 mb-5 bg-white rounded">
+                      <Link to={`/property/${property.id}`}>
+                        <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
+                      </Link>
+                      <div className="card-body">
+                        <p className="card-text d-inline">
+                          <span className="fs-5"><BiCategoryAlt /></span> {property.property_city}
+                        </p>
+                        <Link to={`/property/${property.id}`} style={{ textDecoration: 'none' }}>
+                          <h6 className="card-title mt-2">{property.property_name}</h6>
+                        </Link>
+                        <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
+                        <p className="card-text">
+                          <small className="text-body-secondary">
+                            <span className="fs-5"><CgCalendarDates /></span> {property.created_at}
+                          </small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </Carousel>
+          </div>
+        ):(
+          // Display a message when no data is available
+          <p>No data available</p>
+        )
+        )}
       </div>
     </Wrapper>
   );
@@ -81,12 +122,17 @@ const Wrapper = styled.div`
 .card{
     border: none;
     margin: 1rem;
+    width: 23rem;
+    
     
     img{
         border-radius: 10px;
         transition: 0.4s ease-in-out;
         cursor: pointer;
+        height: 12rem;
         
+        
+       
         
     }
     img:hover{
@@ -96,6 +142,8 @@ const Wrapper = styled.div`
     .card-body{
         padding-left: 0;
         padding-right: 0;
+        
+      
 
     }
 }

@@ -46,24 +46,26 @@ const StickyNavbar = ({isScrolled}) => {
         <img src={makan_logo} height={35} width={35} alt="" className='mx-2' />
         </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto m-auto">
+      <Navbar.Collapse id="basic-navbar-nav" >
+        <Nav className=" m-auto">
         
           <Nav.Link  as={Link} to="/" className='li'>Home</Nav.Link>
           <Nav.Link  as={Link} to="/about" className='li'>About</Nav.Link>
           <Nav.Link  as={Link} to="/contact" className='li'>Contact</Nav.Link>
           <Nav.Link  as={Link} to="/blog" className='li'>Blog</Nav.Link>
+
+          
         </Nav>
       {currentUser ?
            ( <>
-            <NavDropdown title={currentUser.user.name} id="navbarScrollingDropdown" className='text-white'>
+            <NavDropdown title={currentUser.user.name} id="navbarScrollingDropdown" className='text-white me-5'>
               <NavDropdown.Item href="#action3" onClick={handleLogout}>Logout</NavDropdown.Item>
               
              
             
             </NavDropdown>
             
-           <Link ><button className="btn btn-outline-light mx-2 " >My Favourites</button></Link>
+           
 
           
            </>)
@@ -84,6 +86,7 @@ const StickyNavbar = ({isScrolled}) => {
 
 export default StickyNavbar;
 const Wrapper = styled.div`
+
   .li{
     color: white;
          font-weight: 800;
@@ -103,5 +106,6 @@ const Wrapper = styled.div`
          text-decoration: none;
          font-family: "Playpen Sans", cursive;
   }
+
   
 `
