@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Banner from "../components/Banner";
 import Search from "../components/Search";
@@ -9,23 +9,45 @@ import Poshhouse from "../components/Poshhouse";
 import Pricedrop from "../components/Pricedrop";
 import Luxuaryhouse from "../components/Luxuaryhouse";
 import Navbar from "../components/Navbar";
+import NavbarMob from "../components/NavbarMob";
+import axios from 'axios';
 export default function Homepage() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [properties, setProperties] = useState([])
+  const [propertiesImages,setPropertiesImages] = useState([])
 
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
-  };
+  const getAllPropeties = async() =>{
+    const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+    setProperties(response.data)
+  }
+  const getAllPropetiesImages = async() =>{
+    const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+    setPropertiesImages(response.data)
+  }
+
+
+
+  // useEffect( ()=>{
+  //    getAllPropeties()
+  //    getAllPropetiesImages()
+     
+  // },[])
+
+
+
+  
   return (
     <Wrapper>
       <div>
         <div className="container-fluid px-0">
-          <Navbar isScrolled={isScrolled} />
+          <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+          <div className="nav2"><NavbarMob /> </div>
           <div className="bannerdiv">
             <Banner />
           </div>
 
           <Search />
+          
           <section className="mx-2">
             <div className="tab-content" id="categoryTab">
               <div
@@ -33,6 +55,21 @@ export default function Homepage() {
                 id="house-tab-pane"
                 role="tabpanel"
                 aria-labelledby="houseTab"
+              >
+                <section className="p-md-3">
+                  <RecentlyPosted />
+                  <Suggestions />
+                  <MostViewed />
+                  <Poshhouse />
+                  <Pricedrop />
+                  <Luxuaryhouse />
+                </section>
+              </div>
+              <div
+                className="tab-pane fade"
+                id="villa-tab-pane"
+                role="tabpanel"
+                aria-labelledby="villaTab"
               >
                 <section className="p-md-3">
                   <RecentlyPosted />
@@ -60,9 +97,9 @@ export default function Homepage() {
               </div>
               <div
                 className="tab-pane fade"
-                id="commercial-tab-pane"
+                id="apartment-tab-pane"
                 role="tabpanel"
-                aria-labelledby="commercialTab"
+                aria-labelledby="apartmentTab"
               >
                 <section className="p-md-3">
                   <RecentlyPosted />
@@ -137,5 +174,22 @@ const Wrapper = styled.div`
 
   .bannerdiv {
     position: relative;
+  }
+  .nav1{
+    display: block;
+    @media screen and (max-width: 768px) {
+   
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+    @media screen and (max-width: 768px) {
+   
+   display: block;
+   
+ }
+   
   }
 `;
