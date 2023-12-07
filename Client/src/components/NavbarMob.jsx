@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Nav, Button,} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from '../../images/Makaan_logo.jpg'
+import logo from '../images/Makaan_logo.jpg'
 
 function NavbarMob() {
   return (

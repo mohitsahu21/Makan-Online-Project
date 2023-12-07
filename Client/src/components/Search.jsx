@@ -148,6 +148,7 @@
 // `;
 
 
+
 import React from "react";
 import styled from "styled-components";
 
@@ -196,14 +197,27 @@ export default function () {
                   <li className="nav-item" role="presentation">
                     <button
                       className="nav-link"
-                      id="commercialTab"
+                      id="apartmentTab"
                       data-bs-toggle="tab"
-                      data-bs-target="#commercial-tab-pane"
+                      data-bs-target="#apartment-tab-pane"
                       type="button"
                       role="tab"
-                      aria-controls="commercial-tab-pane"
+                      aria-controls="apartment-tab-pane"
                     >
-                      Commercial
+                      Apartment
+                    </button>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <button
+                      className="nav-link"
+                      id="villaTab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#villa-tab-pane"
+                      type="button"
+                      role="tab"
+                      aria-controls="villa-tab-pane"
+                    >
+                      Villa
                     </button>
                   </li>
                 </ul>
@@ -238,12 +252,13 @@ export default function () {
                     <option value="Commercial">Commercial</option>
                     <option value="Plots">Plots</option>
                   </select></div>
-                  <div className="col-lg-3 align-items-center" id="res3">
+                  <div className="col-lg-3 align-items-center " id="res3">
                     <i
                       class="bi bi-currency-rupee fs-5"
                       style={{ color: "red" }}
                     ></i>
                     <select
+                     
                       className="w-auto px-3 py-1 "
                       id="budget"
                       placeholder="Budget"

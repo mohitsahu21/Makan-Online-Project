@@ -3,6 +3,10 @@ const { db } = require("../db");
 const mysql = require("mysql");
 const bcrypt = require("bcrypt");
 const JWT = require('jsonwebtoken');
+const app = express();
+const path = require('path');
+
+
 
 
 const dotenv = require("dotenv");
@@ -287,6 +291,141 @@ const Allregister = (req, res) => {
     res.status(500).send({success:false , message:"error in login ", error})
     }
   };
+
+
   
 
-module.exports = {Register,Allregister,Login}
+  // const addBlog = (req, res) => {
+  //   const { title, content, category } = req.body;
+  //   const image = req.file ? req.file.filename : null;
+  
+  //   const serverDomain = 'http://localhost:9000'; // Adjust the port number as needed
+  //   const ImageUrl = `${serverDomain}/${image}`;
+  
+  //   const sql = 'INSERT INTO blogs (title, content, category, image) VALUES (?, ?, ?, ?)';
+  //   const values = [title, content, category, ImageUrl ];
+  
+  //   db.query(sql, values, (err, result) => {
+  //     if (err) {
+  //       console.error('Error saving blog:', err);
+  //       return res.status(500).send('Error saving blog');
+  //     }
+  
+  //     console.log('Blog saved successfully:', result);
+  //     res.status(201).json({ message: 'Blog saved successfully', imagePath });
+  //   });
+  // };
+  
+
+
+  // const addBlog = (req, res) => {
+  //   const { title, content, category } = req.body;
+  //   const image = req.file ? req.file.filename : null;
+  
+  //   const serverDomain = 'http://localhost:9000'; // Adjust the port number as needed
+  //   const imageUrl = image ? `${serverDomain}/${image}` : null;
+  
+  //   const sql = 'INSERT INTO blogs (title, content, category, image) VALUES (?, ?, ?, ?)';
+  //   const values = [title, content, category, imageUrl];
+  
+  //   db.query(sql, values, (err, result) => {
+  //     if (err) {
+  //       console.error('Error saving blog:', err);
+  //       return res.status(500).send('Error saving blog');
+  //     }
+  
+  //     console.log('Blog saved successfully:', result);
+  //     res.status(201).json({ message: 'Blog saved successfully', imageUrl });
+  //   });
+  // };
+// Assuming 'uploads' is the directory where your images are stored
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
+
+const addBlog = (req, res) => {
+  const { title, content, category } = req.body;
+  const image = req.file ? req.file.filename : null;
+
+  const serverDomain = 'http://localhost:9000'; // Adjust the port number as needed
+  const imageUrl = image ? `${serverDomain}/uploads/${image}` : null;
+
+  const sql = 'INSERT INTO blogs (title, content, category, image) VALUES (?, ?, ?, ?)';
+  const values = [title, content, category, imageUrl];
+
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error saving blog:', err);
+      return res.status(500).send('Error saving blog');
+    }
+
+    console.log('Blog saved successfully:', result);
+    res.status(201).json({ message: 'Blog saved successfully', imageUrl });
+  });
+};
+  
+  
+  const getBlogs = (req, res) => {
+    const sql = 'SELECT * FROM blogs'; // Replace with your actual query
+    db.query(sql, (err, result) => {
+      if (err) {
+        res.status(500).send('Error fetching blogs');
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  };
+
+  
+const Contact_Us = (req,res)=>{
+ try{
+  const { name, email, phone, message } = req.body;
+ // Validations
+ const requiredFields = [name, email,  phone , message];
+
+ if (requiredFields.some((field) => !field)) {
+   return res.status(400).json({ error: "All fields are required" });
+ }
+ const insertUserQuery = `
+            INSERT INTO contact_us (
+              name, email, phone,message
+            ) VALUES (?, ?, ?, ?)
+          `;
+          db.query(
+            insertUserQuery,
+            requiredFields,
+
+            (insertErr, insertResult) => {
+              if (insertErr) {
+                console.error("Error inserting user:", insertErr);
+                res.status(500).json({ error: "Internal server error" });
+              } else {
+                console.log("User registered successfully");
+                return res.status(200).json({
+                  success: true,
+                  message: "User registered successfully",
+                });
+              }
+            }
+          );
+
+ } catch (error) {
+  console.error("Error in registration:", error);
+  res.status(500).json({
+    success: false,
+    message: "Error in registration",
+    error: error.message,
+  });
+}
+
+};
+const AllContact = (req, res) => {
+  const sql = "SELECT * FROM contact_us";
+  db.query(sql, (err, data) => {
+    if (err) return res.json("Error");
+    return res.json({ data });
+  });
+};
+  
+
+module.exports = {Register,Allregister,Login,addBlog,getBlogs,Contact_Us,AllContact}

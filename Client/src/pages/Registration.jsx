@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar/Navbar";
-import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import { Link,useNavigate } from "react-router-dom";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 
@@ -9,32 +9,46 @@ import cogoToast from 'cogo-toast';
 
 const Registration = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [formData , setFormData] = useState({});
+  const [formData,setFormData] = useState({});
+  const [error,setError] = useState(false);
+  const [loading,setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
-  };
   const handleChange = (e) =>{
-    setFormData({...formData,[e.target.name]: e.target.value})
-  }
-  const handleSumbit = async (e) =>{
+    setFormData({...formData,[e.target.name] : e.target.value})
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const res  = await axios.post("http://localhost:9000/api/auth/register", formData)
+      setLoading(true);
+      const res = await axios.post("http://localhost:4000/api/auth/register" , formData)
+      setLoading(false)
       console.log(res)
       if(res.data.success === true){
         cogoToast.success(`${res.data.message}`)
+        navigate("/login");
       }
-    
+      setError(false)
     }
     catch(error){
-      console.log(error.respone.data.error)
-      cogoToast.error(`${error.respone.data.error}`)
+      setLoading(false)
+      setError(true)
+      console.log(error.response)
+      cogoToast.error(`${error.response.data.error}`)
+
     }
 
   }
+
+
   
+  
+
+  // window.onscroll = () => {
+  //   setIsScrolled(window.pageYOffset === 0 ? false : true);
+  //   return () => (window.onscroll = null);
+  // };
   return (
     <>
       <Container>
@@ -53,6 +67,8 @@ const Registration = () => {
                   name="name"
                   className="form-control"
                   onChange={handleChange}
+                  required
+
                 />
               </div>
               <div className="mb-3">
@@ -65,6 +81,9 @@ const Registration = () => {
                   name="email"
                   className="form-control"
                   onChange={handleChange}
+                  required
+
+
                 />
               </div>
               <div className="mb-3">
@@ -78,6 +97,9 @@ const Registration = () => {
                   maxLength={10}
                   className="form-control"
                   onChange={handleChange}
+                  required
+
+
                 />
               </div>
               <div className="mb-3">
@@ -90,10 +112,13 @@ const Registration = () => {
                   name="password"
                   className="form-control"
                   onChange={handleChange}
+                  required
+
                 />
               </div>
               <div className="d-flex justify-content-center">
-                <button className="btn btn-success" onClick={handleSumbit}>Submit</button>
+                <button disabled={loading} className="btn btn-success" onClick={handleSubmit}>
+                  {loading ? 'Loading...' : "Submit" }</button>
               </div>
               <p>
                 Allready have an account?{" "}

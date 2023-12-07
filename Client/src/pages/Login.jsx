@@ -1,14 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar/Navbar";
-import { Link } from "react-router-dom";
-
+import Navbar from "../components/Navbar";
+import { Link,useNavigate} from "react-router-dom";
+import axios from 'axios';
+import cogoToast from 'cogo-toast';
+import { signInFailure,signInStart,signInSuccess } from "../redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
-  return (
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [formData,setFormData] = useState({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {currentUser,loading,error} = useSelector((state) => state.user)
+
+  const handleChange = (e) =>{
+    setFormData({...formData,[e.target.name] : e.target.value})
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      dispatch(signInStart());
+      const res = await axios.post("http://localhost:4000/api/auth/login", formData);
+  
+      if (res.data && res.data.success === true) {
+        dispatch(signInSuccess(res.data));
+        console.log(res.data);
+        cogoToast.success(`${res.data.message}`);
+        navigate("/");
+        return;
+      }
+      if (res.data && res.data.success === false) {
+        dispatch(signInFailure(res.data));
+        cogoToast.error(`${res.data.message}`);
+        return;
+      }
+    } catch (err) {
+      if (err.response && err.response.data) {
+        dispatch(signInFailure(err.response.data));
+        console.log(error);
+        cogoToast.error(`${err.response.data.message}`);
+      }
+    }
+
+  }
+
+  useEffect(()=>{
+     if(currentUser){
+      cogoToast.error(`Already loged In`);
+      navigate("/")
+     }
+  },[])
+
+
+  // window.onscroll = () => {
+  //   setIsScrolled(window.pageYOffset === 0 ? false : true);
+  //   return () => (window.onscroll = null);
+  // };
+  return !currentUser && (
     <>
       <Container>
-        <Navbar />
+        <Navbar isScrolled={isScrolled}/>
         <div>
           <div className="boxContainer">
             <div className="formcontent">
@@ -22,6 +75,8 @@ const Login = () => {
                   placeholder="Enter your email"
                   name="email"
                   className="form-control"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -33,16 +88,23 @@ const Login = () => {
                   placeholder="Enter your password"
                   name="password"
                   className="form-control"
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="d-flex justify-content-center">
-                <button className="btn btn-success">Submit</button>
+                <button disabled={loading} className="btn btn-success" onClick={handleSubmit}>
+                {loading ? 'Loading...' : "Submit" }
+                  </button>
               </div>
-              <p>
+              <p className="mb-0" >
                 Don't have an account?{" "}
                 <span>
-                  <Link to="/admin_register">Signup</Link>
+                  <Link to="/register">Signup</Link>
                 </span>
+              </p>
+              <p className="text-center">
+              <Link to="/forgot-password">Forgot Password</Link>
               </p>
             </div>
           </div>
@@ -54,6 +116,12 @@ const Login = () => {
 
 export default Login;
 const Container = styled.div`
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
   .boxContainer {
     height: 100vh;
     display: flex;
