@@ -76,28 +76,31 @@ function Sidebar() {
                 </a>
              
             </li>
-            <li>
             
-                <a className="nav-link px-0 align-middle d-flex gap-2">
-                  <i className="fs-4 bi bi-file-post"></i>
-                  <br />
-                   
-                  <span className="d-none d-sm-inline" id="navleft">
-      <Dropdown>
-        <Dropdown.Toggle variant="" id="dropdown-basic">
-          Blog
-        </Dropdown.Toggle>
+              <li>
+              
+                  <a className="nav-link px-0 align-middle d-flex gap-2">
+                    <i className="fs-4 bi bi-person"></i>
+                    <i class="bi "></i>
+                    <br />
+                    
+                    <span className="d-none d-sm-inline" id="navleft">
+        <Dropdown>
+          <Dropdown.Toggle variant="" id="dropdown-basic">
+            Users
+          </Dropdown.Toggle>
 
-        <Dropdown.Menu>
-          <Dropdown.Item ><Link to="/all_blogs">All Blog</Link></Dropdown.Item>
-          <Dropdown.Item ><Link to="/add_blog">Add Blog</Link></Dropdown.Item>
-          
-        </Dropdown.Menu>
-      </Dropdown>
-    </span>
-                </a>
-             
-            </li>
+          <Dropdown.Menu>
+            <Dropdown.Item ><Link to="/registered_user">Registerd User</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to="/interested_user">Interested User</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to="/contact_user">Contact_Us_User</Link></Dropdown.Item>
+            
+          </Dropdown.Menu>
+        </Dropdown>
+      </span>
+                  </a>
+              
+              </li>
             <li>
             
                 <a className="nav-link px-0 align-middle d-flex gap-2">

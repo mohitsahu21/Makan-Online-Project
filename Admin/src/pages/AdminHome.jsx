@@ -33,14 +33,7 @@ function AdminHome() {
    <div className="col-lg-12">
     <Cards/>
    </div>
-<div className="row" id='chartrow'>
-    <div className="col-lg-6 mt-3">
-<Chart/>
-    </div>
-    <div className="col-lg-6 mt-3">
-<BarChart/>
-    </div>
-</div>
+
 
 
   </div>
@@ -62,20 +55,7 @@ const Wrapper = styled.div`
     margin-left: 2rem;
     }
 }
-#chartrow{
-    margin-top: 5rem;
-    margin-left: 7rem;
-    @media screen and (max-width: 768px) {
-   margin-left: -2rem;
-   margin-top: 2rem;
-   gap: 1rem;
-   margin-bottom: 12px;
-    
-    }
-    @media screen and (min-width: 1020px) and (max-width: 1600px) {
-   margin-left: 8rem;
-  }
-  }
+
   #sider{
     display: block;
     @media screen and (max-width: 768px) {

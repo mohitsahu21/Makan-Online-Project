@@ -77,6 +77,15 @@ function LoginAd() {
               <div className="d-flex justify-content-center">
                 <button className="btn btn-success" onClick={handleSumbit}>Submit</button>
               </div>
+              <p className="mb-2 mt-2" >
+                Don't have an account?{" "}
+                <span>
+                  <Link to="/admin_register" className='text-white'>Signup</Link>
+                </span>
+              </p>
+              <p className="text-center">
+              <Link to="/admin_forgot" className='text-white'>Forgot Password</Link>
+              </p>
              
              
             </div>

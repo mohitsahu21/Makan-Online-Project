@@ -32,10 +32,10 @@ function Cards() {
             <i className="bi bi-file-post  h1 float-end"></i>
               <div className="">
                 <h6 className="card-title mx-3" style={{ color: " #5a626d" }}>
-                Blog
+              Registered User
                 </h6>
 
-                <p className=" h6 text-center text-dark">  <i className="bi bi-currency-rupee"></i>5200</p>
+                <p className=" h6 text-center text-dark">  <i className="bi "></i>5200</p>
 
                 <p className="view h6">View Detail</p>
               </div>
@@ -47,7 +47,7 @@ function Cards() {
             <div className="card-body d-flex justify-content-between">
               <i className="bi bi-people-fill h1"></i>
               <div className="">
-                <h6 className="card-title">Total User</h6>
+                <h6 className="card-title">Interested User</h6>
 
                 <p className=" h6 text-center text-dark">256</p>
 
@@ -57,7 +57,8 @@ function Cards() {
           </div>
         </div>
         <div className="col-lg-3 col-md-12">
-          <div className="card" id="card4">
+          <div className="card" id="card2">
+
             <div className="card-body d-flex justify-content-between">
               <i className="bi bi-people-fill h1"></i>
               <div className="">

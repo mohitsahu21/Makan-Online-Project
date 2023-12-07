@@ -32,9 +32,9 @@ function RegistrationAd() {
       }
     
     }
-    catch(error){
-      console.log(error.respone.data.error)
-      cogoToast.error(`${error.respone.data.error}`)
+    catch (error) {
+      console.log(error.response.data.error); // 
+      cogoToast.error(`${error.response.data.error}`);
     }
 
   }

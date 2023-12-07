@@ -83,17 +83,17 @@ function SiderbarMob() {
                  
                 
                   <span className=" d-sm-inline" id="navleft">
-      <Dropdown>
-        <Dropdown.Toggle variant="" id="dropdown-basic">
-          Blog
-        </Dropdown.Toggle>
+                  <Dropdown>
+          <Dropdown.Toggle variant="" id="dropdown-basic">
+            Users
+          </Dropdown.Toggle>
 
-        <Dropdown.Menu>
-          <Dropdown.Item href="/all_blogs">All Blog</Dropdown.Item>
-          <Dropdown.Item href="#/villa">Add Blog</Dropdown.Item>
-          
-        </Dropdown.Menu>
-      </Dropdown>
+          <Dropdown.Menu>
+            <Dropdown.Item ><Link to="/registered_user">Registerd User</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to="/interested_user">Interested User</Link></Dropdown.Item>
+            
+          </Dropdown.Menu>
+        </Dropdown>
     </span>
                 </a>
              
