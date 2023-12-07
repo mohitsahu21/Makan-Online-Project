@@ -11,6 +11,7 @@ import Luxuaryhouse from "../components/Luxuaryhouse";
 import Navbar from "../components/Navbar";
 import NavbarMob from "../components/NavbarMob";
 import axios from 'axios';
+import CommercialProperty from "../components/CommercialProperty";
 export default function Homepage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [properties, setProperties] = useState([])
@@ -48,7 +49,7 @@ export default function Homepage() {
 
           <Search />
           
-          <section className="mx-2">
+          {/* <section className="mx-2">
             <div className="tab-content" id="categoryTab">
               <div
                 className="tab-pane fade show active"
@@ -72,12 +73,7 @@ export default function Homepage() {
                 aria-labelledby="villaTab"
               >
                 <section className="p-md-3">
-                  <RecentlyPosted />
-                  <Suggestions />
-                  <MostViewed />
-                  <Poshhouse />
-                  <Pricedrop />
-                  <Luxuaryhouse />
+                 <Luxuaryhouse/>
                 </section>
               </div>
               <div
@@ -106,6 +102,23 @@ export default function Homepage() {
                   <Suggestions />
                   <MostViewed />
                   <Poshhouse />
+                  <Pricedrop />
+                  <Luxuaryhouse />
+                </section>
+              </div>
+            </div>
+          </section> */}
+
+
+            <section className="mx-2">
+            <div className="">
+              <div>
+                <section className="p-md-3">
+                  <RecentlyPosted />
+                  <Suggestions />
+                  <MostViewed />
+                  <Poshhouse />
+                  <CommercialProperty/>
                   <Pricedrop />
                   <Luxuaryhouse />
                 </section>

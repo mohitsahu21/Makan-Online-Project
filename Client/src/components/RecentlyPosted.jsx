@@ -19,7 +19,7 @@ export default function RecentlyPosted() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+      const response = await axios.get('http://localhost:4000/api/property/getRecentlyPostedProperties');
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -76,7 +76,7 @@ export default function RecentlyPosted() {
                       </Link>
                       <div className="card-body">
                         <p className="card-text d-inline">
-                          <span className="fs-5"><BiCategoryAlt /></span> {property.property_city}
+                          <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
                         </p>
                         <Link to={`/property/${property.id}`} style={{ textDecoration: 'none' }}>
                           <h6 className="card-title mt-2">{property.property_name}</h6>
@@ -96,7 +96,7 @@ export default function RecentlyPosted() {
           </div>
         ):(
           // Display a message when no data is available
-          <p>No data available</p>
+          <p className="ms-lg-3">Not available</p>
         )
         )}
       </div>

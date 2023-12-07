@@ -1,9 +1,10 @@
 import React from 'react'
+import placeholder_img from '../images/placeholder-image.jpeg'
 
 const CardPlacehoder = () => {
   return (
     <div class="card" aria-hidden="true">
-    <img src="..." class="card-img-top" alt="..." />
+    <img src={placeholder_img} class="card-img-top" alt="..." />
     <div class="card-body">
         <h5 class="card-title placeholder-glow">
             <span class="placeholder col-6"></span>

@@ -9,6 +9,9 @@ import ContactUsModel from "./ContactUsModel";
 import SideBlog from "./SideBlog";
 import RelatedProperty from "./RelatedProperty";
 import axios from 'axios';
+import placeholder_img from '../images/placeholder-image.jpeg';
+import StickyNavbar from "../components/Navbar";
+import NavbarMob from "./NavbarMob";
 
 
 function SingleProperty() {
@@ -18,6 +21,28 @@ function SingleProperty() {
     const [propertyImages, setPropertyImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
+
+  // Function to fetch property details by propertyId
+const fetchPropertyDetails = async (propertyId) => {
+  try {
+    const response = await axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching property details:', error);
+    throw error; // Re-throw the error to be handled by the caller
+  }
+};
+
+// Function to fetch property images by propertyId
+const fetchPropertyImages = async (propertyId) => {
+  try {
+    const response = await axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching property images:', error);
+    return []; // Return an empty array in case of an error
+  }
+};
   
 
   // Function for fullscreen the image
@@ -101,55 +126,80 @@ function SingleProperty() {
     // }, [propertyId]);
 
     
-  useEffect(() => {
-    // Fetch property details and property images concurrently
-    const fetchData = async () => {
-      try {
-        const [propertyResponse, imagesResponse] = await Promise.all([
-          axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`),
-          axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`),
-        ]);
+  // useEffect(() => {
+  //   // Fetch property details and property images concurrently
+  //   const fetchData = async () => {
+  //     try {
+  //       const [propertyResponse, imagesResponse] = await Promise.all([
+  //         axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`),
+  //         axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`),
+  //       ]);
 
-        setProperty(propertyResponse.data.data);
-        setPropertyImages(imagesResponse.data.data);
+  //       setProperty(propertyResponse.data.data);
+  //       setPropertyImages(imagesResponse.data.data);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //       setLoading(false);
+  //       // Handle errors
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [propertyId]);
+
+  useEffect(() => {
+    // Fetch property details
+    const fetchPropertyData = async () => {
+      try {
+        const propertyDetails = await fetchPropertyDetails(propertyId);
+        setProperty(propertyDetails);
+
+        // Fetch property images
+        const images = await fetchPropertyImages(propertyId);
+        setPropertyImages(images);
+
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
         setLoading(false);
         // Handle errors
       }
     };
 
-    fetchData();
+    fetchPropertyData();
   }, [propertyId]);
 
   
-  const iframeCode = property?.property_location;
-  const srcRegex = /src="([^"]+)"/;
-  const match = iframeCode?.match(srcRegex);
+  // const iframeCode = property?.property_location;
+  // const srcRegex = /src="([^"]+)"/;
+  // const match = iframeCode?.match(srcRegex);
 
-  // Declare srcValue here
-  let srcValue;
+  // // Declare srcValue here
+  // let srcValue;
 
-  if (match) {
-    // Assign the value to srcValue
-    srcValue = match[1];
-    console.log(srcValue);
-  } else {
-    console.error('No src attribute found in the iframe code.');
-  }
+  // if (match) {
+  //   // Assign the value to srcValue
+  //   srcValue = match[1];
+  //   console.log(srcValue);
+  // } else {
+  //   console.error('No src attribute found in the iframe code.');
+  // }
 
   console.log(propertyImages)
   console.log(property)
  
 
   return (
+    <Container>
     <div>
+      
+      <div className="nav1"><StickyNavbar  /></div>
+          <div className="nav2"><NavbarMob /> </div>
       {loading ? (
         // <p>Loading...</p>
         // placeholder when load the page
         <div class="card" aria-hidden="true">
-  <img src="..." class="card-img-top" alt="..."/>
+  <img src={placeholder_img}  class="card-img-top" style={{maxWidth:"100vw" , maxHeight: "70vh"}} alt="..."/>
   <div class="card-body">
     <h5 class="card-title placeholder-glow">
       <span class="placeholder col-6"></span>
@@ -168,8 +218,8 @@ function SingleProperty() {
 
     <>
     
-    <Container>
-    <Navbar isScrolled={isScrolled} />
+    
+    
     <div className="container mt-5">
         <div className="row">
             <div className="col-12 mt-4">
@@ -182,44 +232,63 @@ function SingleProperty() {
 
            {/* carousel for property images */}
 
+           {
+            propertyImages&& propertyImages?.length>0 ? (
+              <>
               <div id="carouselExampleIndicators" className="carousel slide">
-  <div className="carousel-indicators">
-    {propertyImages &&
-      propertyImages.map((image, index) => (
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to={index}
-          className={index === 0 ? 'active' : ''}
-          key={index}
-          aria-label={`Slide ${index + 1}`}
-        ></button>
-      ))}
-  </div>
-  <div className="carousel-inner" id="carousel-inner">
-    {propertyImages &&
-      propertyImages.map((image, index) => (
-        <div key={image.id} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-          <img src={image.image} className="d-block img-fluid mx-auto zoomable-image" onClick={toggleFullScreen}  alt="..." />
-         
-        </div>
-      ))}
-  </div>
-
-  <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Previous</span>
-  </button>
-  <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Next</span>
-  </button>
-</div>
+              <div className="carousel-indicators">
+                {propertyImages &&
+                  propertyImages?.map((image, index) => (
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to={index}
+                      className={index === 0 ? 'active' : ''}
+                      key={index}
+                      aria-label={`Slide ${index + 1}`}
+                    ></button>
+                  ))}
+              </div>
+              <div className="carousel-inner" id="carousel-inner">
+                {propertyImages &&
+                  propertyImages?.map((image, index) => (
+                    <div key={image?.id} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                      <img src={image?.image} className="d-block img-fluid mx-auto zoomable-image" onClick={toggleFullScreen}  alt="propertyImages" />
+                     
+                    </div>
+                  ))}
+              </div>
+            
+              <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Next</span>
+              </button>
+            </div>
+            </>
+            )
+            :
+            <img src={placeholder_img} className="d-block img-fluid mx-auto" alt="Placeholder" style={{ maxWidth: "100%", maxHeight: "70vh" }} />
+           }  
+           
 
             </div>
         </div>
 
         <div className="row">
+           {property?.property_video && (
+            <div className="text-center mt-3">         
+           <a href={`${property.property_video}`} target="blank"> <button type="button" className="btn btn-outline-secondary ">
+            View Property Video
+          </button></a>
+    
+          </div> 
+           )}
+            
+
             <div className="col-12 col-lg-8 mt-5">
               
               <h5 className="">PROPERTY DETAILS</h5>
@@ -420,7 +489,7 @@ function SingleProperty() {
             
 
               
-
+{/* 
               <div className="row ">
                 <div className="col-12 ">
                 <h5 className="mt-5">LOCATION</h5>
@@ -432,13 +501,19 @@ function SingleProperty() {
                
                    </div>                 
                 </div>
-              </div>
+              </div> */}
 
              
 
             </div>
             <div className="col-12 col-lg-4 mt-5 ">
-                
+        {/* <div className="text-center mb-3">         
+        <button type="button" className="btn btn-outline-secondary ">
+        View Property Video
+      </button>
+
+      </div>  */}
+          
                 <ContactUsModel/>
 
                 <div className="row d-flex justify-content-center mt-5">
@@ -467,16 +542,34 @@ function SingleProperty() {
         </div> 
 
     </div>
-    </Container>
+    
     </>
       )}
       </div>
+      </Container>
   )
 }
 
 export default SingleProperty
 
 const Container = styled.div`
+.nav1{
+    display: block;
+    @media screen and (max-width: 768px) {
+   
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+    @media screen and (max-width: 768px) {
+   
+   display: block;
+   
+ }
+   
+  }
 /* CSS Styles for Zooming */
 .zoomable-image {
   cursor: zoom-in;

@@ -12,7 +12,7 @@ import { responsive } from "./responsive";
 import CarouselPlaceholder from "./CarouselPlaceholder"
 import { FaRupeeSign } from "react-icons/fa";
 
-export default function Poshhouse() {
+export default function CommercialProperty() {
  
 
   const [properties, setProperties] = useState(null);
@@ -21,7 +21,7 @@ export default function Poshhouse() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getPropertyByType/villa');
+      const response = await axios.get('http://localhost:4000/api/property/getPropertyByType/commercial');
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -51,7 +51,7 @@ export default function Poshhouse() {
     <Wrapper>
       <div className="mb-4">
         <h3 className="post-heading fw-semibold mb-3 ms-lg-3">
-        Posh House
+        Commercial Properties
         </h3>
 
         {loading ? (

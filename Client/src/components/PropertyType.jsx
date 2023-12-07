@@ -1,7 +1,5 @@
-
-
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link , useParams } from "react-router-dom";
 import styled from "styled-components";
 import { BiCategoryAlt } from "react-icons/bi";
 import { CgCalendarDates } from "react-icons/cg";
@@ -11,17 +9,20 @@ import "react-multi-carousel/lib/styles.css";
 import { responsive } from "./responsive";
 import CarouselPlaceholder from "./CarouselPlaceholder"
 import { FaRupeeSign } from "react-icons/fa";
+import StickyNavbar from "./Navbar";
+import NavbarMob from "./NavbarMob";
 
-export default function Poshhouse() {
+export default function PropertyType() {
  
 
   const [properties, setProperties] = useState(null);
   const [propertiesImages, setPropertiesImages] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { propertyType } = useParams();
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getPropertyByType/villa');
+      const response = await axios.get(`http://localhost:4000/api/property/getPropertyByType/${propertyType}`);
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -49,10 +50,17 @@ export default function Poshhouse() {
 
   return (
     <Wrapper>
-      <div className="mb-4">
+       
+        <div className="nav1"><StickyNavbar  /></div>
+          <div className="nav2"><NavbarMob /> </div>
+         
+       
+      <div className="mb-4 mt-5 pt-5">
+      
         <h3 className="post-heading fw-semibold mb-3 ms-lg-3">
-        Posh House
+        <p className="text-uppercase text-center">Available {`${propertyType}s`} </p>
         </h3>
+        
 
         {loading ? (
           // <p>Loading...</p>
@@ -60,9 +68,11 @@ export default function Poshhouse() {
         ) : (
 
         // Render the component only if data is available
+        
         properties && properties.data && properties.data.length > 0 ? (
+            <div className="container-fluid">
           <div className="row cardBox">
-            <Carousel responsive={responsive} showDots={true}>
+           
               
               {properties.data.map((property) => {
                 const matchingImages = propertiesImages?.data.filter(
@@ -71,7 +81,7 @@ export default function Poshhouse() {
                 const imageSrc = matchingImages && matchingImages.length  > 0  ? matchingImages[0].image : null;
                 console.log(imageSrc)
                 return (
-                  <div className="col-12 col-md-4 mb-4" key={property.id}>
+                  <div className="col-lg-4 col-md-6 col-12 mb-4" key={property.id}>
                     <div className="card shadow p-3 mb-5 bg-white rounded">
                       <Link to={`/property/${property.id}`}>
                         <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
@@ -94,11 +104,14 @@ export default function Poshhouse() {
                   </div>
                 )
               })}
-            </Carousel>
+            
+          </div>
           </div>
         ):(
           // Display a message when no data is available
-          <p className="ms-lg-3">Not available</p>
+          <div className="no-data">
+          <h5 className="text-center">Not available</h5>
+          </div>
         )
         )}
       </div>
@@ -109,6 +122,23 @@ export default function Poshhouse() {
 
 
 const Wrapper = styled.div`
+.nav1{
+    display: block;
+    @media screen and (max-width: 768px) {
+   
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+    @media screen and (max-width: 768px) {
+   
+   display: block;
+   
+ }
+   
+  }
 .post-heading {
     @media only screen and (max-width: 768px) {
       font-size: 20px;
@@ -124,7 +154,7 @@ const Wrapper = styled.div`
 .card{
     border: none;
     margin: 1rem;
-    width: 23rem;
+    
     
     
     img{
@@ -149,8 +179,8 @@ const Wrapper = styled.div`
 
     }
 }
+.no-data{
+    height: 50vh;
+}
     
 `;
-
-
-
