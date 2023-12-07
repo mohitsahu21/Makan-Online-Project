@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const authenticate = require('../middleware/authMiddleware.js');
-const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById} = require('../controller/PropertyController.js')
+const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties} = require('../controller/PropertyController.js')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -23,7 +23,16 @@ router.post("/upload-images", authenticate, upload.array('images', 20), uploadIm
 router.get("/getAllProperty", getAllProperty);
 router.get("/getAllPropertyImages", getAllPropertyImages);
 router.get("/getPropertyById/:propertyId", getPropertyById);
+router.get("/getPropertyByType/:propertyType", getPropertyByType);
 router.get("/getPropertyImagesById/:propertyId", getPropertyImagesById);
+router.get("/getSuggestedProperty", getSuggestedProperty);
+router.get("/getSuggestedPropertyImages", getSuggestedPropertyImages);
+router.get("/getMostVisitedProperties", getMostVisitedProperties);
+router.get("/getRecentlyPostedProperties", getRecentlyPostedProperties);
+
+router.post("/addSuggestedProperty",addSuggestedPropperty);
+
+
 
 
 

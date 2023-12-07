@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from "styled-components";
 import cogoToast from 'cogo-toast';
+import { useNavigate} from 'react-router-dom';
 
 function AddProperty() {
     // const [propertyType, setPropertyType] = useState('');
@@ -9,15 +10,20 @@ function AddProperty() {
     // const handlePropertyTypeChange = (event) => {
     //   setPropertyType(event.target.value);
     // };
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAxMTU1MzA3LCJleHAiOjE3MDE3NjAxMDd9.jbB4JVJZaSEap0MeBFwdvIid_GE6t6VcG2ahcTxJvpU"
+    const navigate = useNavigate();
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzAxODU5NTk0LCJleHAiOjE3MDI0NjQzOTR9.VsDWQzuE8SMl15wiQTBzEJENzC26Va9ibXjdzZQU8xk"
 
     const [formData, setFormData] = useState({
         property_name : '',
-        property_location: '',
+        property_for : "",
+        // property_location: '',
         property_address : '',
     property_city : '', 
     property_description : '',
     property_type : '',
+    property_video : "",
+    tncp:"",
+    rera:"",
     bhk : '',
     new_resale : '',
     structure : '',
@@ -95,7 +101,12 @@ function AddProperty() {
                 // Handle success, maybe redirect or show a success message
                 console.log('Form submitted successfully');
                 console.log(response);
-                const responseData = await response.json();
+                cogoToast.success(`${responseData.message}`);
+                setTimeout(()=>{
+                    navigate(`/admin/add-property/add-images/${responseData.data.id}`);
+                },2000)
+                
+                
                 
 
                 
@@ -108,6 +119,15 @@ function AddProperty() {
             } else {
                 // Handle errors, maybe show an error message
                 console.error('Failed to submit form');
+                if(responseData.message == "Unauthorized - Invalid token"){
+                    cogoToast.error(`${responseData.message} ! Please Login Again`);
+                    
+                }
+                else{
+                    cogoToast.error(`${responseData.message}`);
+                } 
+                
+                
             }
         } catch (error) {
             console.error('Error submitting form:', error);
@@ -134,9 +154,9 @@ function AddProperty() {
                     <div className="col-12 col-md-6 mb-3">
                     <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='property_name'  placeholder="Property Name" onChange={handleInputChange} required/>
                     </div>
-                    <div className="col-12 col-md-6 mb-3">
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='property_location' placeholder="Property Location" onChange={handleInputChange} required/>
-                    </div>
+                    {/* <div className="col-12 col-md-6 mb-3">
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='property_location' placeholder="Property Google Map Location" onChange={handleInputChange} required/>
+                    </div> */}
                     <div className="col-12 col-md-6 mb-3">
                     <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='property_address' placeholder="Property Address" onChange={handleInputChange} required/>
                     </div>
@@ -145,6 +165,9 @@ function AddProperty() {
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='property_description' placeholder="Property Description" onChange={handleInputChange} required/>
+                    </div>
+                    <div className="col-12 col-md-6 mb-3">
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='property_video' placeholder="Property youtube video link" onChange={handleInputChange}/>
                     </div>
                 </div>
             </div>
@@ -195,7 +218,7 @@ function AddProperty() {
                                   <div className='mb-3'>
                                   <div className="form-check ms-4">
                                       <input className="form-check-input" type="radio" name="property_type" id="land" value="land" onChange={handleInputChange} required/>
-                                      <label className="form-check-label" for="Apartment">
+                                      <label className="form-check-label" for="land">
                                       Land
                                       </label>
                                   </div>
@@ -203,7 +226,7 @@ function AddProperty() {
                                   <div className='mb-3'>
                                   <div className="form-check ms-4">
                                       <input className="form-check-input" type="radio" name="property_type" id="farmLand" value="farmLand" onChange={handleInputChange} required/>
-                                      <label className="form-check-label" for="Apartment">
+                                      <label className="form-check-label" for="farmLand">
                                       Farm Land
                                       </label>
                                   </div>
@@ -211,8 +234,39 @@ function AddProperty() {
                                   <div className='mb-3'>
                                   <div className="form-check ms-4">
                                       <input className="form-check-input" type="radio" name="property_type" id="farmHouse" value="farmHouse" onChange={handleInputChange} required/>
-                                      <label className="form-check-label" for="Apartment">
+                                      <label className="form-check-label" for="farmHouse">
                                       Farm House
+                                      </label>
+                                  </div>
+                                  </div>
+                                  <div className='mb-3'>
+                                  <div className="form-check ms-4">
+                                      <input className="form-check-input" type="radio" name="property_type" id="commercial" value="commercial" onChange={handleInputChange} required/>
+                                      <label className="form-check-label" for="commercial">
+                                      Commercial
+                                      </label>
+                                  </div>
+                                  </div>
+                                  </div>
+                                  <div className='d-md-flex'>
+                                <div className='mb-3'>
+
+                                    <p>Select Proprty For Sale/Rent</p>
+                                    </div>
+                                
+                                  <div className='mb-3'>
+                                  <div className="form-check ms-4">
+                                      <input className="form-check-input" type="radio" name="property_for" id="sale" value="sale" onChange={handleInputChange} required/>
+                                      <label className="form-check-label" for="sale">
+                                      Sale
+                                      </label>
+                                  </div>
+                                  </div>
+                                  <div className='mb-3'>
+                                  <div className="form-check ms-4">
+                                      <input className="form-check-input" type="radio" name="property_for" id="rent" value="rent" onChange={handleInputChange} required/>
+                                      <label className="form-check-label" for="rent">
+                                      Rent
                                       </label>
                                   </div>
                                   </div>
@@ -231,7 +285,7 @@ function AddProperty() {
             </div>
             <div className="col-12 col-md-6 mb-3">
                 
-                <select className="form-select" id="new_resale" name="new_resale" onChange={handleInputChange} required>
+                <select className="form-select" id="new_resale" name="new_resale" onChange={handleInputChange} disabled={formData.property_for === "rent"} required>
                     <option value="">Select New/Resale</option>
                     <option value="new">New</option>
                     <option value="resale">Resale</option>
@@ -249,6 +303,17 @@ function AddProperty() {
                 
                 </select>
             </div>
+            <div className='col-12 col-md-6 mb-3'>
+                       
+                    <select className="form-select" id="tncp" name="tncp" onChange={handleInputChange} disabled={formData.property_for === "rent"  } required>
+                    <option value="">IS TNCP Approved ?</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                    </select>
+                    </div>
+                    <div className="col-12 col-md-6 mb-3">
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='rera' placeholder="RERA Number" disabled={formData.property_for === "rent"} onChange={handleInputChange} />
+                    </div>
 
                                   
                                   
@@ -316,6 +381,8 @@ function AddProperty() {
                     <option value="0">No</option>
                     </select>
                     </div>
+
+                   
                    
 
                     <div className='col-12 col-md-3 mb-3'>
@@ -388,7 +455,7 @@ function AddProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                        
                     <label className="form-check-label" htmlFor="immediate_possession">Immediate possession</label>   
-                    <select className="form-select" id="immediate_possession" name="immediate_possession" onChange={handleInputChange} required>
+                    <select className="form-select" id="immediate_possession" name="immediate_possession" onChange={handleInputChange} disabled={formData.property_for === "rent"} required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>

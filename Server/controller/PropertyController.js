@@ -10,7 +10,7 @@ const addProperty = async (req,res) => {
 
      // Check if all required fields are present
      const requiredFields = [
-    "property_location" ,
+    
      "property_address",
        "property_city", 
        "property_description" ,
@@ -115,6 +115,32 @@ const getAllProperty = (req, res) =>{
 
 }
 
+ 
+
+const getPropertyByType = (req, res) =>{
+
+    const propertyType = req.params.propertyType;
+    
+    const sql = 'SELECT * FROM properties WHERE property_type = ?'; // Replace properties with your actual table name
+
+    db.query(sql,[propertyType] , (err, results) => {
+        if (err) {
+            console.error('Error fetching properties from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if(results.length > 0){
+                res.status(200).json({success:true, data: results, message: `${propertyType} Properties fetched successfully`});
+            }
+            else{
+                res.status(404).json({success:false, error: 'Property not found',message:"Property not found" });
+                
+            }
+            
+        }
+    });
+
+}
+
  //Method to get all property Images 
 const getAllPropertyImages = (req, res) =>{
     const sql = 'SELECT * FROM properties_images'; // Replace properties with your actual table name
@@ -132,24 +158,77 @@ const getAllPropertyImages = (req, res) =>{
 
 //Method to get one property by Id
 
+// const getPropertyById = (req, res) => {
+//     const propertyId = req.params.propertyId;
+//      // Assuming the parameter name in the route is 'propertyId'
+//     const sql = 'SELECT * FROM properties WHERE id = ?'; // Replace properties with your actual table name
+
+//     db.query(sql, [propertyId], (err, results) => {
+//         if (err) {
+//             console.error('Error fetching property from MySQL:', err);
+//             res.status(500).json({ error: 'Internal Server Error' });
+//         } else {
+//             if (results.length > 0) {
+//                 res.status(200).json({success:true, data: results[0], message: 'Property fetched successfully' });
+//             } else {
+//                 res.status(404).json({success:false, error: 'Property not found' , message:"Property not found" });
+//             }
+//         }
+//     });
+// }
+
 const getPropertyById = (req, res) => {
     const propertyId = req.params.propertyId;
-     // Assuming the parameter name in the route is 'propertyId'
-    const sql = 'SELECT * FROM properties WHERE id = ?'; // Replace properties with your actual table name
+    const sqlSelect = 'SELECT * FROM properties WHERE id = ?';
+    const sqlUpdateVisits = 'UPDATE properties SET visits = visits + 1 WHERE id = ?';
 
-    db.query(sql, [propertyId], (err, results) => {
+    db.beginTransaction((err) => {
         if (err) {
-            console.error('Error fetching property from MySQL:', err);
-            res.status(500).json({ error: 'Internal Server Error' });
-        } else {
-            if (results.length > 0) {
-                res.status(200).json({ data: results[0], message: 'Property fetched successfully' });
-            } else {
-                res.status(404).json({ error: 'Property not found' });
-            }
+            console.error('Error starting database transaction:', err);
+            res.status(500).json({ success: false, error: 'Internal Server Error' });
+            return;
         }
+
+        // Step 1: Fetch property details
+        db.query(sqlSelect, [propertyId], (selectErr, results) => {
+            if (selectErr) {
+                console.error('Error fetching property from MySQL:', selectErr);
+                res.status(500).json({ success: false, error: 'Internal Server Error' });
+                db.rollback();
+            } else {
+                if (results.length > 0) {
+                    // Step 2: Update visit count
+                    db.query(sqlUpdateVisits, [propertyId], (updateErr) => {
+                        if (updateErr) {
+                            console.error('Error updating property visit count:', updateErr);
+                            res.status(500).json({ success: false, error: 'Internal Server Error' });
+                            db.rollback();
+                        } else {
+                            // Commit the transaction
+                            db.commit((commitErr) => {
+                                if (commitErr) {
+                                    console.error('Error committing transaction:', commitErr);
+                                    res.status(500).json({ success: false, error: 'Internal Server Error' });
+                                    db.rollback();
+                                } else {
+                                    res.status(200).json({
+                                        success: true,
+                                        data: results[0],
+                                        message: 'Property fetched successfully',
+                                    });
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    res.status(404).json({ success: false, error: 'Property not found', message: 'Property not found' });
+                    db.rollback();
+                }
+            }
+        });
     });
-}
+};
+
 
 //Method to get one property by Id
 
@@ -164,13 +243,139 @@ const getPropertyImagesById = (req, res) => {
             res.status(500).json({ error: 'Internal Server Error' });
         } else {
             if (results.length > 0) {
-                res.status(200).json({ data: results, message: 'Property images fetched successfully' });
+                res.status(200).json({success:true, data: results, message: 'Property images fetched successfully' });
             } else {
-                res.status(404).json({ error: 'Property not found' });
+                res.status(404).json({success:false, error: 'Property not found' ,message:"Property not found" });
             }
         }
     });
 }
+
+//method to get suggested property.
+
+const getSuggestedProperty = (req, res) => {
+    const sql = 'SELECT * FROM properties WHERE id IN (SELECT property_id FROM suggestions)';
+     // Assuming the parameter name in the route is 'propertyId'
+    // const sql = 'SELECT * FROM properties_images WHERE property_id = ?';
+     // Replace properties with your actual table name
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching property from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if (results.length > 0) {
+                res.status(200).json({success:true, data: results, message: 'suggested Property fetched successfully' });
+            } else {
+                res.status(404).json({success:false, error: 'Property not found' ,message:'Property not found' });
+            }
+        }
+    });
+}
+
+// method for suggested property images
+const getSuggestedPropertyImages = (req, res) => {
+    const sql = 'SELECT * FROM properties_images WHERE property_id IN (SELECT property_id FROM suggestions)';
+     // Assuming the parameter name in the route is 'propertyId'
+    // const sql = 'SELECT * FROM properties_images WHERE property_id = ?';
+     // Replace properties with your actual table name
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching property from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if (results.length > 0) {
+                res.status(200).json({ success:true, data: results, message: 'suggested Property fetched successfully' });
+            } else {
+                res.status(404).json({success:false, error: 'Property not found' ,message:"Property not found" });
+            }
+        }
+    });
+}
+
+//method to post suggested property.
+
+const addSuggestedPropperty = (req, res) => {
+    const { property_id } = req.body;
+   
+  
+    if (!property_id) {
+      return res.status(400).json({success: false, error: 'Missing required fields' , message:"Property Id required" });
+    }
+
+       // Check if the property_id already exists
+  const selectQuery = 'SELECT * FROM suggestions WHERE property_id = ?';
+  const selectValues = [property_id];
+
+  db.query(selectQuery, selectValues, (selectErr, selectResults) => {
+    if (selectErr) {
+      console.error('Error checking property_id:', selectErr);
+      return res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    }
+
+    if (selectResults.length > 0) {
+      // The property_id already exists in the database
+      return res.status(409).json({ success: false, error: 'Conflict', message: 'Property ID already exists' });
+    }
+
+  
+    const insertQuery = 'INSERT INTO suggestions ( property_id) VALUES (?)';
+    const values = [ property_id];
+  
+    db.query(insertQuery, values, (err, result) => {
+      if (err) {
+        console.error('Error inserting property:', err);
+        return res.status(500).json({success: false, error: 'Internal Server Error',message:'Internal Server Error' });
+      }
+  
+      console.log('Suggested Property inserted successfully');
+      res.json({ success: true, property_id: result.insertId , message : "Suggested property added successfully" });
+    });
+});
+  };
+
+// method to get most visited property;
+
+const getMostVisitedProperties = (req, res) => {
+    const sqlSelectMostVisited = 'SELECT * FROM properties ORDER BY visits DESC LIMIT 20'; // Adjust the LIMIT as needed
+
+    db.query(sqlSelectMostVisited, (error, results) => {
+        if (error) {
+            console.error('Error fetching most visited properties:', error);
+            res.status(500).json({ success: false, error: 'Internal Server Error' });
+        } else {
+            res.status(200).json({
+                success: true,
+                data: results,
+                message: 'Most visited properties fetched successfully',
+            });
+        }
+    });
+};
+
+// method to get Recently posted property;
+
+const getRecentlyPostedProperties = (req, res) => {
+    const sqlSelectMostVisited = 'SELECT * FROM properties ORDER BY id DESC LIMIT 20'; // Adjust the LIMIT as needed
+
+    db.query(sqlSelectMostVisited, (error, results) => {
+        if (error) {
+            console.error('Error fetching most visited properties:', error);
+            res.status(500).json({ success: false, error: 'Internal Server Error' });
+        } else {
+            res.status(200).json({
+                success: true,
+                data: results,
+                message: 'Most visited properties fetched successfully',
+            });
+        }
+    });
+};
+
+
+
+
 
 
 
@@ -229,4 +434,4 @@ const getPropertyImagesById = (req, res) => {
 
 
 
-module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById }
+module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties}

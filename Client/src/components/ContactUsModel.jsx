@@ -2,17 +2,23 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import cogoToast from "cogo-toast";
+
 
 
 function ContactUsModel() {
+  const {currentUser} = useSelector((state) => state.user)
   return (
     <>
     <div className="d-grid gap-2 col-10 mx-auto">
-            <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+           {currentUser ?
+            (
+              <>
+                  <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
               CONTACT US
             </button>
-
-            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   <div className="modal-header">
@@ -80,6 +86,20 @@ function ContactUsModel() {
                 </div>
               </div>
             </div>
+              </>
+            )
+            : 
+            (
+              <>
+                  <button onClick={() => cogoToast.error("Please login to contact us")} className="btn btn-primary" type="button">
+                CONTACT US
+            </button>
+              </>
+            )
+           }
+          
+
+           
           </div>
     </>
   )

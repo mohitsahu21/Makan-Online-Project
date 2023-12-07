@@ -151,6 +151,7 @@
 
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function () {
   return (
@@ -160,9 +161,9 @@ export default function () {
           <div className="container-fluid mb-4">
             <div className="border border-1 rounded py-4 my-2">
               <h1 className="text-center fw-bold" id="search-heading">
-                Find a home you'll love
+              Explore Our Properties
               </h1>
-              <div className="tabs-container pt-2">
+              {/* <div className="tabs-container pt-2">
                 <ul
                   className="nav nav-tabs d-flex justify-content-center"
                   id="categoryTab"
@@ -221,8 +222,59 @@ export default function () {
                     </button>
                   </li>
                 </ul>
-              </div>
-              <div className="search-container row justify-content-center mt-2">
+              </div> */}
+
+<div className="row">
+  <ul className="d-flex flex-column flex-md-row mt-5 mb-2 justify-content-center text-center cat-list ">
+  <div className="col-md-3 col-12 mb-3">
+  <a href="/property/propertyType/house" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
+        <h3>House</h3>
+      </button></a>
+    </div>
+    <div className="col-md-3 col-12 mb-3">
+    <a href="/property/propertyType/villa" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
+        <h3>Villa</h3>
+      </button></a>
+    </div>
+    <div className="col-md-3 col-12 mb-3">
+    <a href="/property/propertyType/plot" target="blank"> <button type="button" className="btn btn-outline-secondary w-75 w-md-50"> 
+        <h3>Plot</h3>
+      </button></a>
+    </div>
+    <div className="col-md-3 col-12 mb-3">
+    <a href="/property/propertyType/flat" target="blank">   <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
+        <h3>Flat</h3>
+      </button></a>
+    </div>
+  </ul>
+</div>
+
+<div className="row">
+  <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-5 justify-content-center text-center cat-list">
+    <div className="col-md-3 col-12 mb-3">
+    <a href="/property/propertyType/land" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+        <h3>Land</h3>
+      </button></a>
+    </div>
+    <div className="col-md-3 col-12 mb-3">
+    <a href="/property/propertyType/farmLand" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+        <h3>Farm Land</h3>
+      </button></a>
+    </div>
+    <div className="col-md-3 col-12 mb-3">
+    <a href="/property/propertyType/farmHouse" target="blank">   <button type="button" className="btn btn-outline-secondary w-75">
+        <h3>Farm House</h3>
+      </button></a>
+    </div>
+    <div className="col-md-3 col-12 mb-3">
+    <a href="/property/propertyType/commercial" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+        <h3>Commercial</h3>
+      </button></a>
+    </div>
+  </ul>
+</div>
+             
+              <div className="search-container row justify-content-center mt-2 mb-md-5">
                 <div className="main col-lg-6 col-md-8 col-10 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
                   <div className="row " id="inner-col">
                     <div className="col-lg-4" id="res1">
@@ -283,6 +335,12 @@ export default function () {
 }
 
 const Wrapper = styled.div`
+  .cat-list{
+    
+    list-style: none;
+  }
+
+  
   .search-container .main {
     padding: 10px;
     @media screen and (max-width: 768px) {

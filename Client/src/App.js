@@ -15,11 +15,17 @@ import SingleProperty from "./components/SingleProperty";
 import AddProperty from "./pages/Admin/AddProperty";
 import PopularCategory from "./components/PopularCategory";
 import AddImages from "./pages/Admin/AddImages";
+import AddsuggestedProperty from "./pages/Admin/AddsuggestedProperty";
+import Luxuaryhouse from "./components/Luxuaryhouse";
+import NavbarMob from "./components/NavbarMob";
+import PropertyType from "./components/PropertyType";
 
 function App() {
   
   return (
     <> 
+      
+     
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
@@ -31,10 +37,13 @@ function App() {
         <Route path="/blog/single-blog" element={<SingleBlog/>} />
         <Route path="/single-property" element={<SingleProperty/>} />
         <Route path="/property/:propertyId" element={<SingleProperty/>} />
+        <Route path="/property/propertyType/:propertyType" element={<PropertyType/>} />
+
 
         <Route path="/admin" element={<AddProperty/>} />
         <Route path="/admin/add-property" element={<AddProperty/>} />
         <Route path="/admin/add-property/add-images/:propertyId" element={<AddImages/>} />
+        <Route path="/admin/add-suggested-property" element={<AddsuggestedProperty/>} />
         <Route path={`/popular-apartment-searches/:name`} element={<PopularCategory/>}  />
         <Route path={`/popular-house-searches/`} element={<AddProperty/>}  />
         <Route path={`/popular-villa-searches/`} element={<AddProperty/>}  />
