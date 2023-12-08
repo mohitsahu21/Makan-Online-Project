@@ -12,6 +12,7 @@ import Navbar from "../components/Navbar";
 import NavbarMob from "../components/NavbarMob";
 import axios from 'axios';
 import CommercialProperty from "../components/CommercialProperty";
+import RentProperty from "../components/RentProperty";
 export default function Homepage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [properties, setProperties] = useState([])
@@ -115,6 +116,7 @@ export default function Homepage() {
               <div>
                 <section className="p-md-3">
                   <RecentlyPosted />
+                  <RentProperty/>
                   <Suggestions />
                   <MostViewed />
                   <Poshhouse />

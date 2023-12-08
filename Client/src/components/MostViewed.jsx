@@ -75,12 +75,12 @@ export default function MostViewed() {
                       <Link to={`/property/${property.id}`}>
                         <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
                       </Link>
-                      <div className="card-body">
-                        <p className="card-text d-inline">
+                      <div className="card-body address">
+                        <p className="card-text d-inline ">
                           <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
                         </p>
                         <Link to={`/property/${property.id}`} style={{ textDecoration: 'none' }}>
-                          <h6 className="card-title mt-2">{property.property_name}</h6>
+                          <h5 className="card-title mt-2">{property.property_name}</h5>
                         </Link>
                         <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                         <p className="card-text">
@@ -108,6 +108,13 @@ export default function MostViewed() {
 
 
 const Wrapper = styled.div`
+.address{
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+  
+}
+
 .post-heading {
     @media only screen and (max-width: 768px) {
       font-size: 20px;
@@ -124,6 +131,7 @@ const Wrapper = styled.div`
     border: none;
     margin: 1rem;
     width: 23rem;
+    
     
     
     img{
