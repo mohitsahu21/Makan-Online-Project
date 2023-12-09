@@ -238,28 +238,25 @@ export default function () {
                     <input
                       type="text"
                       id="search-box"
-                      className=""
+                      className=" border rounded-5"
                       placeholder="Enter City,Location,Project"
                     />
                   </div>
                   
                   </div>
-                  <div className="col-lg-3" id="res2">
-                  <select className=" w-auto px-3 py-1 mx-4" id="mySelect">
+                  <div className="col-lg-2" id="res2">
+                  <select className=" px-2 py-1 mx-4 border rounded-5" id="mySelect">
                     <option value="Flat+1" selected>
                       Flat+1
                     </option>
                     <option value="Commercial">Commercial</option>
                     <option value="Plots">Plots</option>
                   </select></div>
-                  <div className="col-lg-3 align-items-center " id="res3">
-                    <i
-                      class="bi bi-currency-rupee fs-5"
-                      style={{ color: "red" }}
-                    ></i>
+                  <div className="col-lg-2 align-items-center " id="res3">
+                    
                     <select
                      
-                      className="w-auto px-3 py-1 "
+                      className=" px-3 py-1 border rounded-5"
                       id="budget"
                       placeholder="Budget"
                     >
@@ -269,8 +266,20 @@ export default function () {
                       <option value="Plots">Plots</option>
                     </select>
                   </div>
+                  <div className="col-lg-2 align-items-center " id="res3">
+                    
+                    <select
+                     
+                      className=" px-3 py-1 border rounded-5"
+                      id="budget"
+                      placeholder="Property"
+                    >
+                      <option selected>Rent</option>
+                      <option value="Flat+1">Buy</option>
+                    </select>
+                  </div>
                   <div className="col-lg-2" id="res4">
-                  <button className="btn btn-danger px-3 fs-5" id="btnsearch">Search</button></div>
+                  <button className="btn btn-danger px-3 fs-6" id="btnsearch">Search</button></div>
                   </div>
                 </div>
               </div>
@@ -308,31 +317,40 @@ const Wrapper = styled.div`
   }
   input#search-box {
     width: 300px;
-    @media screen and (max-width: 620px) {
-      width: 250px;
+    height: 2.1rem;
+    @media screen and (max-width: 768px) {
+      width: 310px;
+
     }
-    @media only screen and (min-width: 620px) and (max-width: 768px) {
-    }
-    @media screen and (min-width: 768px) and (max-width: 1024px) {
-    }
-    @media screen and (min-width: 1024px) and (max-width: 1600px) {
-    }
+  
   }
 
   h1 {
     font-family: "Playpen Sans", cursive;
   }
   #btnsearch{
-    margin-left: 3.5rem;
-    @media screen and (max-width: 768px) {
-    margin-left: 1.5rem;
+    margin-left: 1rem;
+    width: 85%;
+     border-radius: 5rem;
+     height: 2.3rem;
+     font-weight: 500;
+
      
+    @media screen and (max-width: 768px) {
+    margin-left: 2rem;
+    width: 85%;
+     border-radius: 5rem;
+     height: 2.6rem;
     }
   }
   #main-col{
     width: 60rem;
+    @media screen and (max-width: 768px) {
+      width: 23.5rem
+      
+    }
     @media screen and (min-width: 1024px) and (max-width: 1600px) {
-      width: 58rem;
+      width: 60rem;
     }
   }
   #inner-col{
@@ -342,18 +360,18 @@ const Wrapper = styled.div`
   }
   #res1{
     @media screen and (max-width: 768px) {
-      margin-left: 1rem;
+      margin-left: 0rem;
     }
   }
   #res2{
     @media screen and (max-width: 768px) {
-      margin-left: 1rem;
+      margin-left: 0.6rem;
     }
   }
   #res3{
     
     @media screen and (max-width: 768px) {
-      margin-left: 1.5rem;
+      margin-left: 2.3rem;
     }
   }
   #budget{
@@ -362,12 +380,15 @@ const Wrapper = styled.div`
     background-color: white;
     @media screen and (max-width: 768px) {
       margin-left: -0.3rem;
+      width: 19.5rem;
     }
   }
   #mySelect{
    
     @media screen and (max-width: 768px) {
       background-color: white;
+      width: 19.5rem;
+      margin-left: 2rem;
     }
   }
 

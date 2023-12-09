@@ -22,6 +22,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import Registered_User from './components/User_data/Registered_User';
 import Interested_User from './components/User_data/Interested_User';
 import Contact_User from './components/User_data/Contact_User';
+import AddProperty from './components/AddProperty';
+import AddImages from './components/AddImages';
+import AddsuggestedProperty from './components/AddsuggestedProperty';
 
 
 
@@ -56,6 +59,11 @@ function App() {
         <Route path="/registered_user" Component={Registered_User} />
         <Route path="/interested_user" Component={Interested_User} />
         <Route path="/contact_user" Component={Contact_User} />
+
+        <Route path="/admin/add-property" Component={AddProperty} />
+        <Route path="/admin/add-property/add-images/:propertyId" Component={AddImages} />
+        <Route path="/admin/add-suggested-property" Component={AddsuggestedProperty} />
+
        
 
        

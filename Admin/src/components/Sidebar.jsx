@@ -41,8 +41,9 @@ function Sidebar() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item href="#/house">Add Property</Dropdown.Item>
-          <Dropdown.Item href="#/villa"><Link to="/allproperties">All Property</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/admin/add-property">Add Property</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/allproperties">All Property</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/admin/add-suggested-property">Add Suggested</Link></Dropdown.Item>
           
         </Dropdown.Menu>
       </Dropdown>
