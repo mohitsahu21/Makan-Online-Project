@@ -11,17 +11,31 @@ import { responsive } from "./responsive";
 import CarouselPlaceholder from "./CarouselPlaceholder"
 import { FaRupeeSign } from "react-icons/fa";
 
-export default function RelatedProperty() {
+export default function RelatedProperty({propertyType,propertyFor,propertyId}) {
  
-
   const [properties, setProperties] = useState(null);
   const [propertiesImages, setPropertiesImages] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
-      setProperties(response.data);
+      if(propertyType && propertyFor){
+        if(propertyFor=="rent"){
+          const response = await axios.get('http://localhost:4000/api/property/getPropertyForRent/');
+          setProperties(response.data);
+        }
+        else{
+          const response = await axios.get(`http://localhost:4000/api/property/getPropertyByType/${propertyType}`);
+          setProperties(response.data);
+        }
+
+        
+      }
+      else{
+        const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+        setProperties(response.data);
+      }
+      
     } catch (error) {
       console.error('Error fetching properties:', error);
     }
@@ -59,15 +73,19 @@ export default function RelatedProperty() {
         ) : (
 
         // Render the component only if data is available
-        properties && properties.data && properties.data.length > 0 ? (
+        
+        properties && properties?.data && properties?.data.length > 0 && properties?.data
+        .filter(property => property.id != propertyId).length>0 ? (
           <div className="row cardBox">
             <Carousel responsive={responsive} showDots={true}>
               
-              {properties.data.map((property) => {
+              {properties?.data
+              .filter(property => property.id != propertyId) // Filter out the property with the specified ID
+              .map((property) => {
                 const matchingImages = propertiesImages?.data.filter(
                   (image) => image.property_id == property.id
                 );
-                const imageSrc = matchingImages && matchingImages.length  > 0  ? matchingImages[0].image : null;
+                const imageSrc = matchingImages && matchingImages?.length  > 0  ? matchingImages[0]?.image : null;
                 console.log(imageSrc)
                 return (
                   <div className="col-12 col-md-4 mb-4" key={property.id}>
@@ -75,12 +93,12 @@ export default function RelatedProperty() {
                       <a href={`/property/${property.id}`} target="blank" >
                         <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
                       </a>
-                      <div className="card-body">
+                      <div className="card-body address">
                         <p className="card-text d-inline">
                           <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
                         </p>
                         <a href={`/property/${property.id}`} target="blank" style={{ textDecoration: 'none' }}>
-                          <h6 className="card-title mt-2">{property.property_name}</h6>
+                          <h5 className="card-title mt-2">{property.property_name}</h5>
                         </a>
                         <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                         <p className="card-text">
@@ -108,6 +126,12 @@ export default function RelatedProperty() {
 
 
 const Wrapper = styled.div`
+.address{
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+  
+}
 .post-heading {
     @media only screen and (max-width: 768px) {
       font-size: 20px;

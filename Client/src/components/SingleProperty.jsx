@@ -196,7 +196,7 @@ const fetchPropertyImages = async (propertyId) => {
       <div className="nav1"><StickyNavbar  /></div>
           <div className="nav2"><NavbarMob /> </div>
       {loading ? (
-        // <p>Loading...</p>
+        // Loading...
         // placeholder when load the page
         <div class="card" aria-hidden="true">
   <img src={placeholder_img}  class="card-img-top" style={{maxWidth:"100vw" , maxHeight: "70vh"}} alt="..."/>
@@ -302,13 +302,33 @@ const fetchPropertyImages = async (propertyId) => {
                     <p className="fw-semibold">{property?.property_type}</p>
                 </div>
                 <div className="col-4">
+                <span className="d-block">Property For</span>
+                    <p className="fw-semibold">{property?.property_for}</p>
+                </div>
+
+                <div className="col-4">
                 <span className="d-block">Number of BHK</span>
                     <p className="fw-semibold">{property?.bhk}</p>
                     </div>
-                    <div className="col-4">
-                    <span className="d-block">New/Resale</span>
-                    <span className="fw-semibold">{property?.new_resale}</span>
-                </div>
+                    {property?.property_for == "sale" && (
+                        <div className="col-4">
+                        <span className="d-block">New/Resale</span>
+                        <span className="fw-semibold">{property?.new_resale}</span>
+                    </div>
+                    )}
+                    {property?.property_for == "sale" && (
+                        <div className="col-4">
+                        <span className="d-block">TNCP Approved</span>
+                        <span className="fw-semibold">{property?.tncp}</span>
+                    </div>
+                    )}
+                     {property?.property_for == "sale" && (
+                        <div className="col-4">
+                        <span className="d-block">RERA Number</span>
+                        <span className="fw-semibold">{property?.rera}</span>
+                    </div>
+                    )}
+                   
                 <div className="col-4">
                 <span className="d-block">Structur</span>
                     <p className="fw-semibold">{property?.structure}</p>
@@ -385,7 +405,7 @@ const fetchPropertyImages = async (propertyId) => {
                           {property?.attractive_entrance_gate == 1 && (<li><p><PiArrowFatLineRightFill /> Attractive entrance gate</p>  </li>)}
                           {/* { property.(<li><p><PiArrowFatLineRightFill /> Secured compound wall</p>  </li>)} */}
                           {property?.gated_community == 1 && (<li><p><PiArrowFatLineRightFill /> Gated community</p>  </li>)}
-                          {property?.immediate_possession == 1 && (<li><p><PiArrowFatLineRightFill /> Immediate possession</p>  </li>)}
+                          {property?.property_for == "sale" && property?.immediate_possession == 1 && (<li><p><PiArrowFatLineRightFill /> Immediate possession</p>  </li>)}
                           {/* {property. ( <li><p><PiArrowFatLineRightFill /> Peaceful & Pollution free environment.</p>  </li>)} */}
                           {property?.landscape_garden == 1 && (<li><p><PiArrowFatLineRightFill /> Landscape Garden</p>  </li>)}
                           {property?.water_supply_24_7 == 1 && (<li><p><PiArrowFatLineRightFill /> 24/7 Water Supply</p>  </li>)}
@@ -535,7 +555,7 @@ const fetchPropertyImages = async (propertyId) => {
 
                
                 
-                <RelatedProperty/>
+                <RelatedProperty propertyType={property?.property_type} propertyFor={property?.property_for} propertyId={property?.id}/>
                
                                     
               

@@ -19,6 +19,7 @@ import AddsuggestedProperty from "./pages/Admin/AddsuggestedProperty";
 import Luxuaryhouse from "./components/Luxuaryhouse";
 import NavbarMob from "./components/NavbarMob";
 import PropertyType from "./components/PropertyType";
+import RentedProperties from "./components/RentedProperties";
 
 function App() {
   
@@ -38,6 +39,7 @@ function App() {
         <Route path="/single-property" element={<SingleProperty/>} />
         <Route path="/property/:propertyId" element={<SingleProperty/>} />
         <Route path="/property/propertyType/:propertyType" element={<PropertyType/>} />
+        <Route path="/property/propertiesForRent" element={<RentedProperties/>} />
 
 
         <Route path="/admin" element={<AddProperty/>} />

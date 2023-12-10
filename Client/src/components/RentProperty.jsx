@@ -1,5 +1,4 @@
 
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -12,7 +11,7 @@ import { responsive } from "./responsive";
 import CarouselPlaceholder from "./CarouselPlaceholder"
 import { FaRupeeSign } from "react-icons/fa";
 
-export default function CommercialProperty() {
+export default function RentProperty() {
  
 
   const [properties, setProperties] = useState(null);
@@ -21,7 +20,7 @@ export default function CommercialProperty() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getPropertyByType/commercial');
+      const response = await axios.get('http://localhost:4000/api/property/getPropertyForRent');
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -51,7 +50,7 @@ export default function CommercialProperty() {
     <Wrapper>
       <div className="mb-4">
         <h3 className="post-heading fw-semibold mb-3 ms-lg-3">
-        Commercial Properties
+        Properties For Rent
         </h3>
 
         {loading ? (
@@ -95,6 +94,7 @@ export default function CommercialProperty() {
                 )
               })}
             </Carousel>
+            
           </div>
         ):(
           // Display a message when no data is available
@@ -157,6 +157,8 @@ const Wrapper = styled.div`
 }
     
 `;
+
+
 
 
 
