@@ -149,11 +149,15 @@
 
 
 
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import SearchModel from "./SearchModel";
 
 export default function () {
+  
+
   return (
     <div>
       <Wrapper>
@@ -250,7 +254,7 @@ export default function () {
 </div>
 
 <div className="row">
-  <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-5 justify-content-center text-center cat-list">
+  <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-2 justify-content-center text-center cat-list">
     <div className="col-md-3 col-12 mb-3">
     <a href="/property/propertyType/land" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
         <h3>Land</h3>
@@ -273,8 +277,22 @@ export default function () {
     </div>
   </ul>
 </div>
-             
-              <div className="search-container row justify-content-center mt-2 mb-md-5">
+<div className="row">
+  <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-5 justify-content-center text-center cat-list">
+    <div className="col-md-3 col-12 mb-3">
+    <a href="/property/propertiesForRent" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+        <h3>Property For Rent</h3>
+      </button></a>
+    </div>
+  </ul>
+</div>
+
+
+{/* model for search result */}
+
+   
+             <SearchModel/>
+              {/* <div className="search-container row justify-content-center mt-2 mb-md-5">
                 <div className="main col-lg-6 col-md-8 col-10 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
                   <div className="row " id="inner-col">
                     <div className="col-lg-4" id="res1">
@@ -325,7 +343,7 @@ export default function () {
                   <button className="btn btn-danger px-3 fs-5" id="btnsearch">Search</button></div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
