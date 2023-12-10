@@ -11,17 +11,31 @@ import { responsive } from "./responsive";
 import CarouselPlaceholder from "./CarouselPlaceholder"
 import { FaRupeeSign } from "react-icons/fa";
 
-export default function RelatedProperty() {
+export default function RelatedProperty({propertyType,propertyFor,propertyId}) {
  
-
   const [properties, setProperties] = useState(null);
   const [propertiesImages, setPropertiesImages] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
-      setProperties(response.data);
+      if(propertyType && propertyFor){
+        if(propertyFor=="rent"){
+          const response = await axios.get('http://localhost:4000/api/property/getPropertyForRent/');
+          setProperties(response.data);
+        }
+        else{
+          const response = await axios.get(`http://localhost:4000/api/property/getPropertyByType/${propertyType}`);
+          setProperties(response.data);
+        }
+
+        
+      }
+      else{
+        const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+        setProperties(response.data);
+      }
+      
     } catch (error) {
       console.error('Error fetching properties:', error);
     }
@@ -59,15 +73,19 @@ export default function RelatedProperty() {
         ) : (
 
         // Render the component only if data is available
-        properties && properties.data && properties.data.length > 0 ? (
+        
+        properties && properties?.data && properties?.data.length > 0 && properties?.data
+        .filter(property => property.id != propertyId).length>0 ? (
           <div className="row cardBox">
             <Carousel responsive={responsive} showDots={true}>
               
-              {properties.data.map((property) => {
+              {properties?.data
+              .filter(property => property.id != propertyId) // Filter out the property with the specified ID
+              .map((property) => {
                 const matchingImages = propertiesImages?.data.filter(
                   (image) => image.property_id == property.id
                 );
-                const imageSrc = matchingImages && matchingImages.length  > 0  ? matchingImages[0].image : null;
+                const imageSrc = matchingImages && matchingImages?.length  > 0  ? matchingImages[0]?.image : null;
                 console.log(imageSrc)
                 return (
                   <div className="col-12 col-md-4 mb-4" key={property.id}>
