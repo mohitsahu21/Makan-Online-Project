@@ -67,9 +67,9 @@ const Footer = () => {
                 </ul>
                 <div className="">
                 <ul>
-                  <li> <img src={logo} height={100} width={200} alt="" className="rounded-3" /> </li>
-                  <li><h5 className="mt-3 mx-5">Follow us on</h5></li>
-                  <li><div className="d-flex gap-5 mt-3">
+                  <li> <img src={logo}  alt="" className=" img rounded-3" /> </li>
+                  <li><h5 className="hdd mt-3 ">Follow us on</h5></li>
+                  <li><div className="icon d-flex mt-3">
                     
                   <BsFacebook size={30}    onMouseOver={({ target }) =>
                         (target.style.color = "blue")
@@ -102,7 +102,7 @@ const Footer = () => {
               </div>
              
               <div>
-                  <h5 className="text-white text-center">@2023 MakanOnline. All Right Reserved</h5> 
+                  <h5 className="text-white text-center">@2023 Doaguruinfosystems. All Right Reserved</h5> 
                 
                 </div>
             </div>
@@ -152,5 +152,26 @@ const Container = styled.div`
       list-style-type: none;
       color: white;
     }
+  }
+  .img{
+    height:100px;
+     width:200px;
+     @media screen and (min-width: 768px) and (max-width: 1020px) {
+      width: 135px;
+     }
+  }
+  .hdd{
+    margin-left: 3rem;
+    margin-right: 3rem;
+     @media screen and (min-width: 768px) and (max-width: 1020px) {
+      width: 8rem;
+      margin-left: 0rem;
+     }
+  }
+  .icon{
+    gap: 3rem;
+     @media screen and (min-width: 768px) and (max-width: 1020px) {
+      gap: 1rem;
+     }
   }
 `;

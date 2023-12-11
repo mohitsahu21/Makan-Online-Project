@@ -3,6 +3,14 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import BlogPost from "../components/BlogPost";
+import Blog1 from './../components/Blogs/Blog1';
+import Blog2 from "../components/Blogs/Blog2";
+import Blog3 from "../components/Blogs/Blog3";
+import Blog4 from "../components/Blogs/Blog4";
+import Blog5 from "../components/Blogs/Blog5";
+import Blog6 from "../components/Blogs/Blog6";
+import Blog7 from "../components/Blogs/Blog7";
+import Blog8 from "../components/Blogs/Blog8";
 
 function Blogs() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -44,23 +52,32 @@ function Blogs() {
        </div> */}
 
         <div className="row mt-5 cardBox">
-            <div className="col-12 col-md-4 mb-4 ">
-            <BlogPost/>
+            <div className="col-lg-4 col-md-6   mb-4 ">
+            <Blog1/>
             </div>
-            <div className="col-12 col-md-4 mb-4">
-            <BlogPost/>
+            <div className="col-lg-4 col-md-6   mb-4">
+          <Blog2/>
             </div>
-            <div className="col-12 col-md-4 mb-4">
-            <BlogPost/>
+            <div className="col-lg-4 col-md-6   mb-4">
+              <Blog3/>
             </div>
-            <div className="col-12 col-md-4 mb-4">
-            <BlogPost/>
+            <div className="col-lg-4 col-md-6   mb-4">
+            <Blog4/>
             </div>
-            <div className="col-12 col-md-4 mb-4">
-            <BlogPost/>
+            <div className="col-lg-4 col-md-6   mb-4">
+            <Blog5/>
             </div>
-            <div className="col-12 col-md-4 mb-4">
-            <BlogPost/>
+            <div className="col-lg-4 col-md-6   mb-4">
+            <Blog6/>
+            </div>
+            <div className="col-lg-4 col-md-6   mb-4">
+            <Blog7/>
+            </div>
+            <div className="col-lg-4 col-md-6   mb-4">
+            <Blog8/>
+            </div>
+            <div className="col-lg-4 col-md-6 col-12  mb-4">
+            
             </div>
         </div>
         
