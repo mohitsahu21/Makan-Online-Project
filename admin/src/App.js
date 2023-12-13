@@ -69,7 +69,7 @@ function App() {
         <Route path="/admin/add-property" element={<AddProperty/>} />
         <Route path="/admin/add-property/add-images/:propertyId" element={<AddImages/>} />
         <Route path="/admin/add-suggested-property" element={<AddsuggestedProperty/>} />
-
+        <Route path="/property/:propertyId" element={<SingleProperty/>} />
        
 
       </Routes>
