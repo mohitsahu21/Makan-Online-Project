@@ -1,171 +1,418 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from '../NavbarAd'
-import { Link } from "react-router-dom";
+
+import { Link , useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaRupeeSign } from "react-icons/fa";
 import { PiArrowFatLineRightFill } from "react-icons/pi";
 import ContactUsModel from "./ContactUsModel";
 import SideBlog from "./SideBlog";
 import RelatedProperty from "./RelatedProperty";
+import axios from 'axios';
+import placeholder_img from '../../images/placeholder-image.jpeg';
+
+
+import NavbarAd from "../NavbarAd";
 
 
 function SingleProperty() {
     const [isScrolled, setIsScrolled] = useState(false);
-   
+    const { propertyId } = useParams();
+    const [property, setProperty] = useState(null);
+    const [propertyImages, setPropertyImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+
+  // Function to fetch property details by propertyId
+const fetchPropertyDetails = async (propertyId) => {
+  try {
+    const response = await axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching property details:', error);
+    throw error; // Re-throw the error to be handled by the caller
+  }
+};
+
+// Function to fetch property images by propertyId
+const fetchPropertyImages = async (propertyId) => {
+  try {
+    const response = await axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Error fetching property images:', error);
+    return []; // Return an empty array in case of an error
+  }
+};
+  
+
+  // Function for fullscreen the image
+  const toggleFullScreen = () => {
+    const element = document.getElementById("carousel-inner");
+  
+    const fullscreenChangeHandler = () => {
+      setIsFullScreen(
+        document.fullscreenElement ||
+          document.mozFullScreenElement ||
+          document.webkitFullscreenElement ||
+          document.msFullscreenElement
+      );
+  
+      // Check if zoomable image exists
+      const image = document.querySelector(".zoomable-image");
+      if (image) {
+        image.classList.remove("zoomed-image");
+      }
+    };
+  
+    if (!isFullScreen) {
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+  
+    // Add event listener for fullscreen change
+    document.addEventListener("fullscreenchange", fullscreenChangeHandler);
+    document.addEventListener("mozfullscreenchange", fullscreenChangeHandler);
+    document.addEventListener(
+      "webkitfullscreenchange",
+      fullscreenChangeHandler
+    );
+    document.addEventListener("msfullscreenchange", fullscreenChangeHandler);
+  
+    // Add click event listener for zooming
+    const image = document.querySelector(".zoomable-image");
+    if (image) {
+      image.addEventListener("click", () => {
+        image.classList.toggle("zoomed-image");
+      });
+    }
+  };
+  
+
+  
+    // useEffect(() => {
+    //   // Fetch property details using propertyId
+    //   const fetchProperty = async () => {
+    //     try {
+    //       const response = await axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`);
+    //       console.log(response.data);
+    //       setProperty(response.data.data); // Set property in state
+    //       setLoading(false); // Set loading to false
+    //       // Handle the response data as needed
+    //     } catch (error) {
+    //       console.error('Error fetching property:', error);
+    //       setLoading(false); // Set loading to false in case of an error
+    //       // Handle errors
+    //     }
+    //   };
+  
+    //   fetchProperty();
+    // }, [propertyId]);
+
+    
+  // useEffect(() => {
+  //   // Fetch property details and property images concurrently
+  //   const fetchData = async () => {
+  //     try {
+  //       const [propertyResponse, imagesResponse] = await Promise.all([
+  //         axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`),
+  //         axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`),
+  //       ]);
+
+  //       setProperty(propertyResponse.data.data);
+  //       setPropertyImages(imagesResponse.data.data);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //       setLoading(false);
+  //       // Handle errors
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [propertyId]);
+
+  useEffect(() => {
+    // Fetch property details
+    const fetchPropertyData = async () => {
+      try {
+        const propertyDetails = await fetchPropertyDetails(propertyId);
+        setProperty(propertyDetails);
+
+        // Fetch property images
+        const images = await fetchPropertyImages(propertyId);
+        setPropertyImages(images);
+
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        // Handle errors
+      }
+    };
+
+    fetchPropertyData();
+  }, [propertyId]);
+
+  
+  // const iframeCode = property?.property_location;
+  // const srcRegex = /src="([^"]+)"/;
+  // const match = iframeCode?.match(srcRegex);
+
+  // // Declare srcValue here
+  // let srcValue;
+
+  // if (match) {
+  //   // Assign the value to srcValue
+  //   srcValue = match[1];
+  //   console.log(srcValue);
+  // } else {
+  //   console.error('No src attribute found in the iframe code.');
+  // }
+
+  console.log(propertyImages)
+  console.log(property)
+ 
 
   return (
-    <>
     <Container>
-    <Navbar isScrolled={isScrolled} />
-    <div className="container-fluid mt-5">
+    <div>
+      
+      <NavbarAd/>
+      {loading ? (
+        // Loading...
+        // placeholder when load the page
+        <div class="card" aria-hidden="true">
+  <img src={placeholder_img}  class="card-img-top" style={{maxWidth:"100vw" , maxHeight: "70vh"}} alt="..."/>
+  <div class="card-body">
+    <h5 class="card-title placeholder-glow">
+      <span class="placeholder col-6"></span>
+    </h5>
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-7"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-4"></span>
+      <span class="placeholder col-6"></span>
+      <span class="placeholder col-8"></span>
+    </p>
+    <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+  </div>
+</div>
+      ) : (
+
+    <>
+    
+    
+    
+    <div className="container mt-5">
         <div className="row">
             <div className="col-12 mt-4">
-            <small> <span className="text-muted">All You Need To Know About 1596 Sq.Ft. 3 BHK Residential Independent House </span></small>
+            <small> <span className="text-muted">{`All You Need To Know About ${property?.property_name}`} </span></small>
                 <h3 className="mt-3">
-                1596 Sq.Ft. 3 BHK Residential Independent House / Villa for Sale in Katara Hills
+                {property?.property_name}
                 </h3>
-                <div className="d-flex gap-3 justify-content-start"><span className="text-muted "><FaLocationDot/> Katara Hills,Bhopal</span>   <h4 className="me-2 text-info"><FaRupeeSign /> 2,49,500</h4>
+                <div className="d-flex gap-3 justify-content-start"><span className="text-muted "><FaLocationDot/> {property?.property_address}</span>   <h4 className="me-2 text-info"><FaRupeeSign /> {property?.price}</h4>
               </div>
-            <div id="carouselExampleIndicators" className="carousel slide">
-  <div className="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div className="carousel-inner">
-    <div className="carousel-item active">
-      <img src="https://images.homes.com/listings/116/9760447643-035979161/267-lincoln-ave-new-rochelle-ny-primaryphoto.jpg" className="d-block w-100" alt="..."/>
-    </div>
-    <div className="carousel-item">
-      <img src="https://images.homes.com/listings/116/8860447643-035979161/267-lincoln-ave-new-rochelle-ny-buildingphoto-2.jpg" className="d-block w-100" alt="..."/>
-    </div>
-    <div className="carousel-item">
-      <img src="https://images.homes.com/listings/116/3960447643-035979161/267-lincoln-ave-new-rochelle-ny-buildingphoto-4.jpg" className="d-block w-100" alt="..."/>
-    </div>
-  </div>
-  <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Previous</span>
-  </button>
-  <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Next</span>
-  </button>
-</div>
+
+           {/* carousel for property images */}
+
+           {
+            propertyImages&& propertyImages?.length>0 ? (
+              <>
+              <div id="carouselExampleIndicators" className="carousel slide">
+              <div className="carousel-indicators">
+                {propertyImages &&
+                  propertyImages?.map((image, index) => (
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to={index}
+                      className={index === 0 ? 'active' : ''}
+                      key={index}
+                      aria-label={`Slide ${index + 1}`}
+                    ></button>
+                  ))}
+              </div>
+              <div className="carousel-inner" id="carousel-inner">
+                {propertyImages &&
+                  propertyImages?.map((image, index) => (
+                    <div key={image?.id} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                      <img src={image?.image} className="d-block img-fluid mx-auto zoomable-image" onClick={toggleFullScreen}  alt="propertyImages" />
+                     
+                    </div>
+                  ))}
+              </div>
+            
+              <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Next</span>
+              </button>
+            </div>
+            </>
+            )
+            :
+            <img src={placeholder_img} className="d-block img-fluid mx-auto" alt="Placeholder" style={{ maxWidth: "100%", maxHeight: "70vh" }} />
+           }  
+           
+
             </div>
         </div>
 
         <div className="row">
+           {property?.property_video && (
+            <div className="text-center mt-3">         
+           <a href={`${property.property_video}`} target="blank"> <button type="button" className="btn btn-outline-secondary ">
+            View Property Video
+          </button></a>
+    
+          </div> 
+           )}
+            
+
             <div className="col-12 col-lg-8 mt-5">
               
               <h5 className="">PROPERTY DETAILS</h5>
               <div className="row mt-3 property-detail">
                 <div className="col-4">
                     <span className="d-block">Property Id</span>
-                   <span className="fw-semibold">RP230623-152218-1023</span>
+                   <span className="fw-semibold">{property?.id}</span>
                 </div>
                 <div className="col-4">
                 <span className="d-block">Type</span>
-                    <p className="fw-semibold">Residential Independent House / Villa</p>
+                    <p className="fw-semibold">{property?.property_type}</p>
                 </div>
                 <div className="col-4">
-                <span className="d-block">Total Room</span>
-                    <p className="fw-semibold">3</p>
+                <span className="d-block">Property For</span>
+                    <p className="fw-semibold">{property?.property_for}</p>
+                </div>
+
+                <div className="col-4">
+                <span className="d-block">Number of BHK</span>
+                    <p className="fw-semibold">{property?.bhk}</p>
+                    </div>
+                    {property?.property_for == "sale" && (
+                        <div className="col-4">
+                        <span className="d-block">New/Resale</span>
+                        <span className="fw-semibold">{property?.new_resale}</span>
+                    </div>
+                    )}
+                    {property?.property_for == "sale" && (
+                        <div className="col-4">
+                        <span className="d-block">TNCP Approved</span>
+                        <span className="fw-semibold">{property?.tncp}</span>
+                    </div>
+                    )}
+                     {property?.property_for == "sale" && (
+                        <div className="col-4">
+                        <span className="d-block">RERA Number</span>
+                        <span className="fw-semibold">{property?.rera}</span>
+                    </div>
+                    )}
+                   
+                <div className="col-4">
+                <span className="d-block">Structur</span>
+                    <p className="fw-semibold">{property?.structure}</p>
+                </div>
+                <div className="col-4">
+                <span className="d-block">Square Feet</span>
+                    <p className="fw-semibold">{`${property?.square_ft} Sq.Ft.`}</p>    
+                </div>
+                <div className="col-4">
+                <span className="d-block">Dimention</span>
+                    <p className="fw-semibold">{property?.dimension}</p>
                     </div>
                     <div className="col-4">
-                    <span className="d-block">Salable Area</span>
-                    <span className="fw-semibold">1596 Sq.Ft.</span>
+                    <span className="d-block">Car Parking</span>
+                    <span className="fw-semibold">{property?.car_parking}</span>
                 </div>
                 <div className="col-4">
-                <span className="d-block">City</span>
-                    <p className="fw-semibold">Bhopal</p>
-                </div>
-                <div className="col-4">
-                <span className="d-block">Location</span>
-                    <p className="fw-semibold">Katara Hills</p>    
+                <span className="d-block">Year Built</span>
+                    <p className="fw-semibold">{property?.year_built}</p>
                 </div>
                 <div className="col-4">
                 <span className="d-block">Facing</span>
-                    <p className="fw-semibold">East</p>
-                    </div>
-                    <div className="col-4">
-                    <span className="d-block">Furnishing</span>
-                    <span className="fw-semibold">Semi Furnished</span>
+                    <p className="fw-semibold">{property?.facing}</p>    
                 </div>
                 <div className="col-4">
-                <span className="d-block">Possession Status</span>
-                    <p className="fw-semibold">Immediately</p>
+                <span className="d-block">Furnishing</span>
+                    <p className="fw-semibold">{property?.furnishing}</p>    
                 </div>
                 <div className="col-4">
-                <span className="d-block">Transaction</span>
-                    <p className="fw-semibold">Resale</p>    
+                <span className="d-block">Carpet Area</span>
+                    <p className="fw-semibold">{property?.carpet_area}</p>    
+                </div>
+                <div className="col-4">
+                <span className="d-block">Bathroom</span>
+                    <p className="fw-semibold">{property?.bathroom}</p>    
+                </div>
+                <div className="col-4">
+                <span className="d-block">Property On Floor</span>
+                    <p className="fw-semibold">{property?.property_on_floor}</p>    
+                </div>
+                <div className="col-4">
+                <span className="d-block">Flooring</span>
+                    <p className="fw-semibold">{property?.flooring}</p>    
+                </div>
+                <div className="col-4">
+                <span className="d-block">Age of Property</span>
+                    <p className="fw-semibold">{`${property?.age_of_property} years`}</p>    
+                </div>
+                <div className="col-4">
+                <span className="d-block">Parking</span>
+                    <p className="fw-semibold">{property?.parking}</p>    
+                </div>
+                <div className="col-4">
+                <span className="d-block">Lift</span>
+                    <p className="fw-semibold">{property?.lift}</p>    
                 </div>
 
               </div>
               <h5 className="mt-3">ABOUT PROPERTY</h5>
               <p className="text-muted about-property">
-              3 BHK Residential House - 1596 Sq-ft For Sale Katara Hills, Bhopal. More Detail: 3Beds, 3Baths, 2Balconies, Semi-Furnished Carpet Area - 840 sqft ₹5,714/sqft Transaction Type - Resale Status - Ready to Move Additional Rooms - 1 Study Room Facing - East Furnished Status - Semi-Furnished Type Of Ownership - Freehold Age Of Construction - 5 to 10 years Price Breakup - ₹48 Lac Address - Fortune Soumya Atlantis, Katara Hills, Bhopal, Madhya Pradesh Furnishing - Semi-Furnished Type of Ownership - Freehold Overlooking - Garden/Park, Main Road Age of Construction - 5 to 10 years Additional Rooms - Puja Room, Study. For More Details About this Property : Call - 8827795555, 7974789284, 7067217769 Mail ID - makaanonline21@gmail.com
+              {property?.property_description}
               </p>
               <div className="row">
                 <div className="col-12 special-highlights">
                 <h5 className="mt-3">SPECIAL HIGHLIGHTS :</h5>
 
-                                  <ul className="list p-0">
-                                      <li><p><PiArrowFatLineRightFill /> Good No. of Common/Visitor Parking</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Main Road Facing</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> 24 X 7 working</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Good Ceiling Height</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Good Natural Light in the unit</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Attractive entrance gate</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Secured compound wall</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Gated community</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Immediate possession</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Peaceful & Pollution free environment.</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> 24/7 Water Supply</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Environment Clearance Available</p>  </li>
+                        <ul className="list p-0">
+                          {property?.service_lift_available == 1 && (<li><p><PiArrowFatLineRightFill /> Service Lift Available</p></li>)}
+                          {property?.common_visitor_parking == 1 && (<li><p><PiArrowFatLineRightFill /> Good No. of Common/Visitor Parking</p></li>)}
+                          {property?.main_road_facing == 1 && (<li><p><PiArrowFatLineRightFill /> Main Road Facing</p></li>)}
+                          {property?.working_24_7 == 1 && <li><p><PiArrowFatLineRightFill /> 24 X 7 working</p>  </li>}
+                          {property?.good_ceiling_height == 1 && (<li><p><PiArrowFatLineRightFill /> Good Ceiling Height</p></li>)}
+                          {property?.good_natural_light == 1 && (<li><p><PiArrowFatLineRightFill /> Good Natural Light in the unit</p>  </li>)}
+                          {property?.attractive_entrance_gate == 1 && (<li><p><PiArrowFatLineRightFill /> Attractive entrance gate</p>  </li>)}
+                          {/* { property.(<li><p><PiArrowFatLineRightFill /> Secured compound wall</p>  </li>)} */}
+                          {property?.gated_community == 1 && (<li><p><PiArrowFatLineRightFill /> Gated community</p>  </li>)}
+                          {property?.property_for == "sale" && property?.immediate_possession == 1 && (<li><p><PiArrowFatLineRightFill /> Immediate possession</p>  </li>)}
+                          {/* {property. ( <li><p><PiArrowFatLineRightFill /> Peaceful & Pollution free environment.</p>  </li>)} */}
+                          {property?.landscape_garden == 1 && (<li><p><PiArrowFatLineRightFill /> Landscape Garden</p>  </li>)}
+                          {property?.water_supply_24_7 == 1 && (<li><p><PiArrowFatLineRightFill /> 24/7 Water Supply</p>  </li>)}
+                          {property?.bore_well_water_24_7 == 1 && (<li><p><PiArrowFatLineRightFill /> 24/7 Bore Well Water</p>  </li>)}
+                          {property?.environment_clearance_available == 1 && (<li><p><PiArrowFatLineRightFill /> Environment Clearance Available</p>  </li>)}
 
-                                  </ul>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-12 recommended">
-                <h5 className="mt-3">RECOMMENDED :</h5>
-                <ul className="list p-0 ">
-                                      <li><p><PiArrowFatLineRightFill />  Good No. of Common/Visitor Parking</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> Main Road Facing</p>  </li>
-                                      <li><p><PiArrowFatLineRightFill /> 24 X 7 working</p>  </li>
-                                      
-
-                                  </ul>
-
-
-                                 
-                </div>
-              </div>
-
-              <div className="row other-feature">
-                <div className="col-12">
-                <h5 className="mt-5">OTHER FEATURE :</h5>
-                <div className="row mt-3">
-                <div className="col-4">
-                    <span className="d-block">Carpet Area</span>
-                    <span className="fw-semibold">840 Sq.Ft.</span>
-                </div>
-                <div className="col-4">
-                <span className="d-block">Bathromm</span>
-                    <p className="fw-semibold">3</p>
-                </div>
-                <div className="col-4">
-                <span className="d-block">Age Of Property</span>
-                    <p className="fw-semibold">5-10 years</p>
-                    </div>
-                    </div>
-                    <div className="col-4">
-                <span className="d-block">Parking</span>
-                    <p className="fw-semibold">1</p>
-                    </div>
-                                    
+                        </ul>
                 </div>
               </div>
 
@@ -173,44 +420,123 @@ function SingleProperty() {
                 <div className="col-12 amenities">
                 <h5 className="mt-5">AMENITIES :</h5>
                 <div className="row mt-3">
-                <div className="col-4">
-                <p><PiArrowFatLineRightFill />  Balcony</p>
-                    
-                </div>
-                <div className="col-4">
-                <p><PiArrowFatLineRightFill /> Entry Gate</p>
-                    
-                </div>
-                <div className="col-4">
-                <p><PiArrowFatLineRightFill /> 24/7 Security</p>
+             {property?.swimming_pool==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Swimming Pool</p>
+                  
+              </div>)}
+              
+             {property?.terrace==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Terrace</p>
+                  
+              </div>)}
+              
+             {property?.air_conditioning==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Air Conditioning</p>
+                  
+              </div>)}
+              
+             {property?.cable_tv==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill /> Cable TV</p>
+                  
+              </div>)}
+              
+             {property?.balcony==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill /> Balcony</p>
+                  
+              </div>)}
+              
+             {property?.internet==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill /> Internet</p>
+                  
+              </div>)}
+              
+             {property?.computer==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Computer</p>
+                  
+              </div>)}
+              
+             {property?.dishwasher==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill /> Dishwasher</p>
+                  
+              </div>)}
+              
+             {property?.near_green_zone==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Near Green Zone</p>
+                  
+              </div>)}
+              
+             {property?.near_temple==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Near Temple</p>
+                  
+              </div>)}
+              
+             {property?.entry_gate==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Entry Gate</p>
+                  
+              </div>)}
+              
+             {property?.activity_area==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Activity Area</p>
+                  
+              </div>)}
+             {property?.security_24_7==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  24/7 Security</p>
+                  
+              </div>)}
+              
+            
+              
+                    </div>
                    
-                    </div>
-                    </div>
-                    <div className="col-4">
-                    <p><PiArrowFatLineRightFill />  Activity Area</p>
-                    
-                    </div>
                                     
                 </div>
               </div>
 
+              <div className="row">
+                <div className="col-12 recommended">
+                <h5 className="mt-3">RECOMMENDED :</h5>
+                        <ul className="list p-0 ">
+                          {property?.long_term_investment == 1 && (<li><p><PiArrowFatLineRightFill />  Long term investment</p>  </li>)}
+                          {property?.own_purpose == 1 && (<li><p><PiArrowFatLineRightFill />  Own purpose</p>  </li>)}
+                          {property?.investment == 1 && (<li><p><PiArrowFatLineRightFill />  Investment</p>  </li>)}
+                        </ul>
+
+
+                                 
+                </div>
+              </div>
+
+            
+
+              
+{/* 
               <div className="row ">
                 <div className="col-12 ">
                 <h5 className="mt-5">LOCATION</h5>
+
                 <div className="map-container border border-primary rounded mt-3">
-                <iframe className="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3668.179981810829!2d79.92040930961065!3d23.163630310964717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3981b116195eee4f%3A0x62196cfaef1c23c7!2sDOAGURU%20INFO%20SYSTEMS-%20Best%20Digital%20Marketing%20Company%20in%20Jabalpur%7CBest%20Software%20company%20in%20jabalpur%7CIT%20Company%20in%20Jabalpur!5e0!3m2!1sen!2sin!4v1700317566925!5m2!1sen!2sin"   allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              
+                <iframe className="map" src={srcValue}   allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              
+               
                    </div>                 
                 </div>
-              </div>
+              </div> */}
 
              
 
             </div>
             <div className="col-12 col-lg-4 mt-5 ">
-                
-                <ContactUsModel/>
+        {/* <div className="text-center mb-3">         
+        <button type="button" className="btn btn-outline-secondary ">
+        View Property Video
+      </button>
 
-                <div className="row d-flex justify-content-center mt-5">
+      </div>  */}
+          
+                {/* <ContactUsModel/> */}
+
+                {/* <div className="row d-flex justify-content-center mt-5">
                     <div className="col-12">
                         <h5 className="mb-3">Interesting Blogs</h5>
                        <SideBlog/>
@@ -220,7 +546,7 @@ function SingleProperty() {
                        <SideBlog/>
                         
                     </div>
-                </div>
+                </div> */}
                
         </div>
         </div>
@@ -229,31 +555,86 @@ function SingleProperty() {
 
                
                 
-                <RelatedProperty/>
+                <RelatedProperty propertyType={property?.property_type} propertyFor={property?.property_for} propertyId={property?.id}/>
                
                                     
               
         </div> 
 
     </div>
-    </Container>
+    
     </>
+      )}
+      </div>
+      </Container>
   )
 }
 
 export default SingleProperty
 
 const Container = styled.div`
+.nav1{
+    display: block;
+    @media screen and (max-width: 768px) {
+   
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+    @media screen and (max-width: 768px) {
+   
+   display: block;
+   
+ }
+   
+  }
+/* CSS Styles for Zooming */
+.zoomable-image {
+  cursor: zoom-in;
+  transition: transform 0.3s ease-in-out;
+}
+
+.zoomed-image {
+  cursor: zoom-out;
+  transform: scale(1.5); /* Adjust the scale factor for zoom level */
+}
+
+.carousel-inner{
+  /* height: 100vh; */
+  overflow: hidden;
+  background-color: #eaebed;
+}
+
 
 .carousel-item{
-    @media only screen and (min-width: 992px) {
-        height: 80vh;
+    @media only screen and (max-width: 1025px) {
+      
     img{
-      height: 100%;
-        
+      
+      /* width: 100%;
+      height: 100%; */
+      max-width: 100%;
+      height: 70vh;
+      
+      
     }
      
     }  
+    @media only screen and (min-width: 1025px) {
+      
+      img{
+        object-fit: cover;
+        /* width: 100%;
+        height: 100%; */
+        max-width: 150%;
+        height: 100vh;
+        
+        
+      }
+       
+      }
 }
 .list{
     list-style: none;

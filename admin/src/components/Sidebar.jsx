@@ -51,32 +51,7 @@ function Sidebar() {
                 </a>
              {" "}
             </li>
-            <li>
-            
-                <a className="d-flex gap-2 text-decoration-none">
-                  <i className="fs-4 bi bi-receipt-cutoff"></i>
-                  <br />
-                  <span className="d-none d-sm-inline" id="navleft">
-      <Dropdown>
-        <Dropdown.Toggle variant="" id="dropdown-basic">
-          Types
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item ><Link to='/admin_house' className=" text-decoration-none text-black">House</Link></Dropdown.Item>
-          <Dropdown.Item><Link to="/admin_villa" className=" text-decoration-none text-black">Villa</Link></Dropdown.Item>
-          <Dropdown.Item><Link  to="/admin_plot" className=" text-decoration-none text-black">Plot</Link></Dropdown.Item>
-          <Dropdown.Item ><Link  to="/admin_land" className=" text-decoration-none text-black">Land</Link></Dropdown.Item>
-          <Dropdown.Item ><Link  to="/admin_flat" className=" text-decoration-none text-black">Flat</Link></Dropdown.Item>
-          <Dropdown.Item ><Link  to="/admin_farmhouse" className=" text-decoration-none text-black">FarmHouse</Link></Dropdown.Item>
-          <Dropdown.Item ><Link  to="/admin_farmland" className=" text-decoration-none text-black">FarmLand</Link></Dropdown.Item>
-          <Dropdown.Item ><Link  to="/admin_commerical" className=" text-decoration-none text-black">Commercial</Link></Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    </span>
-                </a>
-             
-            </li>
+         
             
               <li>
               
