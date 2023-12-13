@@ -72,9 +72,6 @@ function App() {
 
        
 
-       
-
-
       </Routes>
       <FooterAd />
       </div>
