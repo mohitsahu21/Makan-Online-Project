@@ -309,7 +309,7 @@ export default function PropertyType() {
                           </small>
                           
                         </p>
-                        <button className="btn btn-success  btn-sm ">Edit</button>
+                       <Link to={`/property/edit-property/${property.id}`}> <button className="btn btn-success  btn-sm ">Edit</button></Link>
       <button className="btn btn-danger mx-3 mx-md-1 btn-sm ">Delete</button>
                       </div>
                     </div>

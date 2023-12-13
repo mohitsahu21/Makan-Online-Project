@@ -9,7 +9,7 @@ import LoginAd from "./pages/LoginAd";
 import PropertyAd from "./components/PropertyAd";
 import SingleProperty from "./components/SingleProperty/SingleProperty";
 
-import SingleBlog from "./components/SingleBlog/SingleBlog";
+
 import Commercial from './components/Typesofproperty/Commercial';
 import Villa from './components/Typesofproperty/Villa';
 import Plot from './components/Typesofproperty/Plot';
@@ -26,6 +26,7 @@ import AddProperty from './components/AddProperty';
 import AddImages from './components/AddImages';
 import AddsuggestedProperty from './components/AddsuggestedProperty';
 import { useDispatch, useSelector } from "react-redux";
+import EditProperty from './components/EditProperty';
 
 
 
@@ -47,7 +48,7 @@ function App() {
      
         <Route path="/propertyad" Component={PropertyAd} />
         <Route path="/single_property" Component={SingleProperty} />
-        <Route path="/single_blog" Component={SingleBlog  } />
+        
        
 
         <Route path="/admin_house" Component={House} />
@@ -70,6 +71,8 @@ function App() {
         <Route path="/admin/add-property/add-images/:propertyId" element={<AddImages/>} />
         <Route path="/admin/add-suggested-property" element={<AddsuggestedProperty/>} />
         <Route path="/property/:propertyId" element={<SingleProperty/>} />
+        <Route path="/property/edit-property/:propertyId" element={<EditProperty/>} />
+
        
 
       </Routes>

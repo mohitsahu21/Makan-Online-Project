@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
+
 import { Link , useParams } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { FaRupeeSign } from "react-icons/fa";
@@ -9,9 +9,10 @@ import ContactUsModel from "./ContactUsModel";
 import SideBlog from "./SideBlog";
 import RelatedProperty from "./RelatedProperty";
 import axios from 'axios';
-import placeholder_img from '../images/placeholder-image.jpeg';
-import StickyNavbar from "../components/Navbar";
-import NavbarMob from "./NavbarMob";
+import placeholder_img from '../../images/placeholder-image.jpeg';
+
+
+import NavbarAd from "../NavbarAd";
 
 
 function SingleProperty() {
@@ -193,8 +194,7 @@ const fetchPropertyImages = async (propertyId) => {
     <Container>
     <div>
       
-      <div className="nav1"><StickyNavbar  /></div>
-          <div className="nav2"><NavbarMob /> </div>
+      <NavbarAd/>
       {loading ? (
         // Loading...
         // placeholder when load the page
@@ -534,9 +534,9 @@ const fetchPropertyImages = async (propertyId) => {
 
       </div>  */}
           
-                <ContactUsModel/>
+                {/* <ContactUsModel/> */}
 
-                <div className="row d-flex justify-content-center mt-5">
+                {/* <div className="row d-flex justify-content-center mt-5">
                     <div className="col-12">
                         <h5 className="mb-3">Interesting Blogs</h5>
                        <SideBlog/>
@@ -546,7 +546,7 @@ const fetchPropertyImages = async (propertyId) => {
                        <SideBlog/>
                         
                     </div>
-                </div>
+                </div> */}
                
         </div>
         </div>

@@ -52,6 +52,63 @@ const addProperty = async (req,res) => {
 }
 
 
+// method for edit property .
+
+const editProperty = async (req, res) => {
+    const propertyId = req.params.propertyId;
+    const formData = req.body;
+
+    // Check if all required fields are present
+    const requiredFields = [
+        "property_address",
+        "property_city",
+        "property_description",
+        "property_type",
+        "bhk",
+        "new_resale",
+        "structure",
+        "price",
+        "square_ft",
+        "dimension",
+        "car_parking",
+        "year_built",
+        "facing",
+        'furnishing',
+        "carpet_area",
+        "bathroom",
+        'property_on_floor',
+        'flooring',
+        'age_of_property',
+        'parking',
+        'lift'
+    ];
+
+    const missingFields = requiredFields.filter(field => !formData.hasOwnProperty(field));
+    if (missingFields.length > 0) {
+        return res.status(400).json({ error: `All fields are required` });
+    }
+
+    // Update the property data in the MySQL database
+    const sql = 'UPDATE properties SET ? WHERE id = ?'; // Replace 'properties' with your actual table name
+    db.query(sql, [formData, propertyId], (err, result) => {
+        if (err) {
+            console.error('Error updating data in MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if (result.affectedRows === 0) {
+                // No property found with the given ID
+                res.status(404).json({success: false, error: 'Property not found' });
+            } else {
+                console.log('Property data updated successfully');
+                res.status(200).json({success: true, message: 'Property updated successfully' });
+            }
+        }
+    });
+};
+
+
+
+
 const uploadImages =  (req, res) => {
     // Get propertyid from request body or parameters
     const {property_id} = req.body;
@@ -462,4 +519,4 @@ const getRecentlyPostedProperties = (req, res) => {
 
 
 
-module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent}
+module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty}
