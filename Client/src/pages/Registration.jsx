@@ -55,9 +55,11 @@ const Registration = () => {
         <Navbar isScrolled={isScrolled} />
         <div>
           <div className="boxContainer">
+         
             <div className="formcontent">
               <h1>Register</h1>
               <div className="mb-3">
+                
                 <label htmlFor="name" className="form-label">
                   Fullname
                 </label>
@@ -127,6 +129,7 @@ const Registration = () => {
                 </span>
               </p>
             </div>
+          
           </div>
         </div>
       </Container>

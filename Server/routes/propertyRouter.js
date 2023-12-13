@@ -31,7 +31,7 @@ router.get("/getMostVisitedProperties", getMostVisitedProperties);
 router.get("/getRecentlyPostedProperties", getRecentlyPostedProperties);
 router.get("/getPropertyForRent", getPropertyForRent);
 
-router.post("/addSuggestedProperty",addSuggestedPropperty);
+router.post("/addSuggestedProperty",authenticate,addSuggestedPropperty);
 
 
 
