@@ -134,11 +134,14 @@ import { FaRupeeSign } from "react-icons/fa";
 import NavbarAd from "./NavbarAd";
 import Sidebar from "./Sidebar";
 import SiderbarMob from "./SiderbarMob";
+import { useDispatch, useSelector } from "react-redux";
+import cogoToast from 'cogo-toast';
+
 
 
 export default function PropertyType() {
  
-
+  const {currentAdmin} = useSelector((state) => state.admin)
   const [properties, setProperties] = useState(null);
   const [propertiesImages, setPropertiesImages] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -146,6 +149,7 @@ export default function PropertyType() {
   const [selectedType, setSelectedType] = useState('');
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [selectPropertyFor,setSelectPropertyFor] = useState('sale');
+  const token = currentAdmin?.token;
 
   const getAllProperties = async () => {
     try {
@@ -164,6 +168,38 @@ export default function PropertyType() {
       console.error('Error fetching property images:', error);
     } finally {
       setLoading(false); // Set loading to false regardless of success or error
+    }
+  }
+
+  const deleteProperty = async (propertyId) =>{
+    try{
+     // Display a confirmation popup
+    const isConfirmed = window.confirm('Are you sure you want to delete this property?');
+
+    if (!isConfirmed) {
+      // If the user cancels the deletion, do nothing
+      return;
+    }
+      const response = await axios.delete(`http://localhost:4000/api/property/deleteproperty/${propertyId}`,{
+             headers:{
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+             }
+      });
+      console.log(response)
+
+      if(response.success){
+        
+        cogoToast.success(`${response.message}`);
+      }
+      else{
+        cogoToast.error(`${response.message}`);
+      }
+      
+
+    }
+    catch(err){
+      cogoToast.error(`${err.message}`);
     }
   }
 
@@ -310,7 +346,7 @@ export default function PropertyType() {
                           
                         </p>
                        <Link to={`/property/edit-property/${property.id}`}> <button className="btn btn-success  btn-sm ">Edit</button></Link>
-      <button className="btn btn-danger mx-3 mx-md-1 btn-sm ">Delete</button>
+      <button  onClick={()=>deleteProperty(property.id)} className="btn btn-danger mx-3 mx-md-1 btn-sm ">Delete</button>
                       </div>
                     </div>
                   </div>

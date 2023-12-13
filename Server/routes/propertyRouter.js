@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const authenticate = require('../middleware/authMiddleware.js');
-const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties, getPropertyForRent, editProperty} = require('../controller/PropertyController.js')
+const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties, getPropertyForRent, editProperty, delete_Property} = require('../controller/PropertyController.js')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -20,6 +20,7 @@ const upload = multer({ storage: storage });
 
 router.post("/addproperty",authenticate, addProperty);
 router.put("/editproperty/:propertyId",authenticate, editProperty);
+router.delete("/deleteproperty/:propertyId",authenticate, delete_Property);
 router.post("/upload-images", authenticate, upload.array('images', 20), uploadImages);
 router.get("/getAllProperty", getAllProperty);
 router.get("/getAllPropertyImages", getAllPropertyImages);

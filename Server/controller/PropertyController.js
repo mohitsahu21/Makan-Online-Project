@@ -93,11 +93,11 @@ const editProperty = async (req, res) => {
     db.query(sql, [formData, propertyId], (err, result) => {
         if (err) {
             console.error('Error updating data in MySQL:', err);
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({ error: 'Internal Server Error', message: 'Internal Server Error'});
         } else {
             if (result.affectedRows === 0) {
                 // No property found with the given ID
-                res.status(404).json({success: false, error: 'Property not found' });
+                res.status(404).json({success: false, error: 'Property not found' , message: 'Property not found' });
             } else {
                 console.log('Property data updated successfully');
                 res.status(200).json({success: true, message: 'Property updated successfully' });
@@ -106,9 +106,41 @@ const editProperty = async (req, res) => {
     });
 };
 
+// method for delete property
+
+const delete_Property = async (req, res) => {
+    const propertyId = req.params.propertyId;
+
+    // Check if the property with the given ID exists
+    const checkSql = 'SELECT * FROM properties WHERE id = ?'; // Replace 'properties' with your actual table name
+    db.query(checkSql, propertyId, (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error('Error checking property existence in MySQL:', checkErr);
+            res.status(500).json({success:false, error: 'Internal Server Error', message: 'Internal Server Error'  });
+        } else {
+            if (checkResult.length === 0) {
+                // No property found with the given ID
+                res.status(404).json({success:false,  error: 'Property not found', message: 'Property not found' });
+            } else {
+                // Delete the property from the MySQL database
+                const deleteSql = 'DELETE FROM properties WHERE id = ?'; // Replace 'properties' with your actual table name
+                db.query(deleteSql, propertyId, (deleteErr, deleteResult) => {
+                    if (deleteErr) {
+                        console.error('Error deleting data in MySQL:', deleteErr);
+                        res.status(500).json({ success:false, error: 'Internal Server Error', message: 'Internal Server Error' });
+                    } else {
+                        console.log('Property deleted successfully');
+                        res.status(200).json({ success:true, message: 'Property deleted successfully' });
+                    }
+                });
+            }
+        }
+    });
+};
 
 
 
+// method for upload images
 const uploadImages =  (req, res) => {
     // Get propertyid from request body or parameters
     const {property_id} = req.body;
@@ -519,4 +551,4 @@ const getRecentlyPostedProperties = (req, res) => {
 
 
 
-module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty}
+module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty,delete_Property}
