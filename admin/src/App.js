@@ -27,6 +27,9 @@ import AddImages from './components/AddImages';
 import AddsuggestedProperty from './components/AddsuggestedProperty';
 import { useDispatch, useSelector } from "react-redux";
 import EditProperty from './components/EditProperty';
+import EditImages from './components/EditImages';
+import PrivateRoute from './components/PrivateRoute';
+
 
 
 
@@ -35,16 +38,18 @@ function App() {
   return (
     <>
      <div className="" style={{overflowX:"hidden"}}>
+     
       <Routes>
         
-      
+        
         <Route path='/' element={currentAdmin ? <AdminHome/> : <LoginAd/>} />
         <Route path="/allproperties" element={<AllProperties/>} />
+       {/* <PrivateRoute path="/allproperties" element={<AllProperties />} />  */}
         <Route path="/admin_register" element={currentAdmin ?  <AdminHome/> :<RegistrationAd/>} />
         <Route path="/admin_forgot" element={ currentAdmin ?  <AdminHome/> :<ForgotPassword/>} />
         <Route path="/admin_login"  element={currentAdmin ?  <AdminHome/> : <LoginAd/>} />
         
-      
+        
      
         <Route path="/propertyad" Component={PropertyAd} />
         <Route path="/single_property" Component={SingleProperty} />
@@ -66,12 +71,15 @@ function App() {
 
 
         
+        
+
 
         <Route path="/admin/add-property" element={<AddProperty/>} />
         <Route path="/admin/add-property/add-images/:propertyId" element={<AddImages/>} />
         <Route path="/admin/add-suggested-property" element={<AddsuggestedProperty/>} />
         <Route path="/property/:propertyId" element={<SingleProperty/>} />
         <Route path="/property/edit-property/:propertyId" element={<EditProperty/>} />
+        <Route path="/property/edit-property-images/:propertyId" element={<EditImages/>} />
 
        
 
