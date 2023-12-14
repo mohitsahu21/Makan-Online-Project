@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import styled from "styled-components";
@@ -11,6 +11,7 @@ function AddImages() {
   const { propertyId } = useParams();
   const {currentAdmin} = useSelector((state) => state.admin)
   const token = currentAdmin?.token;
+  const navigate = useNavigate();
   console.log(propertyId)
 
   useEffect(() => {
@@ -27,16 +28,19 @@ function AddImages() {
   
     try {
       if (!property) {
-        throw new Error('Property ID is required');
+        cogoToast.error('Property ID is required');
+        return
       }
       if(!selectedFiles){
-        throw new Error('Images is required');
+        cogoToast.error('Images is required');
+        return
+        
       }
   
       const formData = new FormData();
   
       // Append each selected file to the FormData object
-      for (let i = 0; i < selectedFiles.length; i++) {
+      for (let i = 0; i < selectedFiles?.length; i++) {
         formData.append('images', selectedFiles[i]);
       }
   
@@ -50,13 +54,23 @@ function AddImages() {
         },
       });
 
-      console.log('Upload successful:', response.data);
-      cogoToast.success(`${response.data.message}`);
+      
+      if(response?.data.success){
+        console.log('Upload successful:', response?.data);
+        cogoToast.success(`${response?.data.message}`);
+      navigate(`/property/edit-property-images/${propertyId}`)
+      }
+      else{
+        cogoToast.error(`${response?.data.message}`);
+      }
+      
+      
 
       // Handle success (e.g., show a success message)
     } catch (error) {
       console.error('Error uploading images:', error);
-      cogoToast.error(`Error uploading images: ${error.response.data.message}`);
+      cogoToast.error(`Error uploading images: ${error}`);
+      // cogoToast.error(`Error uploading images: ${error.response?.data.message}`);
       // Handle error (e.g., show an error message to the user)
     }
   };
@@ -90,8 +104,9 @@ function AddImages() {
                               <label for="formFileMultiple" class="form-label">Select the images for Property</label>
                               <input class="form-control" type="file" id="formFileMultiple" multiple  onChange={handleFileChange} accept="image/png, image/gif, image/jpeg"/>
                           </div>
-                          <div className='text-center'>
-                          <button type="submit" class="btn btn-primary">Submit</button>
+                          <div className='d-sm-flex justify-content-sm-center align-item-sm-center gap-3 text-center '>
+                          <button type="submit" className="btn btn-primary mt-2">Submit</button>
+                          <button onClick={()=> navigate('/allproperties')}  className="btn btn-primary mt-2 mt-0">Upload Later</button>
                           </div>
                       </form>
 

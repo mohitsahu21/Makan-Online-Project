@@ -19,6 +19,13 @@ const StickyNavbar = ({isScrolled}) => {
     setNavbarColor(newNavbarColor);
   };
   const handleLogout = () => {
+     // Display a confirmation popup
+     const isConfirmed = window.confirm('Are you sure you want to Logout?');
+
+     if (!isConfirmed) {
+       // If the user cancels the deletion, do nothing
+       return;
+     }
        dispatch(logout())
   }
 

@@ -134,11 +134,14 @@ import { FaRupeeSign } from "react-icons/fa";
 import NavbarAd from "./NavbarAd";
 import Sidebar from "./Sidebar";
 import SiderbarMob from "./SiderbarMob";
+import { useDispatch, useSelector } from "react-redux";
+import cogoToast from 'cogo-toast';
+
 
 
 export default function PropertyType() {
  
-
+  const {currentAdmin} = useSelector((state) => state.admin)
   const [properties, setProperties] = useState(null);
   const [propertiesImages, setPropertiesImages] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -146,6 +149,8 @@ export default function PropertyType() {
   const [selectedType, setSelectedType] = useState('');
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [selectPropertyFor,setSelectPropertyFor] = useState('sale');
+  const token = currentAdmin?.token;
+  const [refresh, setRefresh] = useState(false);
 
   const getAllProperties = async () => {
     try {
@@ -167,10 +172,44 @@ export default function PropertyType() {
     }
   }
 
+  const deleteProperty = async (propertyId) =>{
+    try{
+     // Display a confirmation popup
+    const isConfirmed = window.confirm('Are you sure you want to delete this property?');
+
+    if (!isConfirmed) {
+      // If the user cancels the deletion, do nothing
+      return;
+    }
+      const response = await axios.delete(`http://localhost:4000/api/property/deleteproperty/${propertyId}`,{
+             headers:{
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+             }
+      });
+      console.log(response)
+
+      if(response.data.success){
+        
+        cogoToast.success(`${response.data.message}`);
+        // Update the refresh state to trigger useEffect
+        setRefresh((prevRefresh) => !prevRefresh);
+      }
+      else{
+        cogoToast.error(`${response.data.message}`);
+      }
+      
+
+    }
+    catch(err){
+      cogoToast.error(`${err.message}`);
+    }
+  }
+
   useEffect(() => {
     getAllProperties();
     getAllPropertiesImages();
-  }, []);
+  }, [refresh]);
   
   const filterProperties = () => {
     // Your filtering logic here based on searchTerm and selectedType
@@ -194,7 +233,7 @@ export default function PropertyType() {
 
   useEffect(() => {
     filterProperties();
-  }, [searchTerm, selectedType, selectPropertyFor,properties]); // Trigger the filtering whenever searchTerm, selectedType, or properties change
+  }, [searchTerm, selectedType, selectPropertyFor,properties,refresh]); // Trigger the filtering whenever searchTerm, selectedType, or properties change
   
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
@@ -309,9 +348,14 @@ export default function PropertyType() {
                           </small>
                           
                         </p>
-                       <Link to={`/property/edit-property/${property.id}`}> <button className="btn btn-success  btn-sm ">Edit</button></Link>
-      <button className="btn btn-danger mx-3 mx-md-1 btn-sm ">Delete</button>
+                      
+                       
                       </div>
+                      <div className="d-flex justify-content-center align-item-center">
+                        <Link to={`/property/edit-property/${property.id}`}> <button className="btn btn-primary   btn-sm ">Edit Details</button></Link>
+                       <Link to={`/property/edit-property-images/${property.id}`}> <button className="btn btn-secondary  btn-sm mx-3 mx-md-1">Edit Images</button></Link>
+      <button  onClick={()=>deleteProperty(property.id)} className="btn btn-danger mx-3 mx-md-1 btn-sm ">Delete Property</button>
+                        </div>
                     </div>
                   </div>
                 )
