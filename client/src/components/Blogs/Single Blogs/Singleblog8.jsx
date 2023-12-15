@@ -4,7 +4,7 @@ import Navbar from "../../Navbar";
 import { Link } from "react-router-dom";
 import { BiCategoryAlt } from "react-icons/bi";
 import { CgCalendarDates } from "react-icons/cg";
-import blog8 from "../../../images/blog7.avif";
+import blog8 from "../../../images/blog8.avif";
 
 function Singleblog8() {
   const [isScrolled, setIsScrolled] = useState(false);

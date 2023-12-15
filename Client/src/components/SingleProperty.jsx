@@ -6,12 +6,16 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaRupeeSign } from "react-icons/fa";
 import { PiArrowFatLineRightFill } from "react-icons/pi";
 import ContactUsModel from "./ContactUsModel";
-import SideBlog from "./SideBlog";
 import RelatedProperty from "./RelatedProperty";
 import axios from 'axios';
 import placeholder_img from '../images/placeholder-image.jpeg';
 import StickyNavbar from "../components/Navbar";
 import NavbarMob from "./NavbarMob";
+import SideBlog1 from "./Blogs/SideBlogs/SideBlog1";
+import SideBlog2 from "./Blogs/SideBlogs/SideBlog2";
+import SideBlog3 from "./Blogs/SideBlogs/SideBlog3";
+import SideBlog4 from "./Blogs/SideBlogs/SideBlog4";
+import SideBlog5 from "./Blogs/SideBlogs/SideBlog5";
 
 
 function SingleProperty() {
@@ -539,11 +543,11 @@ const fetchPropertyImages = async (propertyId) => {
                 <div className="row d-flex justify-content-center mt-5">
                     <div className="col-12">
                         <h5 className="mb-3">Interesting Blogs</h5>
-                       <SideBlog/>
-                       <SideBlog/>
-                       <SideBlog/>
-                       <SideBlog/>
-                       <SideBlog/>
+                       <SideBlog1/>
+                       <SideBlog2/>
+                       <SideBlog3/>
+                       <SideBlog4/>
+                       <SideBlog5/>
                         
                     </div>
                 </div>

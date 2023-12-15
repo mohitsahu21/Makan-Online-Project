@@ -11,7 +11,7 @@ function Blog5() {
     <>
     <Container>
     <div className="card shadow p-3 mb-5 bg-white rounded" id="cont">
-   <Link to="/blogs/single-blog5" > <img  src={blog5} className="card-img-top" alt="..."/> </Link>
+   <Link to="/blogs/single-blog5" > <img  src={blog5} className="card-img-top" alt="Buying a 1 BHK Apartment"/> </Link>
     <div className="card-body">
         
         <p className="card-text d-inline"><span className="fs-5"><i class="bi bi-file-post"></i></span>Blog</p>

@@ -93,7 +93,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+
 import BlogPost from "../components/BlogPost";
 import Blog1 from './../components/Blogs/Blog1';
 import Blog2 from "../components/Blogs/Blog2";
