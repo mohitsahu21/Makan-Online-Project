@@ -63,7 +63,7 @@ const EditImages = () => {
             
           } catch (error) {
             console.error('Error ', error);
-            cogoToast.error(`${error?.response.data.message}`)
+            cogoToast.error(`${error?.response?.data.message}`)
             
           }
     }

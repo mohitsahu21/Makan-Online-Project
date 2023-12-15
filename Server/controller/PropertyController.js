@@ -3,6 +3,7 @@ const { db } = require("../db");
 const mysql = require("mysql");
 const dotenv = require("dotenv");
 const fs = require('fs');
+const path = require('path');
 dotenv.config();
 
 
@@ -383,16 +384,25 @@ const deletePropertyImageById = (req, res) => {
             res.status(500).json({ error: 'Internal Server Error' });
         } else {
             if (results.length > 0) {
-                const imagePath = results[0].image; // Assuming the column name for the image path is 'image'
+                
+                // Delete the image file from the server if needed
+                const image = results[0].image; // Assuming the column name for the image path is 'image'
+                const imageName = path.basename(image);  // Extract the file name from the URL
+                const imagePath = path.join(__dirname, '..', 'uploads', imageName);  // for the provide the proper path
 
+                // Check if the file exists
+                if (fs.existsSync(imagePath)) {
+                    fs.unlinkSync(imagePath);
+                } else {
+                    console.error('File not found:', imagePath);
+                }
+              
                 db.query(sqlDelete, [imageId], (errDelete) => {
                     if (errDelete) {
                         console.error('Error deleting property image from MySQL:', errDelete);
                         res.status(500).json({ error: 'Internal Server Error' });
                     } else {
-                        // Delete the image file from the server if needed
-                        // fs.unlinkSync(imagePath);
-                         // Uncomment this line if you want to delete the image file
+                    
 
                         res.status(200).json({
                             success: true,
