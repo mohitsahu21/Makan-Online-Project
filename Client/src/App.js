@@ -61,10 +61,10 @@ function App() {
         <Route path="/property/propertiesForRent" element={<RentedProperties/>} />
 
 
-        <Route path="/admin" element={<AddProperty/>} />
+        {/* <Route path="/admin" element={<AddProperty/>} />
         <Route path="/admin/add-property" element={<AddProperty/>} />
         <Route path="/admin/add-property/add-images/:propertyId" element={<AddImages/>} />
-        <Route path="/admin/add-suggested-property" element={<AddsuggestedProperty/>} />
+        <Route path="/admin/add-suggested-property" element={<AddsuggestedProperty/>} /> */}
         <Route path={`/popular-apartment-searches/:name`} element={<PopularCategory/>}  />
         <Route path={`/popular-house-searches/`} element={<AddProperty/>}  />
         <Route path={`/popular-villa-searches/`} element={<AddProperty/>}  />
