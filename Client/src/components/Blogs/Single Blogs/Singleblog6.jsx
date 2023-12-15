@@ -196,10 +196,7 @@ const Container = styled.div`
     border-bottom: 1px solid #d8d2d2;
   }
   .images {
-    @media only screen and (min-width: 768px) {
-      width: 1160px;
-      height: 462px;
-      border-radius: 10px;
-    }
+    border-radius: 10px;
+   
   }
 `;

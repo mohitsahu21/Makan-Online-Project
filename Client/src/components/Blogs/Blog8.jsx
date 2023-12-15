@@ -15,7 +15,7 @@ function Blog8() {
     <div className="card-body">
         
         <p className="card-text d-inline"><span className="fs-5"><i class="bi bi-file-post"></i></span>Blog</p>
-        <Link to="/blog/single-blog" style={{textDecoration: 'none'}} >  <h5 className="card-title mt-2">Sale on 2-3 BHK House: Navigating the Real Estate Market
+        <Link to="/blogs/single-blog8" style={{textDecoration: 'none'}} >  <h5 className="card-title mt-2">Sale on 2-3 BHK House: Navigating the Real Estate Market
 
 
 
@@ -74,12 +74,12 @@ const Container = styled.div`
   height: 33rem;
   @media screen and (max-width: 768px) {
     height: 36rem;
-  }
-  @media screen and (min-width: 768px) and (max-width: 1020px) {
+  } 
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
           height: 36rem;
         }
-  @media screen and (min-width: 1020px) and (max-width: 1600px) {
-          height: 37rem;
+        @media screen and (min-width: 1024px) and (max-width: 1200px) {
+          height: 43rem;
         }
 }
     

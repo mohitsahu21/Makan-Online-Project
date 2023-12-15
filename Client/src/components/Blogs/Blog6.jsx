@@ -71,11 +71,11 @@ const Container = styled.div`
  @media screen and (max-width: 768px) {
     height: 33rem;
   }
-  @media screen and (min-width: 768px) and (max-width: 1020px) {
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
     height: 35rem;
   }
-  @media screen and (min-width: 1020px) and (max-width: 1600px) {
-          height: 35rem;
+  @media screen and (min-width: 1024px) and (max-width: 1200px) {
+          height: 43rem;
         }
 }
     

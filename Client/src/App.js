@@ -21,6 +21,7 @@ import Singleblog4 from "./components/Blogs/Single Blogs/Singleblog4";
 import Singleblog5 from "./components/Blogs/Single Blogs/Singleblog5";
 import Singleblog6 from "./components/Blogs/Single Blogs/Singleblog6";
 import Singleblog7 from "./components/Blogs/Single Blogs/Singleblog7";
+import Singleblog8 from "./components/Blogs/Single Blogs/Singleblog8";
 
 function App() {
   
@@ -41,6 +42,7 @@ function App() {
         <Route path="/blogs/single-blog5" element={<Singleblog5/>} />
         <Route path="/blogs/single-blog6" element={<Singleblog6/>} />
         <Route path="/blogs/single-blog7" element={<Singleblog7/>} />
+        <Route path="/blogs/single-blog8" element={<Singleblog8/>} />
         <Route path="/single-property" element={<SingleProperty/>} />
         <Route path="/property/:propertyId" element={<SingleProperty/>} />
 
