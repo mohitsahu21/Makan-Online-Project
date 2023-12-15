@@ -1,14 +1,57 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router-dom";
+import {useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import cogoToast from "cogo-toast";
+import axios from 'axios';
 
 
 
-function ContactUsModel() {
+
+function ContactUsModel({propertyId,propertyName}) {
   const {currentUser} = useSelector((state) => state.user)
+  const navigate  = useNavigate();
+  const [formData,setFormData] = useState({
+    propertyId : propertyId,
+    propertyName: propertyName,
+    name : currentUser?.user?.name,
+    email : currentUser?.user?.email,
+    phone : currentUser?.user?.phone,
+    message : ""
+
+  });
+
+  const handleChange = (e) =>{
+    setFormData({...formData,[e.target.name] : e.target.value})
+  };
+   console.log(formData.message)
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   
+    try{
+     
+      const res = await axios.post("http://localhost:4000/api/auth/interestedUser" , formData)
+      
+      console.log(res)
+      if(res.data.success === true){
+        cogoToast.success(`${res.data.message}`)
+       window.location.reload();
+      }
+      
+    }
+    catch(error){
+      
+      console.log(error.response)
+      cogoToast.error(`${error.response.data.error}`)
+
+    }
+
+  }
+
+
   return (
     <>
     <div className="d-grid gap-2 col-10 mx-auto">
@@ -31,38 +74,82 @@ function ContactUsModel() {
                   </div>
                   <div className="modal-body">
                     <div className='col-12'>
+                    <div className="mb-3 mt-4">
+              
+                    <label htmlFor="propertyId" className="form-label">
+                    Property Id
+                </label>
+              <input
+                type="text"
+                placeholder="Property Id"
+                name="propertyId"
+                className="form-control"
+                value={propertyId}
+                readOnly
+                
+              />
+            </div>
             <div className="mb-3 mt-4">
-               
+              
+            <label htmlFor="propertyName" className="form-label">
+                    Property Name
+                </label>
+              <input
+                type="text"
+                placeholder="Property Name"
+                name="propertyName"
+                className="form-control"
+                value={propertyName}
+                readOnly
+              />
+            </div>
+            <div className="mb-3 mt-4">
+           
+            <label htmlFor="name" className="form-label">
+                  Name
+                </label>
                 <input
                   type="text"
                   placeholder="Enter your fullname"
                   name="name"
                   className="form-control"
+                  value={currentUser?.user?.name}
                 />
               </div>
               <div className="mb-3 mt-4">
-               
+              <label htmlFor="email" className="form-label">
+                    Email
+                </label>
                 <input
                   type="email"
                   placeholder="Enter your email"
                   name="email"
                   className="form-control"
+                  value={currentUser?.user?.email}
                 />
               </div>
               <div className="mb-3 mt-4">
-               
+              <label htmlFor="phone" className="form-label">
+                    Phone
+                </label>
                 <input
                   type="text"
                   placeholder="Enter your 10 digit mobile number"
                   name="phone"
                   maxLength={10}
                   className="form-control"
+                  value={currentUser?.user?.phone}
                 />
               </div>
               <div className="mb-3">
-               
+              <label htmlFor="message" className="form-label">
+                    Write Message
+                </label>
                 <textarea placeholder="Write message"
+                name="message"
                 className="form-control"
+                onChange={handleChange}
+                value={formData.message}
                 rows="6"
                 />
 
@@ -71,7 +158,7 @@ function ContactUsModel() {
             
                <div className="d-flex justify-content-center gap-2">
                    
-                    <button type="button" className="btn btn-primary">
+                    <button type="button" className="btn btn-primary" onClick={handleSubmit}>
                     Submit
                     </button>
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">

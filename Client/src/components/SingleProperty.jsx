@@ -538,7 +538,7 @@ const fetchPropertyImages = async (propertyId) => {
 
       </div>  */}
           
-                <ContactUsModel/>
+                <ContactUsModel propertyId={propertyId} propertyName = {property?.property_name}/>
 
                 <div className="row d-flex justify-content-center mt-5">
                     <div className="col-12">

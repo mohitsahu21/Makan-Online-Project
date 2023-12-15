@@ -159,11 +159,25 @@ const loginController = async (req, res) => {
   }
 };
 
+const interestedUser = (req, res) => {
+  const { propertyId, propertyName, name, email, phone, message } = req.body;
+
+  const sql = 'INSERT INTO intrestedusers (property_id, propertyName, userName, userEmail,userPhone, message) VALUES (?, ?, ?, ?, ?, ?)';
+
+  db.query(sql, [propertyId, propertyName, name, email, phone, message], (err, result) => {
+    if (err) {
+      console.error('Error inserting data into MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error' , message: 'Internal Server Error'});
+    } else {
+      res.status(200).json({ success: true, message: 'Data inserted successfully' });
+    }
+  });
+};
+
 
 
 
 
 
 module.exports = {
-  userRegistration, loginController
-}
+  userRegistration, loginController,interestedUser}
