@@ -163,10 +163,13 @@ export default function () {
       <Wrapper>
         <section>
           <div className="container-fluid mb-4">
+          
             <div className="border border-1 rounded py-4 my-2">
-              <h1 className="text-center fw-bold" id="search-heading">
+            <SearchModel/>
+              <h1 className="text-center fw-bold mt-5" id="search-heading">
               Explore Our Properties
               </h1>
+              
             
 
 <div className="row">
@@ -232,7 +235,7 @@ export default function () {
 {/* model for search result */}
 
    
-             <SearchModel/>
+             
               {/* <div className="search-container row justify-content-center mt-2 mb-md-5">
                 <div className="main col-lg-6 col-md-8 col-10 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
                   <div className="row " id="inner-col">

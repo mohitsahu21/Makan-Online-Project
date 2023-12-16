@@ -109,10 +109,10 @@ console.log(propertyBudget)
   return (
     <Wrapper>
 
-    <div className="search-container row justify-content-center mt-2 ">
+    <div className="search-container row justify-content-center mt-5 ">
     <div className="main col-lg-6 col-md-8 col-10 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
       <div className="row " id="inner-col">
-        <div className="col-lg-4" id="res1">
+        <div className="col-lg-4 col-md-4" id="res1">
          
       <form>      
       <div className="d-flex align-items-center">
@@ -149,7 +149,7 @@ console.log(propertyBudget)
         <option value="farmHouse">Farm House</option>
         <option value="commercial">Commercial</option>
       </select></div> */}
-      <div className="col-lg-3" id="res2">
+      <div className="col-lg-3 col-md-3" id="res2">
       <select className=" w-auto px-3 py-1 mx-4" id="mySelect" onChange={(e) => setPropertyFor(e.target.value)} required>
         <option  selected>
          Select Property For Buy
@@ -179,7 +179,7 @@ console.log(propertyBudget)
           <option value="any">Any</option>
         </select>
       </div> */}
-      <div className="col-lg-2" id="res4">
+      <div className="col-lg-2 col-md-2" id="res4">
       <button className="btn btn-danger px-3 fs-5" id="btnsearch1" data-bs-toggle="modal" data-bs-target="#exampleModal"  onClick={() => {
          
              
@@ -389,12 +389,29 @@ const Wrapper = styled.div`
      border-radius: 5rem;
      height: 2.6rem;
     }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      
+      margin-left: 10rem;
+    width: 115%;
+     border-radius: 5rem;
+     height: 2.6rem;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      
+      margin-left: 10rem;
+    width: 115%;
+     border-radius: 5rem;
+     height: 2.6rem;
+    }
   }
   #main-col{
     width: 60rem;
     @media screen and (max-width: 768px) {
       width: 23.5rem
       
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 45rem;
     }
     @media screen and (min-width: 1024px) and (max-width: 1600px) {
       width: 60rem;
