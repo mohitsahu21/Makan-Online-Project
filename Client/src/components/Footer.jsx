@@ -14,56 +14,57 @@ const Footer = () => {
           <div className="p-4">
             <div className="row">
               <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                <h6 className="text-center">Popular Residential Searches</h6>
+                <h6 className="text-center">Popular Residential Property Searches</h6>
                 <ul>
-                  <li>Property for sale in Jabalpur</li>
-                  <li>Flats in Jabalpur</li>
-                  <li>Studio Apartments in Jabalpur</li>
-                  <li>Resale House in Jabalpur</li>
-                  <li>Property in Jabalpur</li>
-                  <li>House in Jabalpur</li>
-                  <li>Farm House in Jabalpur</li>
-                  <li>House for Sale in Jabalpur</li>
-                  <li>Plots for Sale in Jabalpur</li>
-                  <li>Villas for Sale in Jabalpur</li>
-                  <li>Penthouse in Jabalpur</li>
-                  <li>Resale Flats in Jabalpur</li>
+                 <a href="/property/propertyType/house" target="blank"> <li>Houses in Jabalpur</li> </a>
+                 <a href="/property/propertyType/villa" target="blank"> <li>Villas in Jabalpur</li></a>
+                <a href="/property/propertyType/plot" target="blank">  <li>Plots in Jabalpur</li></a>
+                <a href="/property/propertyType/flat" target="blank">  <li>Flats in Jabalpur</li></a>
+                <a href="/property/propertyType/land" target="blank"> <li>Land in Jabalpur</li></a>
+                <a href="/property/propertyType/farmLand" target="blank">  <li>Farm Land in Jabalpur</li></a>
+                <a href="/property/propertyType/farmHouse" target="blank"> <li>Farm House in Jabalpur</li></a>
+                 <a href="/property/propertyType/commercial" target="blank"> <li>Commercial Property in Jabalpur</li></a>
+                  
                 </ul>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
                 <h6 className="text-center">Popular BHK Searches</h6>
                 <ul>
-                  <li>1 BHK Flats in Jabalpur</li>
-                  <li>2 BHK Flats in Jabalpur</li>
-                  <li>3 BHK Flats in Jabalpur</li>
-                  <li>4 BHK Flats in Jabalpur</li>
-                  <li>1 BHK House for Sale in Jabalpur</li>
-                  <li>2 BHK House for Sale in Jabalpur</li>
-                  <li>3 BHK House for Sale in Jabalpur</li>
-                  <li>4 BHK House for Sale in Jabalpur</li>
-                  <li>2 BHK Villa for Sale in Jabalpur</li>
-                  <li>3 BHK Villa for Sale in Jabalpur</li>
-                  <li>4 BHK Villa for Sale in Jabalpur</li>
+                 <a href="/property/flat/1" target="blank"> <li>1 BHK Flats in Jabalpur</li></a>
+                 <a href="/property/flat/2" target="blank"> <li>2 BHK Flats in Jabalpur</li></a>
+                 <a href="/property/flat/3" target="blank"> <li>3 BHK Flats in Jabalpur</li></a>
+                 <a href="/property/flat/4" target="blank"> <li>4 BHK Flats in Jabalpur</li></a>
+                 <a href="/property/house/1" target="blank"> <li>1 BHK House for Sale in Jabalpur</li></a>
+                 <a href="/property/house/2" target="blank"> <li>2 BHK House for Sale in Jabalpur</li></a>
+                 <a href="/property/house/3" target="blank"> <li>3 BHK House for Sale in Jabalpur</li></a>
+                 <a href="/property/house/4" target="blank"> <li>4 BHK House for Sale in Jabalpur</li></a>
+                  
                 </ul>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                <h6 className="text-center">Popular Flat Searches</h6>
+                <h6 className="text-center">Popular Rental Property Searches</h6>
                 <ul>
-                  <li>Flats for Sale in Nagpur Road Jabalpur</li>
-                  <li>Flats for Sale in Katangi Jabalpur</li>
-                  <li>Flats for Sale in Maharajpur</li>
-                  <li>Flats for Sale in Madan Mahal</li>
-                  <li>Flats for Sale in Ranjhi</li>
+                <a href="/property/propertiesForRent/house" target="blank"><li>Houses for Rent in  Jabalpur</li></a>
+                <a href="/property/propertiesForRent/villa" target="blank"> <li>Villas for Rent in Jabalpur</li></a>
+                <a href="/property/propertiesForRent/plot" target="blank"> <li>Plots for Rent in Jabalpur</li></a>
+                <a href="/property/propertiesForRent/flat" target="blank"> <li>Flats for Rent in  Jabalpur</li></a>
+                <a href="/property/propertiesForRent/land" target="blank"> <li>Land for Rent in Jabalpur</li></a>
+                <a href="/property/propertiesForRent/farmLand" target="blank"> <li>Farm Lands for Rent in Jabalpur</li></a>
+                <a href="/property/propertiesForRent/farmHouse" target="blank"> <li>Farm House for Rent in Jabalpur</li></a>
+                <a href="/property/propertiesForRent/commercial" target="blank">  <li>Commercial Property for Rent in Jabalpur</li></a>
                 </ul>
               </div>
               <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                <h6 className="text-center">Popular House Searches</h6>
+                <h6 className="text-center">Popular Resale Property Searches</h6>
                 <ul>
-                  <li>House for Sale in Nagpur Road Jabalpur</li>
-                  <li>House for Sale in Katangi Jabalpur</li>
-                  <li>House for Sale in Maharajpur</li>
-                  <li>House for Sale in Madan Mahal</li>
-                  <li>House for Sale in Ranjhi</li>
+                <a href="/property/propertiesForResale/house" target="blank"> <li>House for Resale in Jabalpur</li></a>
+                <a href="/property/propertiesForResale/villa" target="blank"> <li>Villas for Resale in Jabalpur</li></a>
+                <a href="/property/propertiesForResale/plot" target="blank"> <li>Plots for Resale in Jabalpur</li></a>
+                <a href="/property/propertiesForResale/flat" target="blank"> <li>Flats for Resale in Jabalpur</li></a>
+                <a href="/property/propertiesForResale/land" target="blank"> <li>Lands for Resale in Jabalpur</li></a>
+                <a href="/property/propertiesForResale/farmLand" target="blank"> <li>Farm Lands for Resale in Jabalpur</li></a>
+                <a href="/property/propertiesForResale/farmHouse" target="blank"> <li>Farm Houses for Resale in Jabalpur</li></a>
+                <a href="/property/propertiesForResale/commercial" target="blank"><li>Commercials Property for Resale in Jabalpur</li></a>
                 </ul>
                 <div className="">
                 <ul>
@@ -148,9 +149,16 @@ const Container = styled.div`
     padding-bottom: 0.5rem;
   }
   ul {
+    a{
+      text-decoration: none;
+      :hover{
+        color: red;
+      }
+    }
     li {
       list-style-type: none;
       color: white;
+      
     }
   }
 `;

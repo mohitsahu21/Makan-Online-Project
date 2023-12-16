@@ -232,6 +232,50 @@ const getPropertyByType = (req, res) =>{
 
 }
 
+// method to get property by type and bhk no.
+
+const getPropertyByTypeAndBhk = (req, res) => {
+    const propertyType = req.params.propertyType;
+    const bhk = req.params.bhk; // Added line to get BHK from URL parameter
+
+    const sql = 'SELECT * FROM properties WHERE property_type = ? AND bhk = ? AND property_for = "sale"'; // Updated SQL query
+
+    db.query(sql, [propertyType, bhk], (err, results) => {
+        if (err) {
+            console.error('Error fetching properties from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if (results.length > 0) {
+                res.status(200).json({ success: true, data: results, message: `${propertyType} ${bhk} Properties fetched successfully` });
+            } else {
+                res.status(404).json({ success: false, error: 'Property not found', message: "Property not found" });
+            }
+        }
+    });
+}
+
+//get Property For Resale
+
+const getPropertyForResaleAndType = (req, res) => {
+    const propertyType = req.params.propertyType;
+    
+
+    const sql = 'SELECT * FROM properties WHERE property_type = ? AND new_resale = "resale" AND property_for = "sale"'; // Updated SQL query
+
+    db.query(sql, [propertyType], (err, results) => {
+        if (err) {
+            console.error('Error fetching properties from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if (results.length > 0) {
+                res.status(200).json({ success: true, data: results, message: `${propertyType} Properties fetched successfully` });
+            } else {
+                res.status(404).json({ success: false, error: 'Property not found', message: "Property not found" });
+            }
+        }
+    });
+}
+
 //Method to get all rented property.
 
 const getPropertyForRent = (req, res) =>{
@@ -241,6 +285,32 @@ const getPropertyForRent = (req, res) =>{
     const sql = 'SELECT * FROM properties WHERE property_for = "rent"'; // Replace properties with your actual table name
 
     db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching properties from MySQL:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+        } else {
+            if(results.length > 0){
+                res.status(200).json({success:true, data: results, message: `Rented Properties fetched successfully`});
+            }
+            else{
+                res.status(404).json({success:false, error: 'Property not found',message:"Property not found" });
+                
+            }
+            
+        }
+    });
+
+}
+
+//
+
+const getPropertyForRentByType = (req, res) =>{
+
+    
+    const propertyType = req.params.propertyType;
+    const sql = 'SELECT * FROM properties WHERE property_for = "rent" AND property_type = ?'; // Replace properties with your actual table name
+
+    db.query(sql,[propertyType], (err, results) => {
         if (err) {
             console.error('Error fetching properties from MySQL:', err);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -644,4 +714,4 @@ const getRecentlyPostedProperties = (req, res) => {
 
 
 
-module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty,delete_Property,deletePropertyImageById}
+module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty,delete_Property,deletePropertyImageById, getPropertyByTypeAndBhk , getPropertyForRentByType,getPropertyForResaleAndType}

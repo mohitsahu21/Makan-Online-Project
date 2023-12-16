@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const authenticate = require('../middleware/authMiddleware.js');
-const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties, getPropertyForRent, editProperty, delete_Property, deletePropertyImageById} = require('../controller/PropertyController.js')
+const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties, getPropertyForRent, editProperty, delete_Property, deletePropertyImageById, getPropertyByTypeAndBhk, getPropertyForRentByType, getPropertyForResaleAndType} = require('../controller/PropertyController.js')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -27,12 +27,16 @@ router.get("/getAllProperty", getAllProperty);
 router.get("/getAllPropertyImages", getAllPropertyImages);
 router.get("/getPropertyById/:propertyId", getPropertyById);
 router.get("/getPropertyByType/:propertyType", getPropertyByType);
+router.get("/getPropertyByTypeAndBhk/:propertyType/:bhk", getPropertyByTypeAndBhk);
 router.get("/getPropertyImagesById/:propertyId", getPropertyImagesById);
 router.get("/getSuggestedProperty", getSuggestedProperty);
 router.get("/getSuggestedPropertyImages", getSuggestedPropertyImages);
 router.get("/getMostVisitedProperties", getMostVisitedProperties);
 router.get("/getRecentlyPostedProperties", getRecentlyPostedProperties);
 router.get("/getPropertyForRent", getPropertyForRent);
+router.get("/getPropertyForRentByType/:propertyType", getPropertyForRentByType);
+router.get("/getPropertyForResaleByType/:propertyType", getPropertyForResaleAndType);
+
 
 router.post("/addSuggestedProperty",authenticate,addSuggestedPropperty);
 

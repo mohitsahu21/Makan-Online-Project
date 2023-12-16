@@ -128,14 +128,14 @@ function Blogs() {
                
             </div>
         </div>
-        <div className="row">
+        {/* <div className="row">
             <div className="col-12 d-flex justify-content-center">
             <form className="d-flex mt-4 justify-content-center searchBox ">
         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button className="btn btn-outline-success" type="submit">Search</button>
       </form>
             </div>
-        </div>
+        </div> */}
        
          {/* <div>
       {blogPosts.map(post => (

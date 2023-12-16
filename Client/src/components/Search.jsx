@@ -167,66 +167,7 @@ export default function () {
               <h1 className="text-center fw-bold" id="search-heading">
               Explore Our Properties
               </h1>
-              {/* <div className="tabs-container pt-2">
-                <ul
-                  className="nav nav-tabs d-flex justify-content-center"
-                  id="categoryTab"
-                  role="tablist"
-                >
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link active"
-                      id="houseTab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#house-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="house-tab-pane"
-                    >
-                      House
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="plotTab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#plot-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="plot-tab-pane"
-                    >
-                      Plots
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="apartmentTab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#apartment-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="apartment-tab-pane"
-                    >
-                      Apartment
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="villaTab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#villa-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="villa-tab-pane"
-                    >
-                      Villa
-                    </button>
-                  </li>
-                </ul>
-              </div> */}
+            
 
 <div className="row">
   <ul className="d-flex flex-column flex-md-row mt-5 mb-2 justify-content-center text-center cat-list ">

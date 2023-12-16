@@ -20,7 +20,7 @@ function Blog8() {
 
 
 </h5> </Link>
-      <p className="card-text">Real estate markets have been abuzz with the enticing prospects of buying or selling 2-3 BHK houses. As the real estate landscape continues to evolve, these properties have garnered substantial attention for their versatility, offering a perfect blend of space and affordability.
+      <p className="card-text">Real estate markets have been abuzz with the enticing prospects of buying or selling 2-3 BHK houses. As the real estate landscape continues to evolve, these properties have garnered substantial attention for their versatility.
 
 
 
@@ -73,13 +73,13 @@ const Container = styled.div`
 #cont{
   height: 33rem;
   @media screen and (max-width: 768px) {
-    height: 36rem;
+    height: 35rem;
   }
-  @media screen and (min-width: 768px) and (max-width: 1020px) {
-          height: 36rem;
-        }
-  @media screen and (min-width: 1020px) and (max-width: 1600px) {
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
           height: 37rem;
+        }
+  @media screen and (min-width: 1024px) and (max-width: 1200px) {
+          height: 43rem;
         }
 }
     

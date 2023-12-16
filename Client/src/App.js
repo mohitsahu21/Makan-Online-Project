@@ -27,6 +27,9 @@ import Singleblog5 from "./components/Blogs/Single Blogs/Singleblog5";
 import Singleblog6 from "./components/Blogs/Single Blogs/Singleblog6";
 import Singleblog7 from "./components/Blogs/Single Blogs/Singleblog7";
 import Singleblog8 from "./components/Blogs/Single Blogs/Singleblog8";
+import Flats from "./components/FooterComponents/Flats";
+import RentalProperty from "./components/FooterComponents/RentalProperty";
+import ResaleProperty from "./components/FooterComponents/ResaleProperty";
 
 function App() {
   
@@ -58,7 +61,10 @@ function App() {
         <Route path="/single-property" element={<SingleProperty/>} />
         <Route path="/property/:propertyId" element={<SingleProperty/>} />
         <Route path="/property/propertyType/:propertyType" element={<PropertyType/>} />
+        <Route path="/property/:propertyType/:bhk" element={<Flats/>} />
         <Route path="/property/propertiesForRent" element={<RentedProperties/>} />
+        <Route path="/property/propertiesForRent/:propertyType" element={<RentalProperty/>} />
+        <Route path="/property/propertiesForResale/:propertyType" element={<ResaleProperty/>} />
 
 
         {/* <Route path="/admin" element={<AddProperty/>} />

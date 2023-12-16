@@ -18,7 +18,7 @@ function Blog3() {
         <Link to="/blogs/single-blog3" style={{textDecoration: 'none'}} >  <h5 className="card-title mt-2">Looking for1 BHK Apartment Duplex
 
 </h5> </Link>
-      <p className="card-text">Imagine having a cozy yet multi-level living space. That's precisely what a 1 BHK apartment duplex offers - a one-bedroom home spread across two levels, typically featuring a bedroom, a living area, and a kitchen. It's a smart fusion of compactness and practicality, ideal for individuals or small families seeking a unique living experience.
+      <p className="card-text">Imagine having a cozy yet multi-level living space. That's precisely what a 1 BHK apartment duplex offers - a one-bedroom home spread across two levels, typically featuring a bedroom, a living area, and a kitchen. It's a smart fusion of compactness and practicality.
 
 
 </p>
@@ -72,14 +72,13 @@ const Container = styled.div`
 #cont{
   height: 37rem;
   @media screen and (max-width: 768px) {
-    height: 36rem;
+    height: 35rem;
   }
-  @media screen and (min-width: 768px) and (max-width: 1020px) {
-          height: 36rem;
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+          height: 37rem;
         }
-
-  @media screen and (min-width: 1020px) and (max-width: 1600px) {
-          height:  37rem;
+  @media screen and (min-width: 1024px) and (max-width: 1200px) {
+          height: 43rem;
         }
 }
     
