@@ -285,7 +285,7 @@ const fetchPropertyImages = async (propertyId) => {
         <div className="row">
            {property?.property_video && (
             <div className="text-center mt-3">         
-           <a href={`${property.property_video}`} target="blank"> <button type="button" className="btn btn-outline-secondary ">
+           <a href={`${property?.property_video}`} target="blank"> <button type="button" className="btn btn-outline-secondary ">
             View Property Video
           </button></a>
     

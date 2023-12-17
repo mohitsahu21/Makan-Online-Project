@@ -16,7 +16,7 @@ const SearchModel = () => {
     const [propertiesImages, setPropertiesImages] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [propertyType,setPropertyType] = useState("");
-    const [propertyFor,setPropertyFor] = useState("");
+    const [propertyFor,setPropertyFor] = useState("sale");
     const [propertyBudget,setPropertyBudget] = useState("");
 
 
@@ -74,7 +74,7 @@ useEffect(() => {
   }, []); // Empty dependency array ensures the effect runs only once when the component mounts
 
   const isSearchTermEmpty = searchTerm.trim() === "";
-  // const isPropertyTypeSelected = propertyType !== "Property Type";
+  const isPropertyTypeSelected = propertyType !== "";
   const isPropertyForSelected = propertyFor !== "Select Property For Buy/Rent";
   // const isPropertyBudgetSelected = propertyBudget !== "Budget";
 
@@ -82,12 +82,16 @@ useEffect(() => {
   let filteredProperties;
   if(!isSearchTermEmpty || isPropertyForSelected){
      filteredProperties = properties?.data.filter((property) =>{
-        const includesSearchTerm = isSearchTermEmpty || property.property_name.toLowerCase().includes(searchTerm.toLowerCase());
-    // const matchesPropertyType = isPropertyTypeSelected ? property.property_type.toLowerCase() === propertyType.toLowerCase() : true;
-    const matchesPropertyFor = isPropertyForSelected ? property.property_for.toLowerCase() === propertyFor.toLowerCase() : true;
+        const includesSearchTerm = isSearchTermEmpty || property?.property_name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesPropertyType = isPropertyTypeSelected ? property.property_type.toLowerCase() === propertyType.toLowerCase() : true;
+    const matchesPropertyFor = isPropertyForSelected ? property?.property_for.toLowerCase() === propertyFor.toLowerCase() : false;
     // const matchesPropertyBudget = isPropertyBudgetSelected ? property.price <= Number(propertyBudget) : true;
-
-    return includesSearchTerm  && matchesPropertyFor ;
+    
+    // Include the property address filtering
+    const matchesPropertyAddress =
+      isSearchTermEmpty ||
+      property?.property_address.toLowerCase().includes(searchTerm.toLowerCase());
+    return (includesSearchTerm || matchesPropertyAddress) && matchesPropertyFor && matchesPropertyType;
     // && matchesPropertyBudget && matchesPropertyType;
 
      }
@@ -112,7 +116,7 @@ console.log(propertyBudget)
     <Wrapper>
        
     <div className="search-container row justify-content-center mt-5 ">
-    <div className="main col-lg-6 col-md-8 col-10 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
+    <div className="main col-lg-6 col-md-8 col-8 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
       <div className="row " id="inner-col">
         <div className="col-lg-4 col-md-4" id="res1">
          
@@ -128,7 +132,7 @@ console.log(propertyBudget)
           type="text"
           id="search-box"
           className="border rounded-5"
-          placeholder="Enter Project"
+          placeholder="Enter Location Or Project"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
 
@@ -137,29 +141,34 @@ console.log(propertyBudget)
       </form>
       
       </div>
-      {/* <div className="col-lg-3" id="res2">
-      <select className="px-2 py-1 mx-4 border rounded-5" id="mySelect"  onChange={(e) => setPropertyType(e.target.value)}>
-        <option  selected>
-          Property Type
-        </option>
-        <option value="house">House</option>
-        <option value="villa">Villa</option>
-        <option value="plot">Plot</option>
-        <option value="flat">Flat</option>
-        <option value="land">Land</option>
-        <option value="farmLand">Farm Land</option>
-        <option value="farmHouse">Farm House</option>
-        <option value="commercial">Commercial</option>
-      </select></div> */}
-      <div className="col-lg-3 col-md-3" id="res2">
-      <select className=" w-auto px-3 py-1 mx-4" id="mySelect" onChange={(e) => setPropertyFor(e.target.value)} required>
-        <option  selected>
-         Select Property For Buy
-        </option>
+  
+      <div className="col-lg-2 col-md-2" id="res2">
+      <select  className="form-select" onChange={(e) => setPropertyFor(e.target.value)} required>
+        
         <option value="sale">Buy</option>
         <option value="rent">Rent</option>
       
       </select></div>
+       <div className="col-lg-2 col-md-2" id="res2">
+      <select
+      className="form-select"
+      aria-label="Property Type"
+      onChange={(e) => setPropertyType(e.target.value)}
+      
+    >
+      <option value="">All Types</option>
+      <option value="house">House</option>
+      <option value="villa">Villa</option>
+      <option value="plot">Plot</option>
+      <option value="flat">Flat</option>
+      <option value="land">Land</option>
+      <option value="farmLand">Farm Land</option>
+      <option value="farmHouse">Farm House</option>
+      <option value="commercial">Commercial</option>
+
+      
+    </select>
+    </div>
       {/* <div className="col-lg-2 align-items-center " id="res3">
         <i
           class="bi bi-currency-rupee fs-5"
@@ -181,7 +190,7 @@ console.log(propertyBudget)
           <option value="any">Any</option>
         </select>
       </div> */}
-      <div className="col-lg-2 col-md-2" id="res4">
+      <div className="col-lg-2 col-md-2 " id="res4">
       <button className="btn btn-danger px-3 fs-5" id="btnsearch1" data-bs-toggle="modal" data-bs-target="#exampleModal"  onClick={() => {
          
              
@@ -368,7 +377,7 @@ const Wrapper = styled.div`
     width: 300px;
     height: 2.1rem;
     @media screen and (max-width: 768px) {
-      width: 310px;
+      width: 280px;
 
     }
   
@@ -378,7 +387,7 @@ const Wrapper = styled.div`
     font-family: "Playpen Sans", cursive;
   }
   #btnsearch1{
-    margin-left: 16rem;
+    margin-left: 11rem;
     width: 85%;
      border-radius: 5rem;
      height: 42px;
@@ -393,14 +402,14 @@ const Wrapper = styled.div`
     }
     @media screen and (min-width: 768px) and (max-width: 1024px) {
       
-      margin-left: 10rem;
+      margin-left: 2rem;
     width: 115%;
      border-radius: 5rem;
      height: 2.6rem;
     }
     @media screen and (min-width: 1024px) and (max-width: 1400px) {
       
-      margin-left: 10rem;
+      margin-left: 8rem;
     width: 115%;
      border-radius: 5rem;
      height: 2.6rem;
@@ -409,14 +418,14 @@ const Wrapper = styled.div`
   #main-col{
     width: 60rem;
     @media screen and (max-width: 768px) {
-      width: 23.5rem
+      width: 90%
       
     }
     @media screen and (min-width: 768px) and (max-width: 1024px) {
-      width: 45rem;
+      width: 90%;
     }
     @media screen and (min-width: 1024px) and (max-width: 1600px) {
-      width: 60rem;
+      width: 90%
     }
   }
   #inner-col{
@@ -427,11 +436,15 @@ const Wrapper = styled.div`
   #res1{
     @media screen and (max-width: 768px) {
       margin-left: 0rem;
+      
     }
   }
   #res2{
-    @media screen and (max-width: 768px) {
-      margin-left: 0.6rem;
+    @media screen and (max-width: 767px) {
+      margin-left: 2rem;
+      width: 80%;
+
+      
     }
   }
   #res3{
