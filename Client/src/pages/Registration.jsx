@@ -94,7 +94,7 @@ const Registration = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter your email"
+                  placeholder="Enter your mobile number"
                   name="phone"
                   maxLength={10}
                   className="form-control"
