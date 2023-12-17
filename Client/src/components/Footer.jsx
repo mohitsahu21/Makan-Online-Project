@@ -103,7 +103,7 @@ const Footer = () => {
               </div>
              
               <div>
-                  <h5 className="text-white text-center">@2023 MakanOnline. All Right Reserved</h5> 
+                  <h5 className="text-white text-center">Copyright &copy; 2024 Bharatroofers. All Right Reserved</h5> 
                 
                 </div>
             </div>
