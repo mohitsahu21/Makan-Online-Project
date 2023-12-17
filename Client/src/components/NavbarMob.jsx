@@ -3,8 +3,25 @@ import { Navbar, Nav, Button,} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../images/Makaan_logo.jpg'
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from "../redux/user/userSlice";
 
 function NavbarMob() {
+  const {currentUser,loading,error} = useSelector((state) => state.user)
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    // Display a confirmation popup
+    const isConfirmed = window.confirm('Are you sure you want to Logout?');
+
+    if (!isConfirmed) {
+      // If the user cancels the deletion, do nothing
+      return;
+    }
+      dispatch(logout())
+ }
+ 
   return (
     <Wrapper>
     <nav class="navbar bg-light fixed-top">
@@ -27,11 +44,36 @@ function NavbarMob() {
           <Nav.Link  as={Link} to="/about" className='li'>About</Nav.Link>
           <Nav.Link  as={Link} to="/contact" className='li'>Contact</Nav.Link>
           <Nav.Link  as={Link} to="/blog" className='li'>Blog</Nav.Link>
-          <Nav.Link  as={Link} to="/admin" className='li'>Admin</Nav.Link>
+
+          {currentUser
+           ? 
+           ( <>
+            <NavDropdown title={currentUser.user.name} id="navbarScrollingDropdown" className='text-white me-5'>
+              <NavDropdown.Item href="#action3" onClick={handleLogout}>Logout</NavDropdown.Item>
+              
+             
+            
+            </NavDropdown>
+            
+           
+
+          
+           </>)
+          
+          :
+          (
+            <>
+             <Nav.Link  as={Link} to="/register" className='li'> Registeration</Nav.Link>
+          <Nav.Link  as={Link} to="/login" className='li'> Login</Nav.Link>
+            </>
+          )
+          }
+         
+          
         </Nav>
         </ul>
-        <Link to="/register"><button className="btn btn-outline-light mx-2 " type="submit">Registeration</button></Link>
-      <Link to="/login"> <button className="btn btn-outline-light  mx-4 " type="submit">Login</button> </Link>
+       
+      
       </div>
     </div>
   </div>

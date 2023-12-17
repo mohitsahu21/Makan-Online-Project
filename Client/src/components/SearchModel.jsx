@@ -6,6 +6,8 @@ import CarouselPlaceholder from './CarouselPlaceholder';
 import { BiCategoryAlt } from "react-icons/bi";
 import { CgCalendarDates } from "react-icons/cg";
 import { FaRupeeSign } from "react-icons/fa";
+import moment from "moment";
+import { FaLocationDot } from "react-icons/fa6";
 
 
 const SearchModel = () => {
@@ -108,7 +110,7 @@ console.log(propertyBudget)
 
   return (
     <Wrapper>
-
+       
     <div className="search-container row justify-content-center mt-5 ">
     <div className="main col-lg-6 col-md-8 col-10 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
       <div className="row " id="inner-col">
@@ -235,7 +237,7 @@ console.log(propertyBudget)
                     </a>
                     <div className="card-body address">
                       <p className="card-text d-inline">
-                        <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
+                        <span className="fs-5"><FaLocationDot /></span> {property.property_address}
                       </p>
                       <a href={`/property/${property.id}`} target='blank' style={{ textDecoration: 'none' }}>
                         <h5 className="card-title mt-2">{property.property_name}</h5>
@@ -243,7 +245,7 @@ console.log(propertyBudget)
                       <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                       <p className="card-text">
                         <small className="text-body-secondary">
-                          <span className="fs-5"><CgCalendarDates /></span> {property.created_at}
+                          <span className="fs-5"><CgCalendarDates /></span> posted on : {moment(property.created_at).fromNow()} 
                         </small>
                       </p>
                     </div>

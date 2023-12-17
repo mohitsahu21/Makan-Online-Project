@@ -10,6 +10,8 @@ import "react-multi-carousel/lib/styles.css";
 import { responsive } from "./responsive";
 import CarouselPlaceholder from "./CarouselPlaceholder"
 import { FaRupeeSign } from "react-icons/fa";
+import moment from "moment";
+import { FaLocationDot } from "react-icons/fa6";
 
 export default function RentProperty() {
  
@@ -77,7 +79,7 @@ export default function RentProperty() {
                       </Link>
                       <div className="card-body address">
                         <p className="card-text d-inline">
-                          <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
+                          <span className="fs-5"><FaLocationDot /></span> {property.property_address}
                         </p>
                         <Link to={`/property/${property.id}`} style={{ textDecoration: 'none' }}>
                           <h5 className="card-title mt-2">{property.property_name}</h5>
@@ -85,7 +87,7 @@ export default function RentProperty() {
                         <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                         <p className="card-text">
                           <small className="text-body-secondary">
-                            <span className="fs-5"><CgCalendarDates /></span> {property.created_at}
+                            <span className="fs-5"><CgCalendarDates /></span>  posted on : {moment(property.created_at).fromNow()} 
                           </small>
                         </p>
                       </div>
