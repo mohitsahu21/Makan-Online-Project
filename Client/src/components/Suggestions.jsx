@@ -22,7 +22,7 @@ export default function Suggestions() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getSuggestedProperty');
+      const response = await axios.get('https://bharatroofers.com/api/property/getSuggestedProperty');
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -31,7 +31,7 @@ export default function Suggestions() {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getSuggestedPropertyImages');
+      const response = await axios.get('https://bharatroofers.com/api/property/getSuggestedPropertyImages');
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);
@@ -63,7 +63,7 @@ export default function Suggestions() {
         // Render the component only if data is available
         properties && properties.data && properties.data.length > 0 ? (
           <div className="row cardBox">
-            <Carousel responsive={responsive} showDots={true}>
+            <Carousel responsive={responsive} showDots={true} infinite={true} autoPlay={true} autoPlaySpeed={3000}>
               
               {properties.data.map((property) => {
                 const matchingImages = propertiesImages?.data.filter(

@@ -30,20 +30,22 @@ function ContactUs() {
                     <span className="display-6"><FaLocationDot/></span>
                       <li className='mt-4'>
                          <h6> Office Address</h6>
-                          <p>C-304,Ample Heights,E-8 Extension Arera Colony Bhopal –MP, Hrinagar, Durg, Bhilai, Raipur - CG</p>
+                          <p>1815 Wright Town,
+                Jabalpur, Madhya pradesh INDIA
+                482002</p>
                       </li>
                     </div>
                       <div className="d-flex align-items-center gap-3">
                       <span className="display-6"><BiSolidContact /></span>
                       <li className='mt-5'>  <h6>Phone Number </h6>
-                          <p> office: +91-8827795555 / +91-7489924666</p>
-                          <p>Mobile: +91-8827795555</p>
+                          {/* <p> office: +91-8827795555 / +91-7489924666</p> */}
+                          <p>Mobile: +91-8839280515</p>
                       </li>
                       </div>
                       <div className="d-flex align-items-center gap-3">
                       <span className="display-6"><MdEmail /></span>
                       <li className='mt-5'><h6> Email Address</h6>
-                          <p>makaanonline20@gmail.com</p>
+                          <p>bharatroofer.com</p>
                       </li>
                       </div>
                   </ul>

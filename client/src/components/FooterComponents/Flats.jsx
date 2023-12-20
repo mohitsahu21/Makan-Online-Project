@@ -24,7 +24,7 @@ export default function Flats() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/property/getPropertyByTypeAndBhk/${propertyType}/${bhk}`);
+      const response = await axios.get(`https://bharatroofers.com/api/property/getPropertyByTypeAndBhk/${propertyType}/${bhk}`);
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -33,7 +33,7 @@ export default function Flats() {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+      const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);

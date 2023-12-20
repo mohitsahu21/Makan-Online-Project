@@ -48,7 +48,7 @@ const SearchModel = () => {
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+        const response = await axios.get('https://bharatroofers.com/api/property/getAllProperty');
         setProperties(response.data);
       } catch (error) {
         console.error('Error fetching properties:', error);
@@ -63,7 +63,7 @@ useEffect(() => {
   useEffect(() => {
     const getAllPropertiesImages = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+        const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
         setPropertiesImages(response.data);
       } catch (error) {
         console.error('Error fetching property images:', error);
@@ -413,6 +413,7 @@ const Wrapper = styled.div`
     width: 115%;
      border-radius: 5rem;
      height: 2.6rem;
+     
     }
   }
   #main-col{

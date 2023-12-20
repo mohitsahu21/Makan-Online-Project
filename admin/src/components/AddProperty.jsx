@@ -91,7 +91,7 @@ function AddProperty() {
          e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:4000/api/property/addproperty', {
+            const response = await fetch('https://bharatroofers.com/api/property/addproperty', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

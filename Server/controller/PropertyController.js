@@ -4,10 +4,12 @@ const mysql = require("mysql");
 const dotenv = require("dotenv");
 const fs = require('fs');
 const path = require('path');
+const JWT = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
 dotenv.config();
 
 
-const addProperty = async (req,res) => {
+const addProperty =  (req,res) => {
     const formData = req.body;
 
      // Check if all required fields are present
@@ -56,7 +58,7 @@ const addProperty = async (req,res) => {
 
 // method for edit property .
 
-const editProperty = async (req, res) => {
+const editProperty =   (req, res) => {
     const propertyId = req.params.propertyId;
     const formData = req.body;
 
@@ -110,7 +112,7 @@ const editProperty = async (req, res) => {
 
 // method for delete property
 
-const delete_Property = async (req, res) => {
+const delete_Property =  (req, res) => {
     const propertyId = req.params.propertyId;
 
     // Check if the property with the given ID exists
@@ -165,7 +167,7 @@ const uploadImages =  (req, res) => {
 
     // Process each image and save its path to the database
     images.forEach((image, index, array) => {
-        const imagePath = 'http://localhost:4000/uploads/' + image.filename; // Store the path relative to the 'uploads' directory
+        const imagePath = 'https://bharatroofers.com/uploads/' + image.filename; // Store the path relative to the 'uploads' directory
 
         // Insert the image path into the database
         db.query(
@@ -345,26 +347,7 @@ const getAllPropertyImages = (req, res) =>{
 
 }
 
-//Method to get one property by Id
 
-// const getPropertyById = (req, res) => {
-//     const propertyId = req.params.propertyId;
-//      // Assuming the parameter name in the route is 'propertyId'
-//     const sql = 'SELECT * FROM properties WHERE id = ?'; // Replace properties with your actual table name
-
-//     db.query(sql, [propertyId], (err, results) => {
-//         if (err) {
-//             console.error('Error fetching property from MySQL:', err);
-//             res.status(500).json({ error: 'Internal Server Error' });
-//         } else {
-//             if (results.length > 0) {
-//                 res.status(200).json({success:true, data: results[0], message: 'Property fetched successfully' });
-//             } else {
-//                 res.status(404).json({success:false, error: 'Property not found' , message:"Property not found" });
-//             }
-//         }
-//     });
-// }
 
 const getPropertyById = (req, res) => {
     const propertyId = req.params.propertyId;
@@ -488,50 +471,6 @@ const deletePropertyImageById = (req, res) => {
 };
 
 
-// const deletePropertyImageById = (req, res) => {
-//     const imageId = req.params.imageId;
-
-//     const sqlSelect = 'SELECT * FROM properties_images WHERE id = ?';
-//     const sqlDelete = 'DELETE FROM properties_images WHERE id = ?';
-
-//     db.query(sqlSelect, [imageId], (err, results) => {
-//         if (err) {
-//             console.error('Error fetching property image from MySQL:', err);
-//             res.status(500).json({ error: 'Internal Server Error' });
-//         } else {
-//             if (results.length > 0) {
-//                 const imagePath = results[0].image; // Assuming the column name for the image path is 'image'
-
-//                 db.query(sqlDelete, [imageId], (errDelete) => {
-//                     if (errDelete) {
-//                         console.error('Error deleting property image from MySQL:', errDelete);
-//                         res.status(500).json({ error: 'Internal Server Error' });
-//                     } else {
-//                         // Delete the image file from the server
-//                         fs.unlink(imagePath, (errUnlink) => {
-//                             if (errUnlink) {
-//                                 console.error('Error deleting image file:', errUnlink);
-//                                 res.status(500).json({ error: 'Internal Server Error' });
-//                             } else {
-//                                 res.status(200).json({
-//                                     success: true,
-//                                     message: 'Property image deleted successfully',
-//                                 });
-//                             }
-//                         });
-//                     }
-//                 });
-//             } else {
-//                 res.status(404).json({ success: false, error: 'Property image not found', message: 'Property image not found' });
-//             }
-//         }
-//     });
-// };
-
-
-
-
-//method to get suggested property.
 
 const getSuggestedProperty = (req, res) => {
     const sql = 'SELECT * FROM properties WHERE id IN (SELECT property_id FROM suggestions) AND property_for = "sale"';
@@ -654,6 +593,328 @@ const getRecentlyPostedProperties = (req, res) => {
 };
 
 
+const userRegistration = (req, res) => {
+    try {
+      const {
+        name,
+        email,
+        phone,
+        password,
+      } = req.body;
+  
+      // Validations
+      const requiredFields = [
+        name,
+        email,
+        password,
+        phone
+        ];
+  
+      if (requiredFields.some((field) => !field)) {
+        return res.status(400).json({ error: "All fields are required" });
+      }
+  
+  
+      // Hash the "password" 
+      const saltRounds = 10;
+      const hashedPassword = bcrypt.hashSync(password, saltRounds);
+     
+      // Check if the user already exists
+      const checkUserQuery = "SELECT * FROM users WHERE email = ?";
+      
+  
+      db.query(checkUserQuery, [email], (err, result) => {
+        if (err) {
+          console.error("Error checking if user exists in MySQL:", err);
+          res.status(500).json({ error: "Internal server error" });
+        } else {
+          // Check if there are any rows in the result
+          if (result.length > 0) {
+            return res.status(400).json({
+              error: "User already exists.",
+            });
+          } else {
+            // User not found, proceed with registration
+            const insertUserQuery = `
+              INSERT INTO users (
+                name, email, phone,password
+              ) VALUES (?, ?, ?, ?)
+            `;
+  
+            const insertUserParams = [
+              name,
+              email,
+              phone,
+              hashedPassword,
+            ];
+  
+            db.query(
+              insertUserQuery,
+              insertUserParams,
+              (insertErr, insertResult) => {
+                if (insertErr) {
+                  console.error("Error inserting user:", insertErr);
+                  res.status(500).json({ error: "Internal server error" });
+                } else {
+                  console.log("User registered successfully");
+                  return res.status(200).json({
+                    success: true,
+                    message: "User registered successfully",
+                  });
+                }
+              }
+            );
+          }
+        }
+      });
+    } catch (error) {
+      console.error("Error in registration:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error in registration",
+        error: error.message,
+      });
+    }
+  };
+  
+  const loginController = (req, res) => {
+    try {
+      const { email, password } = req.body;
+      
+  
+      // Validation
+      if (!email || !password) {
+        return res.status(404).send({
+          success: false,
+          message: "Invalid email or password",
+        });
+      }
+  
+      // Check user in MySQL
+      const checkUserQuery = "SELECT * FROM users WHERE email = ?";
+      db.query(checkUserQuery, [email], (err, results) => {
+        if (err) {
+          console.error("Error checking user in MySQL:", err);
+          return res.status(500).send({
+            success: false,
+            message: "Internal server error",
+            error: err,
+          });
+        }
+  
+        if (results.length === 0) {
+          return res.status(404).send({
+            success: false,
+            message: "Email is not registered",
+          });
+        }
+  
+        const user = results[0];
+  
+        // Compare passwords
+        const match =  bcrypt.compare(password, user.password);
+        if (!match) {
+          return res.status(200).send({
+            success: false,
+            message: "Invalid Password",
+          });
+        }
+  
+        // Generate token
+        const token =  JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
+          expiresIn: "7d",
+        });
+  
+        res.cookie('access_token' , token , { httpOnly : true}).status(200).send({
+          success: true,
+          message: "Login successfully",
+          user: {
+            id: user.uid,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            
+          },
+          token,
+        });
+  
+      });
+    } catch (error) {
+      console.log(error);
+      console.error("Error in registration:", error);
+      res.status(500).json({ success: false, message: "Error in login",error: error.message });
+    }
+  };
+  
+  const interestedUser = (req, res) => {
+    const { propertyId, propertyName, name, email, phone, message } = req.body;
+  
+    const sql = 'INSERT INTO intrestedusers (property_id, propertyName, userName, userEmail,userPhone, message) VALUES (?, ?, ?, ?, ?, ?)';
+  
+    db.query(sql, [propertyId, propertyName, name, email, phone, message], (err, result) => {
+      if (err) {
+        console.error('Error inserting data into MySQL:', err);
+        res.status(500).json({ success: false, error: 'Internal Server Error' , message: 'Internal Server Error'});
+      } else {
+        res.status(200).json({ success: true, message: 'Data inserted successfully' });
+      }
+    });
+  };
+
+
+  const adminRegistration =  (req, res) => {
+    try {
+      const {
+        name,
+        email,
+        phone,
+        password,
+      } = req.body;
+  
+      // Validations
+      const requiredFields = [
+        name,
+        email,
+        password,
+        phone
+        ];
+  
+      if (requiredFields.some((field) => !field)) {
+        return res.status(400).json({ error: "All fields are required" });
+      }
+  
+  
+      // Hash the "password" 
+      const saltRounds = 10;
+      const hashedPassword = bcrypt.hashSync(password, saltRounds);
+     
+      // Check if the user already exists
+      const checkUserQuery = "SELECT * FROM admin WHERE email = ?";
+      
+  
+      db.query(checkUserQuery, [email], (err, result) => {
+        if (err) {
+          console.error("Error checking if user exists in MySQL:", err);
+          res.status(500).json({ error: "Internal server error" });
+        } else {
+          // Check if there are any rows in the result
+          if (result.length > 0) {
+            return res.status(400).json({
+              error: "Admin already exists.",
+            });
+          } else {
+            // User not found, proceed with registration
+            const insertUserQuery = `
+              INSERT INTO admin (
+                name, email, phone,password
+              ) VALUES (?, ?, ?, ?)
+            `;
+  
+            const insertUserParams = [
+              name,
+              email,
+              phone,
+              hashedPassword,
+            ];
+  
+            db.query(
+              insertUserQuery,
+              insertUserParams,
+              (insertErr, insertResult) => {
+                if (insertErr) {
+                  console.error("Error inserting user:", insertErr);
+                  res.status(500).json({ error: "Internal server error" });
+                } else {
+                  console.log("Admin registered successfully");
+                  return res.status(200).json({
+                    success: true,
+                    message: "Admin registered successfully",
+                  });
+                }
+              }
+            );
+          }
+        }
+      });
+    } catch (error) {
+      console.error("Error in registration:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error in registration",
+        error: error.message,
+      });
+    }
+  };
+  
+  const adminLoginController =  (req, res) => {
+    try {
+      const { email, password } = req.body;
+      
+  
+      // Validation
+      if (!email || !password) {
+        return res.status(404).send({
+          success: false,
+          message: "Invalid email or password",
+        });
+      }
+  
+      // Check user in MySQL
+      const checkUserQuery = "SELECT * FROM admin WHERE email = ?";
+      db.query(checkUserQuery, [email],  (err, results) => {
+        if (err) {
+          console.error("Error checking admin in MySQL:", err);
+          return res.status(500).send({
+            success: false,
+            message: "Internal server error",
+            error: err,
+          });
+        }
+  
+        if (results.length === 0) {
+          return res.status(404).send({
+            success: false,
+            message: "Email is not registered",
+          });
+        }
+  
+        const user = results[0];
+  
+        // Compare passwords
+        const match =  bcrypt.compare(password, user.password);
+        if (!match) {
+          return res.status(200).send({
+            success: false,
+            message: "Invalid Password",
+          });
+        }
+  
+        // Generate token
+        const token =  JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
+          expiresIn: "7d",
+        });
+  
+        res.cookie('access_token' , token , { httpOnly : true}).status(200).send({
+          success: true,
+          message: "Login successfully",
+          user: {
+            id: user.uid,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            
+          },
+          token,
+        });
+  
+      });
+    } catch (error) {
+      console.log(error);
+      console.error("Error in registration:", error);
+      res.status(500).json({ success: false, message: "Error in login",error: error.message });
+    }
+  };
+  
 
 
 
@@ -661,57 +922,4 @@ const getRecentlyPostedProperties = (req, res) => {
 
 
 
-
-// const addProperty = async (req, res) => {
-//     try {
-//         const formData = req.body;
-
-//         // Check if all required fields are present
-//         const requiredFields = [
-//             "property_location",
-//             "property_address",
-//             "property_city",
-//             "property_description",
-//             "property_type",
-//             "bhk",
-//             "new_resale",
-//             "structure",
-//             "price",
-//             "square_ft",
-//             "dimension",
-//             "car_parking",
-//             "year_built",
-//             "facing",
-//             'furnishing',
-//             "carpet_area",
-//             "bathroom",
-//             'property_on_floor',
-//             'flooring',
-//             'age_of_property',
-//             'parking',
-//             'lift'
-//         ];
-//         const missingFields = requiredFields.filter(field => !formData.hasOwnProperty(field));
-//         if (missingFields.length > 0) {
-//             return res.status(400).json({ error: `All fields are required` });
-//         }
-
-//         // Insert the form data into the MySQL database
-//         const sql = 'INSERT INTO properties SET ?'; // Replace your_table_name with the actual table name
-//         const [result] = await db.query(sql, formData);
-
-//         const insertedData = { ...formData, id: result.insertId }; // Assuming 'id' is the primary key in your table
-//         console.log('Form data inserted successfully');
-
-//         // Send the inserted data back to the frontend
-//         res.status(200).json({ data: insertedData, message: 'Form submitted successfully' });
-//     } catch (error) {
-//         console.error('Error inserting data into MySQL:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// };
-
-
-
-
-module.exports = {addProperty , uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty,delete_Property,deletePropertyImageById, getPropertyByTypeAndBhk , getPropertyForRentByType,getPropertyForResaleAndType}
+module.exports = {addProperty, interestedUser, adminLoginController, adminRegistration, userRegistration, loginController, uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty,delete_Property,deletePropertyImageById, getPropertyByTypeAndBhk , getPropertyForRentByType,getPropertyForResaleAndType}

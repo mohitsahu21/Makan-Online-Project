@@ -1,12 +1,12 @@
 const express = require("express");
 const { db } = require("../db");
 const mysql = require("mysql");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 const JWT = require('jsonwebtoken');
 dotenv.config();
 
-const userRegistration = async (req, res) => {
+const userRegistration = (req, res) => {
   try {
     const {
       name,
@@ -90,7 +90,7 @@ const userRegistration = async (req, res) => {
   }
 };
 
-const loginController = async (req, res) => {
+const loginController = (req, res) => {
   try {
     const { email, password } = req.body;
     
@@ -105,7 +105,7 @@ const loginController = async (req, res) => {
 
     // Check user in MySQL
     const checkUserQuery = "SELECT * FROM users WHERE email = ?";
-    db.query(checkUserQuery, [email], async (err, results) => {
+    db.query(checkUserQuery, [email], (err, results) => {
       if (err) {
         console.error("Error checking user in MySQL:", err);
         return res.status(500).send({
@@ -125,7 +125,7 @@ const loginController = async (req, res) => {
       const user = results[0];
 
       // Compare passwords
-      const match = await bcrypt.compare(password, user.password);
+      const match =  bcrypt.compare(password, user.password);
       if (!match) {
         return res.status(200).send({
           success: false,
@@ -134,7 +134,7 @@ const loginController = async (req, res) => {
       }
 
       // Generate token
-      const token = await JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
+      const token =  JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
         expiresIn: "7d",
       });
 

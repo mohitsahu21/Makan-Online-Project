@@ -19,11 +19,11 @@ export default function Homepage() {
   const [propertiesImages,setPropertiesImages] = useState([])
 
   const getAllPropeties = async() =>{
-    const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+    const response = await axios.get('https://bharatroofers.com/api/property/getAllProperty');
     setProperties(response.data)
   }
   const getAllPropetiesImages = async() =>{
-    const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+    const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
     setPropertiesImages(response.data)
   }
 
@@ -141,6 +141,8 @@ const Wrapper = styled.div`
   //   rgba(255, 255, 255, 1) 100%
   // );
   // For All Screens
+
+  
   .nav-tabs {
     border-bottom: none; /* Remove the bottom border */
   }
@@ -193,7 +195,7 @@ const Wrapper = styled.div`
   .nav1{
     display: block;
     @media screen and (max-width: 768px) {
-   
+    
     display: none;
     
   }

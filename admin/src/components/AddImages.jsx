@@ -47,7 +47,7 @@ function AddImages() {
       // Append the property ID to the FormData object
       formData.append('property_id', property);
   
-      const response = await axios.post('http://localhost:4000/api/property/upload-images', formData, {
+      const response = await axios.post('https://bharatroofers.com/api/property/upload-images', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`

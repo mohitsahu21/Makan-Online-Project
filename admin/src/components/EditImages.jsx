@@ -29,7 +29,7 @@ const EditImages = () => {
     // Function to fetch property images by propertyId
     const fetchPropertyImages = async (propertyId) => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`);
+        const response = await axios.get(`https://bharatroofers.com/api/property/getPropertyImagesById/${propertyId}`);
         return response?.data.data;
       } catch (error) {
         console.error('Error fetching property images:', error);
@@ -47,7 +47,7 @@ const EditImages = () => {
       return;
     }
 
-            const response = await axios.delete(`http://localhost:4000/api/property/delete-property-image/${imageId}`,{
+            const response = await axios.delete(`https://bharatroofers.com/api/property/delete-property-image/${imageId}`,{
                 headers:{
                     'Authorization': `Bearer ${token}`,
                      'Content-Type': 'application/json',

@@ -235,7 +235,7 @@ function ContactUsModel({propertyId,propertyName}) {
    
     try{
      
-      const res = await axios.post("http://localhost:4000/api/auth/interestedUser" , formData)
+      const res = await axios.post("https://bharatroofers.com/api/property/interestedUser" , formData)
       
       console.log(res)
       if(res.data.success === true){

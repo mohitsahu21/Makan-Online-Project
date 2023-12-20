@@ -24,19 +24,19 @@ function NavbarMob() {
  
   return (
     <Wrapper>
-    <nav class="navbar bg-light fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand mx-3" href="#"><img src={logo} height={35} width={35} alt="" /></a>
-    <button class="navbar-toggler mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-      <span class="navbar-toggler-icon"></span>
+    <nav className="navbar bg-light fixed-top">
+  <div className="container-fluid">
+    <a className="navbar-brand mx-3" href="#"><img src={logo} height={35} width={35} alt="" /></a>
+    <button className="navbar-toggler mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span className="navbar-toggler-icon"></span>
     </button>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title d-flex gap-1" id="offcanvasNavbarLabel"><img src={logo} height={30} width={30} alt="" /><h6 className='mt-1'>Makaan Online</h6></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div className="offcanvas-header">
+        <h5 className="offcanvas-title d-flex gap-1" id="offcanvasNavbarLabel"><img src={logo} height={30} width={30} alt="" /><h6 className='mt-1'>Makaan Online</h6></h5>
+        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+      <div className="offcanvas-body">
+        <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
         <Nav className="navbar-nav justify-content-end flex-grow-1 pe-3">
          
    
@@ -95,6 +95,7 @@ const Wrapper = styled.div`
  margin-left: 1rem;
    
 }
+
 .li{
     color: black;
          font-weight: 800;

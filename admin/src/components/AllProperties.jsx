@@ -154,7 +154,7 @@ export default function PropertyType() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/property/getAllProperty/`);
+      const response = await axios.get(`https://bharatroofers.com/api/property/getAllProperty/`);
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -163,7 +163,7 @@ export default function PropertyType() {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+      const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);
@@ -181,7 +181,7 @@ export default function PropertyType() {
       // If the user cancels the deletion, do nothing
       return;
     }
-      const response = await axios.delete(`http://localhost:4000/api/property/deleteproperty/${propertyId}`,{
+      const response = await axios.delete(`https://bharatroofers.com/api/property/deleteproperty/${propertyId}`,{
              headers:{
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',

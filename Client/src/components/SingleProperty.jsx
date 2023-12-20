@@ -29,7 +29,7 @@ function SingleProperty() {
   // Function to fetch property details by propertyId
 const fetchPropertyDetails = async (propertyId) => {
   try {
-    const response = await axios.get(`http://localhost:4000/api/property/getPropertyById/${propertyId}`);
+    const response = await axios.get(`https://bharatroofers.com/api/property/getPropertyById/${propertyId}`);
     return response.data.data;
   } catch (error) {
     console.error('Error fetching property details:', error);
@@ -40,7 +40,7 @@ const fetchPropertyDetails = async (propertyId) => {
 // Function to fetch property images by propertyId
 const fetchPropertyImages = async (propertyId) => {
   try {
-    const response = await axios.get(`http://localhost:4000/api/property/getPropertyImagesById/${propertyId}`);
+    const response = await axios.get(`https://bharatroofers.com/api/property/getPropertyImagesById/${propertyId}`);
     return response.data.data;
   } catch (error) {
     console.error('Error fetching property images:', error);

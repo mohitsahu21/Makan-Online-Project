@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const authenticate = require('../middleware/authMiddleware.js');
-const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties, getPropertyForRent, editProperty, delete_Property, deletePropertyImageById, getPropertyByTypeAndBhk, getPropertyForRentByType, getPropertyForResaleAndType} = require('../controller/PropertyController.js')
+const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties, getPropertyForRent, editProperty, delete_Property, deletePropertyImageById, getPropertyByTypeAndBhk, getPropertyForRentByType, getPropertyForResaleAndType, userRegistration, loginController, adminLoginController, adminRegistration, interestedUser} = require('../controller/PropertyController.js')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -39,6 +39,11 @@ router.get("/getPropertyForResaleByType/:propertyType", getPropertyForResaleAndT
 
 
 router.post("/addSuggestedProperty",authenticate,addSuggestedPropperty);
+router.post("/register", userRegistration);
+router.post("/login", loginController);
+router.post("/admin-login", adminLoginController);
+router.post("/admin-registration", adminRegistration);
+router.post("/interestedUser", interestedUser);
 
 
 

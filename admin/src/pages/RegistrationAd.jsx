@@ -24,7 +24,7 @@ function RegistrationAd() {
   const handleSumbit = async (e) =>{
     e.preventDefault();
     try{
-      const res  = await axios.post("http://localhost:4000/api/auth/admin-registration", formData)
+      const res  = await axios.post("https://bharatroofers.com/api/property/admin-registration", formData)
       console.log(res)
       if(res.data.success === true){
         cogoToast.success(`${res.data.message}`)

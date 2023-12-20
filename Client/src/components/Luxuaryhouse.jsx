@@ -22,7 +22,7 @@ export default function Luxuaryhouse() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getPropertyByType/farmHouse');
+      const response = await axios.get('https://bharatroofers.com/api/property/getPropertyByType/farmHouse');
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -31,7 +31,7 @@ export default function Luxuaryhouse() {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+      const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);
@@ -63,7 +63,7 @@ export default function Luxuaryhouse() {
         // Render the component only if data is available
         properties && properties.data && properties.data.length > 0 ? (
           <div className="row cardBox">
-            <Carousel responsive={responsive} showDots={true}>
+            <Carousel responsive={responsive} showDots={true} infinite={true} autoPlay={true} autoPlaySpeed={3000}>
               
               {properties.data.map((property) => {
                 const matchingImages = propertiesImages?.data.filter(

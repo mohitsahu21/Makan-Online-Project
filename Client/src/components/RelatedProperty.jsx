@@ -23,18 +23,18 @@ export default function RelatedProperty({propertyType,propertyFor,propertyId}) {
     try {
       if(propertyType && propertyFor){
         if(propertyFor=="rent"){
-          const response = await axios.get('http://localhost:4000/api/property/getPropertyForRent/');
+          const response = await axios.get('https://bharatroofers.com/api/property/getPropertyForRent/');
           setProperties(response.data);
         }
         else{
-          const response = await axios.get(`http://localhost:4000/api/property/getPropertyByType/${propertyType}`);
+          const response = await axios.get(`https://bharatroofers.com/api/property/getPropertyByType/${propertyType}`);
           setProperties(response.data);
         }
 
         
       }
       else{
-        const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+        const response = await axios.get('https://bharatroofers.com/api/property/getAllProperty');
         setProperties(response.data);
       }
       
@@ -45,7 +45,7 @@ export default function RelatedProperty({propertyType,propertyFor,propertyId}) {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+      const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);
@@ -79,7 +79,7 @@ export default function RelatedProperty({propertyType,propertyFor,propertyId}) {
         properties && properties?.data && properties?.data.length > 0 && properties?.data
         .filter(property => property.id != propertyId).length>0 ? (
           <div className="row cardBox">
-            <Carousel responsive={responsive} showDots={true}>
+            <Carousel responsive={responsive} showDots={true} infinite={true} autoPlay={true} autoPlaySpeed={3000}>
               
               {properties?.data
               .filter(property => property.id != propertyId) // Filter out the property with the specified ID
