@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="container-fluid footmain">
           <div className="p-4">
             <div className="row">
-              <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+              <div className="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                 <h6 className="text-center">Popular Residential Property Searches</h6>
                 <ul>
                  <a href="/property/propertyType/house" target="blank"> <li>Houses in Jabalpur</li> </a>
@@ -27,7 +27,7 @@ const Footer = () => {
                   
                 </ul>
               </div>
-              <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+              <div className="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                 <h6 className="text-center">Popular BHK Searches</h6>
                 <ul>
                  <a href="/property/flat/1" target="blank"> <li>1 BHK Flats in Jabalpur</li></a>
@@ -41,7 +41,7 @@ const Footer = () => {
                   
                 </ul>
               </div>
-              <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+              <div className="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                 <h6 className="text-center">Popular Rental Property Searches</h6>
                 <ul>
                 <a href="/property/propertiesForRent/house" target="blank"><li>Houses for Rent in  Jabalpur</li></a>
@@ -54,7 +54,7 @@ const Footer = () => {
                 <a href="/property/propertiesForRent/commercial" target="blank">  <li>Commercial Property for Rent in Jabalpur</li></a>
                 </ul>
               </div>
-              <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+              <div className="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
                 <h6 className="text-center">Popular Resale Property Searches</h6>
                 <ul>
                 <a href="/property/propertiesForResale/house" target="blank"> <li>House for Resale in Jabalpur</li></a>
@@ -66,7 +66,11 @@ const Footer = () => {
                 <a href="/property/propertiesForResale/farmHouse" target="blank"> <li>Farm Houses for Resale in Jabalpur</li></a>
                 <a href="/property/propertiesForResale/commercial" target="blank"><li>Commercials Property for Resale in Jabalpur</li></a>
                 </ul>
-                <div className="">
+              
+              
+              
+              </div>
+              <div className="d-flex justify-content-center">
                 <ul>
                   <li> <img src={logo} height={100} width={200} alt="" className="rounded-3" /> </li>
                   <li><h5 className="mt-3 mx-5">Follow us on</h5></li>
@@ -98,9 +102,6 @@ const Footer = () => {
                  
                    
                 </div>
-              
-              
-              </div>
              
               <div>
                   <h5 className="text-white text-center">Copyright &copy; 2024 Bharatroofers. All Right Reserved</h5> 
@@ -161,4 +162,7 @@ const Container = styled.div`
       
     }
   }
+
+
+
 `;

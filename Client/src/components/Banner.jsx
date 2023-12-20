@@ -74,8 +74,8 @@ export default function Banner() {
             /> */}
             <div className="card-img-overlay">
               <div className="d-flex align-items-center justify-content-center h-100">
-                <h1 className="text-light fw-bold banner-heading">
-                  Find your home with people you trust
+                <h1 className="text-light fw-bold banner-heading text-uppercase">
+                  Find Your Home With People You Trust
                 </h1>
               </div>
             </div>
