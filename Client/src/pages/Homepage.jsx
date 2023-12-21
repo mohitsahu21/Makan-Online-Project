@@ -34,16 +34,23 @@ export default function Homepage() {
   //    getAllPropetiesImages()
      
   // },[])
+  useEffect(()=>{
+    const handleTop = () => {
+      window.scrollTo(0, 0);
+    };
+    handleTop();
+  },[])
 
 
 
   
   return (
     <Wrapper>
-      <div>
-        <div className="container-fluid px-0">
-          <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+       <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
           <div className="nav2"><NavbarMob /> </div>
+      <div>
+        <div className="container-fluid">
+         
           <div className="bannerdiv">
             <Banner />
           </div>
@@ -194,7 +201,7 @@ const Wrapper = styled.div`
   }
   .nav1{
     display: block;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1000px) {
     
     display: none;
     
@@ -202,8 +209,8 @@ const Wrapper = styled.div`
 }
   .nav2{
     display: none;
-    @media screen and (max-width: 768px) {
-   
+  
+    @media screen and (max-width: 1000px) {
    display: block;
    
  }

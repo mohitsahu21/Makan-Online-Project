@@ -103,6 +103,7 @@ import Blog5 from "../components/Blogs/Blog5";
 import Blog6 from "../components/Blogs/Blog6";
 import Blog7 from "../components/Blogs/Blog7";
 import Blog8 from "../components/Blogs/Blog8";
+import NavbarMob from "../components/NavbarMob";
 
 function Blogs() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -114,11 +115,18 @@ function Blogs() {
     //       .then(data => setBlogPosts(data))
     //       .catch(error => console.error('Error fetching data:', error));
     //   }, []);
-
+   
+    useEffect(()=>{
+      const handleTop = () => {
+        window.scrollTo(0, 0);
+      };
+      handleTop();
+    },[])
   return (
     <>
     <Container>
-    <Navbar isScrolled={isScrolled}/>
+    <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+          <div className="nav2"><NavbarMob /> </div>
     <div className="container-fluid mt-5">
         <div className="row">
             <div className="col-12 text-center mt-5">
@@ -196,5 +204,22 @@ const Container = styled.div`
    
     margin: auto;
 }
+.nav1{
+    display: block;
+    @media screen and (max-width: 1000px) {
+    
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+  
+    @media screen and (max-width: 1000px) {
+   display: block;
+   
+ }
+   
+  }
      
 `;

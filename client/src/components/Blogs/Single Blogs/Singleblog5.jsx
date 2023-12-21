@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../../Navbar";
 import { Link } from "react-router-dom";
 import { BiCategoryAlt } from "react-icons/bi";
 import { CgCalendarDates } from "react-icons/cg";
 import blog5 from "../../../images/blog5.jpg";
+import NavbarMob from "../../NavbarMob";
 
 function Singleblog5() {
   const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(()=>{
+    const handleTop = () => {
+      window.scrollTo(0, 0);
+    };
+    handleTop();
+  },[])
   return (
     <>
       <Container>
-        <Navbar isScrolled={isScrolled} />
+      <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+          <div className="nav2"><NavbarMob /> </div>
         <div className="container mt-5">
           <div className="row p-4 heading">
             <div className="col-12 text-center mt-4">
@@ -280,5 +288,22 @@ const Container = styled.div`
     } */
 
     border-radius: 10px;
+  }
+  .nav1{
+    display: block;
+    @media screen and (max-width: 1000px) {
+    
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+  
+    @media screen and (max-width: 1000px) {
+   display: block;
+   
+ }
+   
   }
 `;

@@ -116,40 +116,76 @@ console.log(propertyBudget)
     <Wrapper>
        
     <div className="search-container row justify-content-center mt-5 ">
-    <div className="main col-lg-6 col-md-8 col-8 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
-      <div className="row " id="inner-col">
-        <div className="col-lg-4 col-md-4" id="res1">
-         
-      <form>      
-      <div className="d-flex align-items-center">
-     
-       <i
-          className="bi bi-geo-alt-fill fs-5 px-2"
-          style={{ color: "red" }}
-        ></i>
-      
-        <input
-          type="text"
-          id="search-box"
-          className="border rounded-5"
-          placeholder="Enter Location Or Project"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-
-        />
-      </div>
-      </form>
-      
-      </div>
   
-      <div className="col-lg-2 col-md-2" id="res2">
+
+
+     {/* bootsrap search */}
+     <div className="row">
+          
+          <div className="col-12 d-flex justify-content-center">
+            <form className="d-flex mt-4 justify-content-center  searchBox">
+              <div className="input-group  d-flex flex-column flex-md-row">
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Enter Location Or Project"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  aria-label="Search"
+                />
+                <select
+                  className="form-select"
+                  onChange={(e) => setPropertyFor(e.target.value)}
+                  required
+                >
+                  <option value="sale">Buy</option>
+                  <option value="rent">Rent</option>
+                </select>
+                <select
+                  className="form-select"
+                  aria-label="Property Type"
+                  onChange={(e) => setPropertyType(e.target.value)}
+                >
+                  <option value="">All Types</option>
+                  <option value="house">House</option>
+      <option value="villa">Villa</option>
+      <option value="plot">Plot</option>
+      <option value="flat">Flat</option>
+      <option value="land">Land</option>
+      <option value="farmLand">Farm Land</option>
+      <option value="farmHouse">Farm House</option>
+      <option value="commercial">Commercial</option>
+                </select>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-lg"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Search
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+    
+
+       {/* <div className="row">
+            <div className='col-8 mx-auto'>
+            <input className="form-control" type="text" placeholder="Enter Location Or Project" value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}aria-label="Search"/>
+            </div>
+            <div className="col-12 d-flex justify-content-center ">
+            <form className="d-flex mt-4 justify-content-center  gap-4 searchBox ">
+              
+        
+            
       <select  className="form-select" onChange={(e) => setPropertyFor(e.target.value)} required>
         
         <option value="sale">Buy</option>
         <option value="rent">Rent</option>
       
-      </select></div>
-       <div className="col-lg-2 col-md-2" id="res2">
+      </select>
       <select
       className="form-select"
       aria-label="Property Type"
@@ -168,35 +204,13 @@ console.log(propertyBudget)
 
       
     </select>
-    </div>
-      {/* <div className="col-lg-2 align-items-center " id="res3">
-        <i
-          class="bi bi-currency-rupee fs-5"
-          style={{ color: "red" }}
-        ></i>
-        <select
-         
-          className="w-auto px-3 py-1 "
-          id="budget"
-          placeholder="Budget"
-          
-          onChange={(e) => setPropertyBudget(e.target.value)}
-        >
-          <option selected>Budget</option>
-          <option value="1000000">10 L</option>
-          <option value="2500000">25 L</option>
-          <option value="5000000">50 L</option>
-          <option value="10000000">1 Cr</option> 
-          <option value="any">Any</option>
-        </select>
-      </div> */}
-      <div className="col-lg-2 col-md-2 " id="res4">
-      <button className="btn btn-danger px-3 fs-5" id="btnsearch1" data-bs-toggle="modal" data-bs-target="#exampleModal"  onClick={() => {
-         
-             
-            }}>Search</button></div>
+    <div className=''>
+      <button type="button" className="btn btn-primary btn-lg"  data-bs-toggle="modal" data-bs-target="#exampleModal" >Search</button>
       </div>
-    </div>
+      </form>
+     
+            </div>
+        </div> */}
 
     {/* model */}
     <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -245,11 +259,11 @@ console.log(propertyBudget)
                       <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
                     </a>
                     <div className="card-body address">
-                      <p className="card-text d-inline">
+                      <p className="card-text d-inline text-capitalize">
                         <span className="fs-5"><FaLocationDot /></span> {property.property_address}
                       </p>
                       <a href={`/property/${property.id}`} target='blank' style={{ textDecoration: 'none' }}>
-                        <h5 className="card-title mt-2">{property.property_name}</h5>
+                        <h5 className="card-title mt-2 text-capitalize">{property.property_name}</h5>
                       </a>
                       <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                       <p className="card-text">
@@ -299,6 +313,68 @@ console.log(propertyBudget)
 export default SearchModel;
 
 const Wrapper = styled.div`
+
+
+.searchBox{
+  width: 60%;
+  @media only screen and (max-width: 760px) {
+  width: 80%;
+  
+  
+
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: auto;
+    }
+  input{
+  width: 40%;
+ 
+  @media only screen and (max-width: 760px) {
+  width: 80%;
+  border-radius: 0;
+  
+      margin: 10px 0;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      
+    }
+}
+select{
+  width: 20%;
+  @media only screen and (max-width: 760px) {
+    
+  width: 80%;
+  margin: 10px 0;
+    }
+   
+}
+.input-group{
+  @media only screen and (max-width: 760px) {
+     margin-left: 35px;
+    }
+}
+button{
+  @media only screen and (max-width: 760px) {
+  width: 80%;
+  border-radius: 0;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      
+    }
+}
+
+
+
+
+
+
+
+
+
+
+ 
+}
+
 
 .address{
   overflow: hidden;
@@ -432,6 +508,7 @@ const Wrapper = styled.div`
   #inner-col{
     @media screen and (max-width: 768px) {
       gap: 1rem;
+      width: 90vh;
     }
   }
   #res1{
@@ -471,6 +548,7 @@ const Wrapper = styled.div`
       margin-left: 2rem;
     }
   }
+  
 
     
 `;

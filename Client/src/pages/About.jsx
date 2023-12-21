@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import house from '../images/house.jpg'
 import cull from '../images/cul1.cc3dc9f1.png'
@@ -9,13 +9,21 @@ import Happy from '../images/mantra.1e357178.png'
 import logo from '../images/logo.png'
 import profile from '../images/dummy-profile.jpg'
 import Navbar from "../components/Navbar";
+import NavbarMob from '../components/NavbarMob'
 
 
 function About() {
+  useEffect(()=>{
+    const handleTop = () => {
+      window.scrollTo(0, 0);
+    };
+    handleTop();
+  },[])
   return (
     <>
       <Container>
-        <Navbar/>
+      <div className="nav1"><Navbar   /></div>
+          <div className="nav2"><NavbarMob /> </div>
         <div>
           <div className="mt-5 container-fluid">
             <div className="container-fluid" id="About">
@@ -205,6 +213,23 @@ function About() {
 export default About;
 
 const Container = styled.div`
+.nav1{
+    display: block;
+    @media screen and (max-width: 1000px) {
+    
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+  
+    @media screen and (max-width: 1000px) {
+   display: block;
+   
+ }
+   
+  }
  body{
   overflow: hidden;
   margin:0;
@@ -546,6 +571,7 @@ pre{
   }
 }
 }
+
 `;
 
 

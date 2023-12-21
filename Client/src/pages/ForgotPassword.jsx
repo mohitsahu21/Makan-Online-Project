@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import NavbarMob from "../components/NavbarMob";
 
 const ForgotPassword = () => {
     const [isScrolled, setIsScrolled] = useState(false);
   
-    window.onscroll = () => {
-      setIsScrolled(window.pageYOffset === 0 ? false : true);
-      return () => (window.onscroll = null);
-    };
+    useEffect(()=>{
+      const handleTop = () => {
+        window.scrollTo(0, 0);
+      };
+      handleTop();
+    },[])
     return (
       <>
         <Container>
-          <Navbar isScrolled={isScrolled}/>
+        <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+          <div className="nav2"><NavbarMob /> </div>
           <div>
             <div className="boxContainer">
               <div className="formcontent">
@@ -74,6 +78,23 @@ const ForgotPassword = () => {
         color: #08494c;
       }
     }
+  }
+  .nav1{
+    display: block;
+    @media screen and (max-width: 1000px) {
+    
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+  
+    @media screen and (max-width: 1000px) {
+   display: block;
+   
+ }
+   
   }
 `;
 

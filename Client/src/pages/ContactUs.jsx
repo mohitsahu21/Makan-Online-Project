@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidContact } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
+import NavbarMob from "../components/NavbarMob";
 
 function ContactUs() {
     const [isScrolled, setIsScrolled] = useState(false);
+    useEffect(()=>{
+      const handleTop = () => {
+        window.scrollTo(0, 0);
+      };
+      handleTop();
+    },[])
   
     // window.onscroll = () => {
     //   setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -16,7 +23,8 @@ function ContactUs() {
   return (
     <>
     <Container>
-    <Navbar isScrolled={isScrolled}/>
+    <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+          <div className="nav2"><NavbarMob /> </div>
     <div className='container boxContainer mt-5'>
         <div className='row'>
             <div className='col-12 mt-5'>
@@ -129,5 +137,22 @@ const Container = styled.div`
         color: #08494c;
       }
     }
+  }
+  .nav1{
+    display: block;
+    @media screen and (max-width: 1000px) {
+    
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+  
+    @media screen and (max-width: 1000px) {
+   display: block;
+   
+ }
+   
   }
 `;

@@ -26,13 +26,13 @@ function NavbarMob() {
     <Wrapper>
     <nav className="navbar bg-light fixed-top">
   <div className="container-fluid">
-    <a className="navbar-brand mx-3" href="#"><img src={logo} height={35} width={35} alt="" /></a>
+    <Link className="navbar-brand mx-3" to='/'><img src={logo} height={35} width={35} alt="" /></Link>
     <button className="navbar-toggler mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span className="navbar-toggler-icon"></span>
     </button>
     <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div className="offcanvas-header">
-        <h5 className="offcanvas-title d-flex gap-1" id="offcanvasNavbarLabel"><img src={logo} height={30} width={30} alt="" /><h6 className='mt-1'>Makaan Online</h6></h5>
+      <span className="offcanvas-title d-flex gap-1" id="offcanvasNavbarLabel"><img src={logo} height={30} width={30} alt="" /><span className='mt-1'>Bharatroofers</span></span>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div className="offcanvas-body">
@@ -63,7 +63,7 @@ function NavbarMob() {
           :
           (
             <>
-             <Nav.Link  as={Link} to="/register" className='li'> Registeration</Nav.Link>
+             <Nav.Link  as={Link} to="/register" className='li'> Register</Nav.Link>
           <Nav.Link  as={Link} to="/login" className='li'> Login</Nav.Link>
             </>
           )
@@ -85,6 +85,7 @@ function NavbarMob() {
 
 export default NavbarMob
 const Wrapper = styled.div`
+
 #offcanvasNavbar{
     @media screen and (max-width: 768px) {
       width: 70%;
@@ -111,5 +112,8 @@ const Wrapper = styled.div`
     font-weight: bold;
          text-decoration: none;
          font-family: "Playpen Sans", cursive;
+  }
+  .navbar{
+    width: 100vw;
   }
 `

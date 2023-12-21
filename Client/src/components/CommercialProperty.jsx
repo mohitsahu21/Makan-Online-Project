@@ -74,16 +74,16 @@ export default function CommercialProperty() {
                 console.log(imageSrc)
                 return (
                   <div className="col-12 col-md-4 mb-4" key={property.id}>
-                    <div className="card shadow p-3 mb-5 bg-white rounded">
+                    <div className="card shadow mx-auto p-3 m-0 mb-5 bg-white rounded">
                       <Link to={`/property/${property.id}`}>
                         <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
                       </Link>
                       <div className="card-body address">
-                        <p className="card-text d-inline">
+                        <p className="card-text d-inline text-capitalize">
                           <span className="fs-5"><FaLocationDot /></span> {property.property_address}
                         </p>
                         <Link to={`/property/${property.id}`} style={{ textDecoration: 'none' }}>
-                          <h5 className="card-title mt-2">{property.property_name}</h5>
+                          <h5 className="card-title mt-2 text-capitalize">{property.property_name}</h5>
                         </Link>
                         <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                         <p className="card-text">
@@ -116,6 +116,14 @@ const Wrapper = styled.div`
   text-overflow: ellipsis; 
   white-space: nowrap;
   
+}
+.cardBox{
+  @media only screen and (max-width: 768px) {
+      width: 100vw;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 100vw;
+    }
 }
 .post-heading {
     @media only screen and (max-width: 768px) {

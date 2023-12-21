@@ -171,6 +171,10 @@ const fetchPropertyImages = async (propertyId) => {
     };
 
     fetchPropertyData();
+    const handleTop = () => {
+      window.scrollTo(0, 0);
+    };
+    handleTop();
   }, [propertyId]);
 
   
@@ -227,11 +231,11 @@ const fetchPropertyImages = async (propertyId) => {
     <div className="container mt-5">
         <div className="row">
             <div className="col-12 mt-4">
-            <small> <span className="text-muted">{`All You Need To Know About ${property?.property_name}`} </span></small>
-                <h3 className="mt-3">
+            <small> <span className="text-muted text-capitalize">{`All You Need To Know About ${property?.property_name}`} </span></small>
+                <h3 className="mt-3 text-capitalize">
                 {property?.property_name}
                 </h3>
-                <div className="d-flex gap-3 justify-content-start"><span className="text-muted "><FaLocationDot/> {property?.property_address}</span>   <h4 className="me-2 text-info"><FaRupeeSign /> {property?.price}</h4>
+                <div className="d-flex gap-3 justify-content-start"><span className="text-muted text-capitalize"><FaLocationDot/> {property?.property_address}</span>   <h4 className="me-2 text-info"><FaRupeeSign /> {property?.price}</h4>
               </div>
 
            {/* carousel for property images */}
@@ -303,96 +307,96 @@ const fetchPropertyImages = async (propertyId) => {
                 </div>
                 <div className="col-4">
                 <span className="d-block">Type</span>
-                    <p className="fw-semibold">{property?.property_type}</p>
+                    <p className="fw-semibold text-capitalize">{property?.property_type}</p>
                 </div>
                 <div className="col-4">
                 <span className="d-block">Property For</span>
-                    <p className="fw-semibold">{property?.property_for}</p>
+                    <p className="fw-semibold text-capitalize">{property?.property_for}</p>
                 </div>
 
                 <div className="col-4">
                 <span className="d-block">Number of BHK</span>
-                    <p className="fw-semibold">{property?.bhk}</p>
+                    <p className="fw-semibold text-capitalize">{property?.bhk}</p>
                     </div>
                     {property?.property_for == "sale" && (
                         <div className="col-4">
                         <span className="d-block">New/Resale</span>
-                        <span className="fw-semibold">{property?.new_resale}</span>
+                        <span className="fw-semibold text-capitalize">{property?.new_resale}</span>
                     </div>
                     )}
                     {property?.property_for == "sale" && (
                         <div className="col-4">
                         <span className="d-block">TNCP Approved</span>
-                        <span className="fw-semibold">{property?.tncp}</span>
+                        <span className="fw-semibold text-capitalize">{property?.tncp}</span>
                     </div>
                     )}
                      {property?.property_for == "sale" && (
                         <div className="col-4">
                         <span className="d-block">RERA Number</span>
-                        <span className="fw-semibold">{property?.rera}</span>
+                        <span className="fw-semibold text-capitalize">{property?.rera}</span>
                     </div>
                     )}
                    
                 <div className="col-4">
                 <span className="d-block">Structur</span>
-                    <p className="fw-semibold">{property?.structure}</p>
+                    <p className="fw-semibold text-capitalize">{property?.structure}</p>
                 </div>
                 <div className="col-4">
                 <span className="d-block">Square Feet</span>
-                    <p className="fw-semibold">{`${property?.square_ft} Sq.Ft.`}</p>    
+                    <p className="fw-semibold text-capitalize">{`${property?.square_ft} Sq.Ft.`}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Dimention</span>
-                    <p className="fw-semibold">{property?.dimension}</p>
+                    <p className="fw-semibold text-capitalize">{property?.dimension}</p>
                     </div>
                     <div className="col-4">
                     <span className="d-block">Car Parking</span>
-                    <span className="fw-semibold">{property?.car_parking}</span>
+                    <span className="fw-semibold text-capitalize">{property?.car_parking}</span>
                 </div>
                 <div className="col-4">
                 <span className="d-block">Year Built</span>
-                    <p className="fw-semibold">{property?.year_built}</p>
+                    <p className="fw-semibold text-capitalize">{property?.year_built}</p>
                 </div>
                 <div className="col-4">
                 <span className="d-block">Facing</span>
-                    <p className="fw-semibold">{property?.facing}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.facing}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Furnishing</span>
-                    <p className="fw-semibold">{property?.furnishing}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.furnishing}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Carpet Area</span>
-                    <p className="fw-semibold">{property?.carpet_area}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.carpet_area}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Bathroom</span>
-                    <p className="fw-semibold">{property?.bathroom}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.bathroom}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Property On Floor</span>
-                    <p className="fw-semibold">{property?.property_on_floor}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.property_on_floor}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Flooring</span>
-                    <p className="fw-semibold">{property?.flooring}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.flooring}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Age of Property</span>
-                    <p className="fw-semibold">{`${property?.age_of_property} years`}</p>    
+                    <p className="fw-semibold text-capitalize">{`${property?.age_of_property} years`}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Parking</span>
-                    <p className="fw-semibold">{property?.parking}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.parking}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Lift</span>
-                    <p className="fw-semibold">{property?.lift}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.lift}</p>    
                 </div>
 
               </div>
               <h5 className="mt-3">ABOUT PROPERTY</h5>
-              <p className="text-muted about-property">
+              <p className="text-muted about-property text-capitalize">
               {property?.property_description}
               </p>
               <div className="row">
@@ -557,7 +561,7 @@ const fetchPropertyImages = async (propertyId) => {
 
          <div className="row mt-5">
 
-               
+               <div className="col-12"></div>
                 
                 <RelatedProperty propertyType={property?.property_type} propertyFor={property?.property_for} propertyId={property?.id}/>
                
@@ -579,7 +583,7 @@ export default SingleProperty
 const Container = styled.div`
 .nav1{
     display: block;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1000px) {
    
     display: none;
     
@@ -587,7 +591,7 @@ const Container = styled.div`
 }
   .nav2{
     display: none;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1000px) {
    
    display: block;
    

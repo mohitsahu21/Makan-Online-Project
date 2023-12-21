@@ -162,7 +162,7 @@ export default function () {
     <div>
       <Wrapper>
         <section>
-          <div className="container-fluid mb-4">
+          <div className="container-fluid mb-4 px-0">
           
             <div className="border border-1 rounded py-4 my-2">
             <SearchModel/>
@@ -172,7 +172,7 @@ export default function () {
               
             
 
-<div className="row">
+<div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-5 mb-2 justify-content-center text-center cat-list ">
   <div className="col-md-3 col-12 mb-3">
   <a href="/property/propertyType/house" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
@@ -197,7 +197,7 @@ export default function () {
   </ul>
 </div>
 
-<div className="row">
+<div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-2 justify-content-center text-center cat-list">
     <div className="col-md-3 col-12 mb-3">
     <a href="/property/propertyType/land" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
@@ -221,7 +221,7 @@ export default function () {
     </div>
   </ul>
 </div>
-<div className="row">
+<div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-5 justify-content-center text-center cat-list">
     <div className="col-md-3 col-12 mb-3">
     <a href="/property/propertiesForRent" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
@@ -297,6 +297,9 @@ export default function () {
 }
 
 const Wrapper = styled.div`
+ .links{
+  width: 100vw;
+ }
   .cat-list{
     
     list-style: none;
