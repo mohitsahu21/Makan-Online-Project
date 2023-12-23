@@ -13,6 +13,7 @@ import NavbarMob from "../components/NavbarMob";
 import axios from 'axios';
 import CommercialProperty from "../components/CommercialProperty";
 import RentProperty from "../components/RentProperty";
+
 export default function Homepage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [properties, setProperties] = useState([])
@@ -50,7 +51,7 @@ export default function Homepage() {
           <div className="nav2"><NavbarMob /> </div>
       <div>
         <div className="container-fluid">
-         
+       
           <div className="bannerdiv">
             <Banner />
           </div>
@@ -181,8 +182,9 @@ const Wrapper = styled.div`
   // For Different screens
 
   .container-fluid {
+    padding: 0;
     @media only screen and (max-width: 768px) {
-      padding: 2px;
+      
     }
   }
 

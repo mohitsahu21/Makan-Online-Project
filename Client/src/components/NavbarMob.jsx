@@ -7,6 +7,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../redux/user/userSlice";
 
+
 function NavbarMob() {
   const {currentUser,loading,error} = useSelector((state) => state.user)
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function NavbarMob() {
     <nav className="navbar bg-light fixed-top">
   <div className="container-fluid">
     <Link className="navbar-brand mx-3" to='/'><img src={logo} height={35} width={35} alt="" /></Link>
+    
     <button className="navbar-toggler mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span className="navbar-toggler-icon"></span>
     </button>

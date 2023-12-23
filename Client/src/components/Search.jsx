@@ -162,9 +162,9 @@ export default function () {
     <div>
       <Wrapper>
         <section>
-          <div className="container-fluid mb-4 px-0">
+          <div className="container-fluid mb-4 px-0 py-0">
           
-            <div className="border border-1 rounded py-4 my-2">
+            <div className="border border-1 rounded py-md-4 my-md-2">
             <SearchModel/>
               <h1 className="text-center fw-bold mt-5" id="search-heading">
               Explore Our Properties
@@ -175,22 +175,22 @@ export default function () {
 <div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-5 mb-2 justify-content-center text-center cat-list ">
   <div className="col-md-3 col-12 mb-3">
-  <a href="/property/propertyType/house" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
+  <a href="/property/propertyType/house" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50 house">
         <h3>House</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/villa" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
+    <a href="/property/propertyType/villa" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50 villa">
         <h3>Villa</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/plot" target="blank"> <button type="button" className="btn btn-outline-secondary w-75 w-md-50"> 
+    <a href="/property/propertyType/plot" target="blank"> <button type="button" className="btn btn-outline-secondary w-75 w-md-50 plot"> 
         <h3>Plot</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/flat" target="blank">   <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
+    <a href="/property/propertyType/flat" target="blank">   <button type="button" className="btn btn-outline-secondary w-75 w-md-50 flat">
         <h3>Flat</h3>
       </button></a>
     </div>
@@ -200,22 +200,22 @@ export default function () {
 <div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-2 justify-content-center text-center cat-list">
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/land" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertyType/land" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 land">
         <h3>Land</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/farmLand" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertyType/farmLand" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 farmland">
         <h3>Farm Land</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/farmHouse" target="blank">   <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertyType/farmHouse" target="blank">   <button type="button" className="btn btn-outline-secondary w-75 farmhouse">
         <h3>Farm House</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/commercial" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertyType/commercial" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 commercial">
         <h3>Commercial</h3>
       </button></a>
     </div>
@@ -224,7 +224,7 @@ export default function () {
 <div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-5 justify-content-center text-center cat-list">
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertiesForRent" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertiesForRent" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 rent">
         <h3>Property For Rent</h3>
       </button></a>
     </div>
@@ -297,6 +297,46 @@ export default function () {
 }
 
 const Wrapper = styled.div`
+.house{
+  background-color: #8d99ae;
+  color: white;
+}
+.villa{
+  background-color: #98c1d9;
+  color: white;
+}
+.land{
+  background-color: #013a63;
+  color: white;
+}
+.plot{
+  background-color: #99582a;
+  color: white;
+}
+.flat{
+  background-color: #50514f;
+  color: white;
+}
+.farmland{
+  background-color: #3b6064;
+  color: white;
+}
+.farmhouse{
+  background-color: #577590;
+  color: white;
+}
+.commercial{
+  background-color: #5e6472;
+  color: white;
+}
+.rent{
+  background-color: #6d2e46;
+  color: white;
+  
+}
+
+
+
  .links{
   width: 100vw;
  }

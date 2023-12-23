@@ -8,6 +8,7 @@ import { CgCalendarDates } from "react-icons/cg";
 import { FaRupeeSign } from "react-icons/fa";
 import moment from "moment";
 import { FaLocationDot } from "react-icons/fa6";
+import { CiSearch } from "react-icons/ci";
 
 
 const SearchModel = () => {
@@ -115,15 +116,15 @@ console.log(propertyBudget)
   return (
     <Wrapper>
        
-    <div className="search-container row justify-content-center mt-5 ">
+    <div className="search-container row justify-content-center mt-md-5 ">
   
 
 
      {/* bootsrap search */}
      <div className="row">
           
-          <div className="col-12 d-flex justify-content-center">
-            <form className="d-flex mt-4 justify-content-center  searchBox">
+          <div className="col-12  justify-content-center searchLarge">
+            <form className=" mt-4  justify-content-center  searchBox ">
               <div className="input-group  d-flex flex-column flex-md-row">
                 <input
                   className="form-control"
@@ -165,6 +166,74 @@ console.log(propertyBudget)
                   Search
                 </button>
               </div>
+            </form>
+          </div>
+          <div className="col-12  justify-content-center searchMob">
+            <form className="  ">
+            <div className="d-flex">
+               
+               
+                 <div className="form-check form-check-inline ms-3 ps-3">
+    <input
+      className="form-check-input "
+      type="radio"
+      name="propertyFor"
+      id="buyRadio"
+      value="sale"
+      checked={propertyFor === "sale"}
+      onChange={() => setPropertyFor("sale")}
+    />
+    <label className="form-check-label font-weight-bold" htmlFor="buyRadio">Buy</label>
+  </div>
+  <div className="form-check form-check-inline">
+    <input
+      className="form-check-input"
+      type="radio"
+      name="propertyFor"
+      id="rentRadio"
+      value="rent"
+      checked={propertyFor === "rent"}
+      onChange={() => setPropertyFor("rent")}
+    />
+    <label className="form-check-label  font-weight-bold" htmlFor="rentRadio">Rent</label>
+  </div>
+
+               <select
+                 className="form-select p-1 typesInput"
+                 aria-label="Property Type"
+                 onChange={(e) => setPropertyType(e.target.value)}
+               >
+                 <option value="">All Types</option>
+                 <option value="house">House</option>
+     <option value="villa">Villa</option>
+     <option value="plot">Plot</option>
+     <option value="flat">Flat</option>
+     <option value="land">Land</option>
+     <option value="farmLand">Farm Land</option>
+     <option value="farmHouse">Farm House</option>
+     <option value="commercial">Commercial</option>
+               </select>
+              
+             </div>
+             <div className='d-flex inputBar mt-2'>
+            <input
+                  className="form-control input"
+                  type="text"
+                  placeholder="Enter Location Or Project"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  aria-label="Search"
+                />
+                 <button
+                 type="button"
+                 className="btn btn-primary btn-lg searchBtn"
+                 data-bs-toggle="modal"
+                 data-bs-target="#exampleModal"
+               >
+                <span className='searchIcon'> <CiSearch /></span>
+               </button>
+                </div>
+              
             </form>
           </div>
         </div>
@@ -313,9 +382,67 @@ console.log(propertyBudget)
 export default SearchModel;
 
 const Wrapper = styled.div`
+.searchIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+  }
+  .inputBar{
+      
+      border-radius:10px;
+      background-color: white;
+  }
+  .searchBtn{
+      margin-top: 5px;
+      margin-right: 5px;
+      width: 50px;
+      height:40px ;
+      border-radius: 20px;
+  }
+  .input{
+      height: 50px;
+      width: 70vw;
+      border-radius: 20px;
+      border: none;
+      padding: 10px;
+      
+      
+  }
+  .typesInput{
+    width: 40%;
+  }
+  
+  
+
+.searchMob{
+  display: none;
+  @media only screen and (max-width: 760px) {
+ 
+  display: flex;
+  background-color: grey;
+  padding: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  
+  
+
+    }
+
+}
+.searchLarge{
+  display: flex;
+  @media only screen and (max-width: 760px) {
+ display: none;
+  
+  
+
+    }
+}
 
 
 .searchBox{
+  display: flex;
   width: 60%;
   @media only screen and (max-width: 760px) {
   width: 80%;

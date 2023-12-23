@@ -94,6 +94,7 @@ const StickyNavbar = ({isScrolled}) => {
 export default StickyNavbar;
 const Wrapper = styled.div`
 
+
   .li{
     color: white;
          font-weight: 800;

@@ -35,7 +35,7 @@ function App() {
   return (
     <> 
       
-     
+      <div style={{overflowX:"hidden"}}>
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<About />} />
@@ -67,6 +67,7 @@ function App() {
 
       </Routes>
       <Footer />
+      </div>
     </>
   );
 }

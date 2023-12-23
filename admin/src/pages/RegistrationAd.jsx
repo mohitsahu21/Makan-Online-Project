@@ -27,14 +27,14 @@ function RegistrationAd() {
       const res  = await axios.post("https://bharatroofers.com/api/property/admin-registration", formData)
       console.log(res)
       if(res.data.success === true){
-        cogoToast.success(`${res.data.message}`)
+        cogoToast.success(`${res?.data.message}`)
         navigate("/admin_login");
       }
     
     }
     catch (error) {
-      console.log(error.response.data.error); // 
-      cogoToast.error(`${error.response.data.error}`);
+      console.log(error.response?.data.error); // 
+      cogoToast.error(`${error.response?.data.error}`);
     }
 
   }
