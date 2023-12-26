@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from "react-redux";
 import EditProperty from './components/EditProperty';
 import EditImages from './components/EditImages';
 import PrivateRoute from './components/PrivateRoute';
+import SoldProperties from './components/SoldProperties';
 
 
 
@@ -44,6 +45,7 @@ function App() {
         
         <Route path='/' element={currentAdmin ? <AdminHome/> : <LoginAd/>} />
         <Route path="/allproperties" element={<AllProperties/>} />
+        <Route path="/soldproperties" element={<SoldProperties/>} />
        {/* <PrivateRoute path="/allproperties" element={<AllProperties />} />  */}
         <Route path="/admin_register" element={currentAdmin ?  <AdminHome/> :<RegistrationAd/>} />
         <Route path="/admin_forgot" element={ currentAdmin ?  <AdminHome/> :<ForgotPassword/>} />
@@ -84,7 +86,7 @@ function App() {
        
 
       </Routes>
-      <FooterAd />
+      {/* <FooterAd /> */}
       </div>
     </>
   )

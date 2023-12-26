@@ -174,10 +174,77 @@ const interestedUser = (req, res) => {
   });
 };
 
+const contactedUser = (req, res) => {
+  const { name, email, phone, message } = req.body;
+
+  const sql = 'INSERT INTO contacted_user ( name, email, phone, message) VALUES (?, ?, ?, ?)';
+
+  db.query(sql, [propertyId, propertyName, name, email, phone, message], (err, result) => {
+    if (err) {
+      console.error('Error inserting data into MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error' , message: 'Internal Server Error'});
+    } else {
+      res.status(200).json({ success: true, message: 'Data inserted successfully' });
+    }
+  });
+};
+
+const getInterestedUsers = (req, res) => {
+  const sql = 'SELECT * FROM intrestedusers';
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error retrieving user data from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.length > 0) {
+        res.status(200).json({ success: true, data: result });
+      } else {
+        res.status(404).json({ success: false, error: 'No users found', message: 'No users found' });
+      }
+    }
+  });
+};
+
+const getRegisterUsers = (req, res) => {
+  const sql = 'SELECT * FROM users';
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error retrieving user data from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.length > 0) {
+        res.status(200).json({ success: true, data: result });
+      } else {
+        res.status(404).json({ success: false, error: 'No users found', message: 'No users found' });
+      }
+    }
+  });
+};
+
+
+const getContactedUsers = (req, res) => {
+  const sql = 'SELECT * FROM contacted_user';
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error retrieving user data from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.length > 0) {
+        res.status(200).json({ success: true, data: result });
+      } else {
+        res.status(404).json({ success: false, error: 'No users found', message: 'No users found' });
+      }
+    }
+  });
+};
+
 
 
 
 
 
 module.exports = {
-  userRegistration, loginController,interestedUser}
+  userRegistration, loginController,interestedUser,getInterestedUsers, getRegisterUsers,contactedUser, getContactedUsers}

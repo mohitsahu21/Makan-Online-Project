@@ -42,7 +42,8 @@ function Sidebar() {
 
         <Dropdown.Menu>
           <Dropdown.Item><Link to="/admin/add-property">Add Property</Link></Dropdown.Item>
-          <Dropdown.Item><Link to="/allproperties">All Property</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/allproperties">Available Property</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/soldproperties">Sold Out Property</Link></Dropdown.Item>
           <Dropdown.Item><Link to="/admin/add-suggested-property">Add Suggested</Link></Dropdown.Item>
           
         </Dropdown.Menu>

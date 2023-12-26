@@ -1,123 +1,4 @@
-// import React from "react";
-// import styled from "styled-components";
-// import NavbarAd from "./NavbarAd";
-// import SingleProperty from "./PropertyAd";
-// import PropertyAd from "./PropertyAd";
-// import Sidebar from "./Sidebar";
-// import SiderbarMob from "./SiderbarMob";
 
-// export default function AllProperties() {
-//   return (                                              
-//     <Wrapper>
-//       <NavbarAd/>
-// <div className="container-fluid">
-//   <div className="row">
-//   <div className="col-lg-2" id='nav1'>
-//                <Sidebar/>
-//             </div>
-//             <div className="col-lg-2" id='nav2'>
-//                <SiderbarMob/>
-//             </div>
-//     <div className="col-lg-10">
-//       <div className="">
-//         <h3 className="post-heading fw-semibold mb-3 ms-lg-3">All Properties</h3>
-//         <div className="row  cardBox">
-//           <div className="col-12  col-xl-4 mb-1 ">
-//         <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//      <PropertyAd/>
-//           </div>
-
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-        
-      
-//           <div className="col-12  col-xl-4 mb-1 ">
-//         <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//      <PropertyAd/>
-//           </div>
-
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-      
-      
-//           <div className="col-12  col-xl-4 mb-1 ">
-//         <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//      <PropertyAd/>
-//           </div>
-
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-//           </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
- 
-
-      
-//     </Wrapper>
-//   );
-// }
-
-// const Wrapper = styled.div`
-//   .post-heading {
-//     margin-top: 5rem;
-//     @media only screen and (max-width: 768px) {
-//       font-size: 20px;
-//       text-align: center;
-//     }
-//     @media screen and (min-width: 768px) and (max-width: 1024px) {
-//       font-size: 20px;
-//     }
-//   }
-//   #nav1{
-//     display: block;
-//     @media screen and (max-width: 768px) {
-   
-//     display: none;
-    
-//   }
-// }
-//   #nav2{
-//     display: none;
-//     @media screen and (max-width: 768px) {
-   
-//    display: block;
-   
-//  }
-   
-//   }
-  
-// `;
 
 
 import React, { useEffect, useState } from "react";
@@ -139,7 +20,7 @@ import cogoToast from 'cogo-toast';
 
 
 
-export default function PropertyType() {
+export default function SoldProperties() {
  
   const {currentAdmin} = useSelector((state) => state.admin)
   const [properties, setProperties] = useState(null);
@@ -156,7 +37,7 @@ export default function PropertyType() {
   const getAllProperties = async () => {
     try {
       const response = await axios.get(`http://localhost:4000/api/property/getAllProperty/`);
-      setProperties(response?.data);
+      setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
     }
@@ -165,14 +46,13 @@ export default function PropertyType() {
   const getAllPropertiesImages = async () => {
     try {
       const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
-      setPropertiesImages(response?.data);
+      setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);
     } finally {
       setLoading(false); // Set loading to false regardless of success or error
     }
   }
-
 
   const getSuggestedProperties = async () => {
     try {
@@ -182,9 +62,6 @@ export default function PropertyType() {
       console.error('Error fetching properties:', error);
     }
   }
-  
-
-
 
   const deleteProperty = async (propertyId) =>{
     try{
@@ -203,25 +80,24 @@ export default function PropertyType() {
       });
       console.log(response)
 
-      if(response?.data.success){
+      if(response.data.success){
         
-        cogoToast.success(`${response?.data.message}`);
+        cogoToast.success(`${response.data.message}`);
         // Update the refresh state to trigger useEffect
         setRefresh((prevRefresh) => !prevRefresh);
       }
       else{
-        cogoToast.error(`${response?.data.message}`);
+        cogoToast.error(`${response.data.message}`);
       }
       
 
     }
     catch(err){
-      cogoToast.error(`${err?.message}`);
+      cogoToast.error(`${err.message}`);
     }
   }
 
-
-  const markPropertySold = async (propertyId) =>{
+  const removePropertySold = async (propertyId) =>{
     try{
      // Display a confirmation popup
     const isConfirmed = window.confirm('Are you sure you want to Mark Sold this property?');
@@ -230,7 +106,7 @@ export default function PropertyType() {
       // If the user cancels the deletion, do nothing
       return;
     }
-      const response = await axios.put(`http://localhost:4000/api/property/markedAsSold/${propertyId}`,
+      const response = await axios.put(`http://localhost:4000/api/property/removeAsSold/${propertyId}`,
       {},
       {
              headers:{
@@ -242,7 +118,7 @@ export default function PropertyType() {
 
       if(response?.data.success){
         
-        cogoToast.success(`${response?.data?.message}`);
+        cogoToast.success(`${response?.data.message}`);
         // Update the refresh state to trigger useEffect
         setRefresh((prevRefresh) => !prevRefresh);
       }
@@ -257,7 +133,6 @@ export default function PropertyType() {
     }
   }
 
-  
   const addToSuggested = async (propertyId) => {
     
   
@@ -314,7 +189,9 @@ export default function PropertyType() {
         
         cogoToast.success(`${response?.data.message}`);
         // Update the refresh state to trigger useEffect
-        setRefresh((prevRefresh) => !prevRefresh);
+        
+setRefresh((prevRefresh) => !prevRefresh);
+
       }
       else{
         cogoToast.error(`${response?.data.message}`);
@@ -326,10 +203,6 @@ export default function PropertyType() {
       cogoToast.error(`${err?.message}`);
     }
   }
-
-
-
-
 
 
   useEffect(() => {
@@ -345,7 +218,7 @@ export default function PropertyType() {
     const filteredResult = selectedType
     ? properties?.data.filter(
         (property) =>
-        property?.isSold == 0 &&
+        property?.isSold == 1 &&
           property?.property_type === selectedType &&
           property?.property_for === selectPropertyFor &&
          ( property?.property_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -354,7 +227,7 @@ export default function PropertyType() {
           )
       )
     : properties?.data.filter((property) =>
-    property?.isSold == 0 &&
+    property?.isSold == 1 &&
         property?.property_for === selectPropertyFor &&
        ( property?.property_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         property?.id.toString().includes(searchTerm.toString()) ||
@@ -377,10 +250,7 @@ export default function PropertyType() {
     setSelectPropertyFor(event.target.value)
   }
 
-  console.log(properties);
-  console.log(propertiesImages);
-  console.log(filteredProperties)
-
+  
   return (
     <Wrapper>
        
@@ -417,7 +287,7 @@ export default function PropertyType() {
             <div className="container-fluid">
               <div className="row">
               <h3 className="post-heading fw-semibold mb-3 ms-lg-3">
-        <p className="text-uppercase text-center">Available Properties </p>
+        <p className="text-uppercase text-center">SoldOut Properties </p>
         </h3>
 
      
@@ -470,27 +340,27 @@ export default function PropertyType() {
               
               {filteredProperties?.map((property) => {
                 const matchingImages = propertiesImages?.data.filter(
-                  (image) => image?.property_id == property?.id
+                  (image) => image.property_id == property.id
                 );
-                const imageSrc = matchingImages && matchingImages?.length  > 0  ? matchingImages[0]?.image : null;
+                const imageSrc = matchingImages && matchingImages.length  > 0  ? matchingImages[0].image : null;
                 console.log(imageSrc)
                 return (
-                  <div className="col-lg-4 col-md-6 col-12 mb-4" key={property?.id}>
+                  <div className="col-lg-4 col-md-6 col-12 mb-4" key={property.id}>
                     <div className="card shadow p-3 mb-5 bg-white rounded">
-                      <Link to={`/property/${property?.id}`}>
-                        <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property?.id}`} />
+                      <Link to={`/property/${property.id}`}>
+                        <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
                       </Link>
                       <div className="card-body address">
                         <p className="card-text d-inline">
-                          <span className="fs-5"><BiCategoryAlt /></span> {property?.property_address}
+                          <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
                         </p>
-                        <Link to={`/property/${property?.id}`} style={{ textDecoration: 'none' }}>
-                          <h5 className="card-title mt-2">{property?.property_name}</h5>
+                        <Link to={`/property/${property.id}`} style={{ textDecoration: 'none' }}>
+                          <h5 className="card-title mt-2">{property.property_name}</h5>
                         </Link>
-                        <h5 className="card-text"><FaRupeeSign />{property?.price}</h5>
+                        <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                         <p className="card-text">
                           <small className="text-body-secondary">
-                            <span className="fs-5"><CgCalendarDates /></span> {property?.created_at}
+                            <span className="fs-5"><CgCalendarDates /></span> {property.created_at}
                             
                           </small>
                           
@@ -499,13 +369,13 @@ export default function PropertyType() {
                        
                       </div>
                       <div className="d-flex justify-content-start align-item-center flex-wrap gap-1">
-                        <Link to={`/property/edit-property/${property?.id}`}> <button className="btn btn-primary   btn-sm ">Edit Details</button></Link>
-                       <Link to={`/property/edit-property-images/${property?.id}`}> <button className="btn btn-secondary  btn-sm mx-3 mx-md-1">Edit Images</button></Link>
-                       <button  onClick={()=>deleteProperty(property?.id)} className="btn btn-danger  btn-sm ">Delete Property</button>
-                       <button  onClick={()=>markPropertySold(property?.id)} className="btn btn-danger btn-sm ">Mark Sold</button>
-                     
-        {
-          property?.property_for == "sale" &&
+                        <Link to={`/property/edit-property/${property.id}`}> <button className="btn btn-primary   btn-sm ">Edit Details</button></Link>
+                       <Link to={`/property/edit-property-images/${property.id}`}> <button className="btn btn-secondary  btn-sm mx-3 mx-md-1">Edit Images</button></Link>
+                       <button  onClick={()=>deleteProperty(property.id)} className="btn btn-danger  btn-sm ">Delete Property</button>
+                       <button  onClick={()=>removePropertySold(property.id)} className="btn btn-danger btn-sm ">Remove Soldout</button>
+
+                       {
+          property?.property_for == "sale" && 
                     
         ( suggestedProperties?.data.some((suggProperty) => suggProperty?.id === property?.id) ? (
           <button onClick={() => removeSuggested(property?.id)} className="btn btn-danger btn-sm">Remove from Suggested</button>

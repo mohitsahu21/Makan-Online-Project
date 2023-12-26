@@ -1,10 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Sidebar from '../Sidebar'
 import SiderbarMob from '../SiderbarMob'
 import NavbarAd from '../NavbarAd'
+import axios from 'axios'
 
 function Interested_User() {
+    const [user, setUser] = useState([]);
+    console.log(user)
+
+    useEffect(()=>{
+      const fetchUser = async() =>{
+
+          try{
+            const res = await axios.get('http://localhost:4000/api/property/getInterestedUsers');
+
+            console.log(res);
+            if(res?.data.success){
+             setUser(res?.data.data)
+            }
+            else{
+             console.log(res?.error)
+            }
+          }
+          catch(err){
+            console.log(err)
+          }
+        
+      }
+      fetchUser();
+    },[])
+ 
   return (
    <Wrapper>
     <NavbarAd/>
@@ -21,38 +47,58 @@ function Interested_User() {
    <div className="col-lg-12">
   <div className="widget-area-2 proclinic-box-shadow " id='tableres'>
                     <h5 className="widget-title" id='title'>Interested User</h5>
-
-                    <div className="table-responsive">
-                      <table className="table table-bordered table-striped">
-                        <thead>
-                          <tr>
-                            <th>User id</th>
-                            <th>User Name</th>
-                            <th>Phone Number</th>
-                            <th>Email</th>
-                            <th>Property id</th>
-                            <th>Property Name</th>
-                          
-                           
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Umer Qureshi</td>
-                            <td>934839222</td>
-                            <td>Umer@gmail.com</td>
-                            <td>d9ido9</td>
-                            <td>Luxary house</td>
-
-                          
+                    <div className="table-responsive" >
+                        <table className="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>User id</th>
+                              <th>User Name</th>
+                              <th>Phone Number</th>
+                              <th>Email</th>
+                              <th>Property id</th>
+                              <th>Property Name</th>
+                              <th>Message</th>
+                              <th>Contacted At</th>
                             
-                          </tr>
-                         
+                             
+                            </tr>
+                          </thead>
                           
-                        </tbody>
-                      </table>
-                    </div>
+                      {user && user?.length > 0 ?  
+                      <>
+                     {user && user?.length > 0 &&  user?.map((user) => {
+                      return (
+                        <tbody key={user?.id}>
+                        <tr>
+                          <td>{user?.id}</td>
+                          <td>{user?.userName}</td>
+                          <td>{user?.userPhone}</td>
+                          <td>{user?.userEmail}</td>
+                          <td>{user?.property_id}</td>
+                          <td>{user?.PropertyName}</td>
+                          <td>{user?.message}</td>
+                          <td>{user?.created_at}</td>
+
+                        
+                          
+                        </tr>
+                       
+                        
+                      </tbody>
+                      )
+                     }
+
+                     )}
+                     </>
+                     :
+                     <>
+                     <p className='mt-2'>
+                     No User Found
+                     </p>
+                     </>
+                     }
+                     </table>
+                      </div>
                   </div>
    </div>
   

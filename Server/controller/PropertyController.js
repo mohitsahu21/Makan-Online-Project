@@ -914,12 +914,112 @@ const userRegistration = (req, res) => {
       res.status(500).json({ success: false, message: "Error in login",error: error.message });
     }
   };
+
+    //method for property marked as sold.
+
+    const markedAsSold = (req, res) => {
+      const propertyId = req.params.propertyId;
   
+      const sql = "UPDATE properties SET isSold = '1' WHERE id = ?";
+      db.query(sql, [propertyId], (err, result) => {
+        if (err) {
+          console.error("Error updating data in MySQL:", err);
+          res
+            .status(500)
+            .json({
+              success: false,
+              error: "Internal Server Error",
+              message: "Internal Server Error",
+            });
+        } else {
+          if (result.affectedRows === 0) {
+            // No property found with the given ID
+            res
+              .status(404)
+              .json({
+                success: false,
+                error: "Property not found",
+                message: "Property not found",
+              });
+          } else {
+            console.log("Property Mark as Sold successfully");
+            res
+              .status(200)
+              .json({ success: true, message: "Property Mark as Sold successfully" });
+          }
+        }
+      });
+    };
+  
+    const romeveAsSold = (req, res) => {
+      const propertyId = req.params.propertyId;
+  
+      const sql = "UPDATE properties SET isSold = '0' WHERE id = ?";
+      db.query(sql, [propertyId], (err, result) => {
+        if (err) {
+          console.error("Error updating data in MySQL:", err);
+          res
+            .status(500)
+            .json({
+              success: false,
+              error: "Internal Server Error",
+              message: "Internal Server Error",
+            });
+        } else {
+          if (result.affectedRows === 0) {
+            // No property found with the given ID
+            res
+              .status(404)
+              .json({
+                success: false,
+                error: "Property not found",
+                message: "Property not found",
+              });
+          } else {
+            console.log("Property remove as Sold successfully");
+            res
+              .status(200)
+              .json({ success: true, message: "Property remove as Sold successfully" });
+          }
+        }
+      });
+    };
+  
+    // method to remove property from suggested property.
+
+    const removeSuggestedProperty =  (req, res) => {
+      const propertyId = req.params.propertyId;
+  
+      // Check if the property with the given ID exists
+      const checkSql = 'SELECT * FROM suggestions WHERE property_id = ?'; // Replace 'properties' with your actual table name
+      db.query(checkSql, propertyId, (checkErr, checkResult) => {
+          if (checkErr) {
+              console.error('Error checking property existence in MySQL:', checkErr);
+              res.status(500).json({success:false, error: 'Internal Server Error', message: 'Internal Server Error'  });
+          } else {
+              if (checkResult.length === 0) {
+                  // No property found with the given ID
+                  res.status(404).json({success:false,  error: 'Property not found', message: 'Property not found' });
+              } else {
+                  // Delete the property from the MySQL database
+                  const deleteSql = 'DELETE FROM suggestions WHERE property_id = ?'; // Replace 'properties' with your actual table name
+                  db.query(deleteSql, propertyId, (deleteErr, deleteResult) => {
+                      if (deleteErr) {
+                          console.error('Error deleting data in MySQL:', deleteErr);
+                          res.status(500).json({ success:false, error: 'Internal Server Error', message: 'Internal Server Error' });
+                      } else {
+                          console.log('Property remove successfully');
+                          res.status(200).json({ success:true, message: 'Property remove successfully' });
+                      }
+                  });
+              }
+          }
+      });
+  };
 
 
 
 
 
 
-
-module.exports = {addProperty, interestedUser, adminLoginController, adminRegistration, userRegistration, loginController, uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty,delete_Property,deletePropertyImageById, getPropertyByTypeAndBhk , getPropertyForRentByType,getPropertyForResaleAndType}
+module.exports = {addProperty, interestedUser, adminLoginController, adminRegistration, userRegistration, loginController, uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty,delete_Property,deletePropertyImageById, getPropertyByTypeAndBhk , getPropertyForRentByType,getPropertyForResaleAndType,markedAsSold,romeveAsSold,removeSuggestedProperty}
