@@ -136,6 +136,8 @@ import Sidebar from "./Sidebar";
 import SiderbarMob from "./SiderbarMob";
 import { useDispatch, useSelector } from "react-redux";
 import cogoToast from 'cogo-toast';
+import moment from "moment";
+import { FaLocationDot } from "react-icons/fa6";
 
 
 
@@ -151,11 +153,12 @@ export default function PropertyType() {
   const [selectPropertyFor,setSelectPropertyFor] = useState('sale');
   const token = currentAdmin?.token;
   const [refresh, setRefresh] = useState(false);
+  const [suggestedProperties,setSuggestedProperties] = useState(null);
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/property/getAllProperty/`);
-      setProperties(response.data);
+      const response = await axios.get(`https://bharatroofers.com/api/property/getAllProperty/`);
+      setProperties(response?.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
     }
@@ -163,14 +166,27 @@ export default function PropertyType() {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
-      setPropertiesImages(response.data);
+      const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
+      setPropertiesImages(response?.data);
     } catch (error) {
       console.error('Error fetching property images:', error);
     } finally {
       setLoading(false); // Set loading to false regardless of success or error
     }
   }
+
+
+  const getSuggestedProperties = async () => {
+    try {
+      const response = await axios.get('https://bharatroofers.com/api/property/getSuggestedProperty');
+      setSuggestedProperties(response?.data);
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+    }
+  }
+  
+
+
 
   const deleteProperty = async (propertyId) =>{
     try{
@@ -181,7 +197,7 @@ export default function PropertyType() {
       // If the user cancels the deletion, do nothing
       return;
     }
-      const response = await axios.delete(`http://localhost:4000/api/property/deleteproperty/${propertyId}`,{
+      const response = await axios.delete(`https://bharatroofers.com/api/property/deleteproperty/${propertyId}`,{
              headers:{
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
@@ -189,14 +205,51 @@ export default function PropertyType() {
       });
       console.log(response)
 
-      if(response.data.success){
+      if(response?.data.success){
         
-        cogoToast.success(`${response.data.message}`);
+        cogoToast.success(`${response?.data.message}`);
         // Update the refresh state to trigger useEffect
         setRefresh((prevRefresh) => !prevRefresh);
       }
       else{
-        cogoToast.error(`${response.data.message}`);
+        cogoToast.error(`${response?.data.message}`);
+      }
+      
+
+    }
+    catch(err){
+      cogoToast.error(`${err?.message}`);
+    }
+  }
+
+
+  const markPropertySold = async (propertyId) =>{
+    try{
+     // Display a confirmation popup
+    const isConfirmed = window.confirm('Are you sure you want to Mark Sold this property?');
+
+    if (!isConfirmed) {
+      // If the user cancels the deletion, do nothing
+      return;
+    }
+      const response = await axios.put(`https://bharatroofers.com/api/property/markedAsSold/${propertyId}`,
+      {},
+      {
+             headers:{
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+             }
+      });
+      
+
+      if(response?.data.success){
+        
+        cogoToast.success(`${response?.data?.message}`);
+        // Update the refresh state to trigger useEffect
+        setRefresh((prevRefresh) => !prevRefresh);
+      }
+      else{
+        cogoToast.error(`${response?.data.message}`);
       }
       
 
@@ -206,9 +259,85 @@ export default function PropertyType() {
     }
   }
 
+  
+  const addToSuggested = async (propertyId) => {
+    
+  
+    try {
+       // Display a confirmation popup
+    const isConfirmed = window.confirm('Are you sure you want to Add Suggested property?');
+
+    if (!isConfirmed) {
+      // If the user cancels the deletion, do nothing
+      return;
+    }
+
+     
+  
+      const response = await axios.post('https://bharatroofers.com/api/property/addSuggestedProperty',{ property_id: propertyId }, {
+        headers: {
+            'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if(response?.data.success){
+      cogoToast.success(`${response?.data.message}`);
+      setRefresh((prevRefresh) => !prevRefresh);
+      }
+      
+
+      // Handle success (e.g., show a success message)
+    } catch (error) {
+      console.error('Error add suggestrd property', error);
+      cogoToast.error(`Error add suggestrd property: ${error?.response?.data.message}`);
+      // Handle error (e.g., show an error message to the user)
+    }
+  };
+
+  const removeSuggested = async (propertyId) =>{
+    try{
+     // Display a confirmation popup
+    const isConfirmed = window.confirm('Are you sure you want to remove this property?');
+
+    if (!isConfirmed) {
+      // If the user cancels the deletion, do nothing
+      return;
+    }
+      const response = await axios.delete(`https://bharatroofers.com/api/property/removeSuggestedProperty/${propertyId}`,{
+             headers:{
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+             }
+      });
+      console.log(response)
+
+      if(response?.data.success){
+        
+        cogoToast.success(`${response?.data.message}`);
+        // Update the refresh state to trigger useEffect
+        setRefresh((prevRefresh) => !prevRefresh);
+      }
+      else{
+        cogoToast.error(`${response?.data.message}`);
+      }
+      
+
+    }
+    catch(err){
+      cogoToast.error(`${err?.message}`);
+    }
+  }
+
+
+
+
+
+
   useEffect(() => {
     getAllProperties();
     getAllPropertiesImages();
+    getSuggestedProperties();
   }, [refresh]);
   
   const filterProperties = () => {
@@ -218,13 +347,20 @@ export default function PropertyType() {
     const filteredResult = selectedType
     ? properties?.data.filter(
         (property) =>
+        property?.isSold == 0 &&
           property?.property_type === selectedType &&
           property?.property_for === selectPropertyFor &&
-          property?.property_name.toLowerCase().includes(searchTerm.toLowerCase())
+         ( property?.property_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          property?.id.toString().includes(searchTerm.toString()) ||
+          property?.property_address.toLowerCase().includes(searchTerm.toLowerCase())
+          )
       )
     : properties?.data.filter((property) =>
+    property?.isSold == 0 &&
         property?.property_for === selectPropertyFor &&
-        property?.property_name.toLowerCase().includes(searchTerm.toLowerCase())
+       ( property?.property_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        property?.id.toString().includes(searchTerm.toString()) ||
+        property?.property_address.toLowerCase().includes(searchTerm.toLowerCase()))
       );
 
   setFilteredProperties(filteredResult);
@@ -252,9 +388,22 @@ export default function PropertyType() {
        
         
          <NavbarAd/>
+
+         <div className="row">
+    <div className="col-lg-2 col-1" id='sider'>
+    <Sidebar/>
+    </div>
+    <div className="col-lg-2 col-1" id='sider1'>
+    <SiderbarMob/>
+    </div>
+    <div className="col-lg-10 mt-2" id='set'>
+      <div className="row">
+   <div className="col-lg-12">
+
+    
          
        
-      <div className="mb-4 mt-5 pt-5">
+      <div className="mb-lg-4 mt-lg-5 pt-lg-5">
       
         
         
@@ -276,9 +425,9 @@ export default function PropertyType() {
      
         <div className="d-flex justify-content-center">
             <form className="d-flex mt-4 justify-content-center searchBox ">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={(e) => setSearchTerm(e.target.value)}/>
+        <input className="form-control me-2" type="search" placeholder="Search by ID or Name" aria-label="Search" onChange={(e) => setSearchTerm(e.target.value)}/>
         <select
-      className="form-select"
+      className="form-select me-2"
       aria-label="Property Type"
       onChange={handlePropertyFor}
     >
@@ -309,13 +458,13 @@ export default function PropertyType() {
       </form>
             </div>
               
-              <div className="col-lg-2" id='nav1'>
+              {/* <div className="col-lg-2" id='nav1'>
                <Sidebar/>
             </div>
             <div className="col-lg-2" id='nav2'>
                <SiderbarMob/>
-            </div>
-            <div className="col-lg-10"> 
+            </div> */}
+            <div className="col-lg-12"> 
           <div className="row cardBox">
             
          
@@ -323,27 +472,27 @@ export default function PropertyType() {
               
               {filteredProperties?.map((property) => {
                 const matchingImages = propertiesImages?.data.filter(
-                  (image) => image.property_id == property.id
+                  (image) => image?.property_id == property?.id
                 );
-                const imageSrc = matchingImages && matchingImages.length  > 0  ? matchingImages[0].image : null;
+                const imageSrc = matchingImages && matchingImages?.length  > 0  ? matchingImages[0]?.image : null;
                 console.log(imageSrc)
                 return (
-                  <div className="col-lg-4 col-md-6 col-12 mb-4" key={property.id}>
+                  <div className="col-lg-4 col-md-6 col-12 mb-4" key={property?.id}>
                     <div className="card shadow p-3 mb-5 bg-white rounded">
-                      <Link to={`/property/${property.id}`}>
-                        <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
+                      <Link to={`/property/${property?.id}`}>
+                        <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property?.id}`} />
                       </Link>
                       <div className="card-body address">
                         <p className="card-text d-inline">
-                          <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
+                          <span className="fs-5"><FaLocationDot /></span> {property?.property_address}
                         </p>
-                        <Link to={`/property/${property.id}`} style={{ textDecoration: 'none' }}>
-                          <h5 className="card-title mt-2">{property.property_name}</h5>
+                        <Link to={`/property/${property?.id}`} style={{ textDecoration: 'none' }}>
+                          <h5 className="card-title mt-2">{property?.property_name}</h5>
                         </Link>
-                        <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
+                        <h5 className="card-text"><FaRupeeSign />{property?.price}</h5>
                         <p className="card-text">
                           <small className="text-body-secondary">
-                            <span className="fs-5"><CgCalendarDates /></span> {property.created_at}
+                            <span className="fs-5"><CgCalendarDates /></span>posted on : {moment(property.created_at).fromNow()} 
                             
                           </small>
                           
@@ -351,11 +500,24 @@ export default function PropertyType() {
                       
                        
                       </div>
-                      <div className="d-flex justify-content-center align-item-center">
-                        <Link to={`/property/edit-property/${property.id}`}> <button className="btn btn-primary   btn-sm ">Edit Details</button></Link>
-                       <Link to={`/property/edit-property-images/${property.id}`}> <button className="btn btn-secondary  btn-sm mx-3 mx-md-1">Edit Images</button></Link>
-      <button  onClick={()=>deleteProperty(property.id)} className="btn btn-danger mx-3 mx-md-1 btn-sm ">Delete Property</button>
+                      <div className="d-flex justify-content-start align-item-center flex-wrap gap-1">
+                        <Link to={`/property/edit-property/${property?.id}`}> <button className="btn btn-primary   btn-sm ">Edit Details</button></Link>
+                       <Link to={`/property/edit-property-images/${property?.id}`}> <button className="btn btn-secondary  btn-sm mx-3 mx-md-1">Edit Images</button></Link>
+                       <button  onClick={()=>deleteProperty(property?.id)} className="btn btn-danger  btn-sm ">Delete Property</button>
+                       <button  onClick={()=>markPropertySold(property?.id)} className="btn btn-success btn-sm ">Mark Sold</button>
+                     
+        {
+          property?.property_for == "sale" &&
+                    
+        ( suggestedProperties?.data?.some((suggProperty) => suggProperty?.id === property?.id) ? (
+          <button onClick={() => removeSuggested(property?.id)} className="btn btn-dark btn-sm">Remove from Suggested</button>
+        ) : (
+          <button onClick={() => addToSuggested(property?.id)} className="btn btn-info btn-sm">Add to Suggested</button>
+        ))
+      }  
+                       
                         </div>
+                       
                     </div>
                   </div>
                 )
@@ -373,6 +535,10 @@ export default function PropertyType() {
         )
         )}
       </div>
+      </div>
+      </div>
+      </div>
+      </div>
     </Wrapper>
   );
 }
@@ -380,6 +546,26 @@ export default function PropertyType() {
 
 
 const Wrapper = styled.div`
+#set{
+  
+}
+#sider{
+    display: block;
+    
+    @media screen and (max-width: 1000px) {
+   
+    display: none;
+    
+  }
+}
+  #sider1{
+    display: none;
+    @media screen and (max-width: 1000px) {
+   
+   display: block;
+   
+ }
+}
 .searchBox{
     height: 50px;
     width: 60%;

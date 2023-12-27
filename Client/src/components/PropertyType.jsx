@@ -11,6 +11,8 @@ import CarouselPlaceholder from "./CarouselPlaceholder"
 import { FaRupeeSign } from "react-icons/fa";
 import StickyNavbar from "./Navbar";
 import NavbarMob from "./NavbarMob";
+import moment from "moment";
+import { FaLocationDot } from "react-icons/fa6";
 
 export default function PropertyType() {
  
@@ -22,7 +24,7 @@ export default function PropertyType() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/property/getPropertyByType/${propertyType}`);
+      const response = await axios.get(`https://bharatroofers.com/api/property/getPropertyByType/${propertyType}`);
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -31,7 +33,7 @@ export default function PropertyType() {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+      const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);
@@ -87,16 +89,16 @@ export default function PropertyType() {
                         <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
                       </Link>
                       <div className="card-body address">
-                        <p className="card-text d-inline">
-                          <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
+                        <p className="card-text d-inline text-capitalize">
+                          <span className="fs-5"><FaLocationDot /></span> {property.property_address}
                         </p>
                         <Link to={`/property/${property.id}`} style={{ textDecoration: 'none' }}>
-                          <h5 className="card-title mt-2">{property.property_name}</h5>
+                          <h5 className="card-title mt-2 text-capitalize">{property.property_name}</h5>
                         </Link>
                         <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                         <p className="card-text">
                           <small className="text-body-secondary">
-                            <span className="fs-5"><CgCalendarDates /></span> {property.created_at}
+                            <span className="fs-5"><CgCalendarDates /></span> posted on : {moment(property.created_at).fromNow()} 
                           </small>
                         </p>
                       </div>
@@ -130,7 +132,7 @@ const Wrapper = styled.div`
 }
 .nav1{
     display: block;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1000px) {
    
     display: none;
     
@@ -138,7 +140,7 @@ const Wrapper = styled.div`
 }
   .nav2{
     display: none;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1000px) {
    
    display: block;
    

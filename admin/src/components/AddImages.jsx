@@ -4,6 +4,9 @@ import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import Sidebar from './Sidebar';
+import SiderbarMob from './SiderbarMob';
+import NavbarAd from './NavbarAd';
 
 function AddImages() {
     const [selectedFiles, setSelectedFiles] = useState(null);
@@ -47,7 +50,7 @@ function AddImages() {
       // Append the property ID to the FormData object
       formData.append('property_id', property);
   
-      const response = await axios.post('http://localhost:4000/api/property/upload-images', formData, {
+      const response = await axios.post('https://bharatroofers.com/api/property/upload-images', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
@@ -79,6 +82,25 @@ function AddImages() {
   return (
     <>
     <Container>
+    <NavbarAd/>
+
+<div className="row">
+<div className="col-lg-2 col-1" id='sider'>
+<Sidebar/>
+</div>
+<div className="col-lg-2 col-1" id='sider1'>
+<SiderbarMob/>
+</div>
+<div className="col-lg-10 mt-2" id='set'>
+<div className="row">
+<div className="col-lg-12">
+
+
+
+
+<div className="mb-lg-4 mt-lg-3 pt-lg-3">
+
+
           <div className='container '>
               <div className="row text-center mt-4 mb-4">
                   <div className="col-12">
@@ -114,6 +136,11 @@ function AddImages() {
               </div>
 
           </div>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
           </Container>
     </>
   )
@@ -125,6 +152,23 @@ const Container = styled.div`
 
 .container{
    padding: 20px;
+}
+#sider{
+    display: block;
+    
+    @media screen and (max-width: 1000px) {
+   
+    display: none;
+    
+  }
+}
+  #sider1{
+    display: none;
+    @media screen and (max-width: 1000px) {
+   
+   display: block;
+   
+ }
 }
 
 

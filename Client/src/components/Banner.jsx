@@ -67,15 +67,15 @@ export default function Banner() {
       <Wrapper>
         <section id="banner" className="banner">
           <div className="card">
-            {/* <img
-              src="https://res.cloudinary.com/dsujv9zbq/image/upload/v1698824602/3d-rendering-house-model_phslke.jpg"
+            <img
+              src={Background_Computer}
               className="card-img rounded-0"
               alt="banner.jpg"
-            /> */}
+            />
             <div className="card-img-overlay">
               <div className="d-flex align-items-center justify-content-center h-100">
-                <h1 className="text-light fw-bold banner-heading">
-                  Find your home with people you trust
+                <h1 className="text-light fw-bold banner-heading text-uppercase">
+                  Find Your Home With People You Trust
                 </h1>
               </div>
             </div>
@@ -108,8 +108,22 @@ const Wrapper = styled.div`
         /* width: 100%;
         height: 100%; */     
     }  
+    img{
+       display: none;
+      @media only screen and  (max-width: 767px){ 
+        display: block;
+        height:50vh;
+    }
+    }
     @media only screen and  (max-width: 767px){ 
-      background-image:url(${Background_Mobile});
+      background-image: url(${Background_Mobile});
+      height:0;
+      
+     
+      
+      
+  
+      
     }
     
 }

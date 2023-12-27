@@ -6,6 +6,7 @@ import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import { signInFailure,signInStart,signInSuccess } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import NavbarMob from "../components/NavbarMob";
 
 const Login = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,7 +23,7 @@ const Login = () => {
     e.preventDefault();
     try {
       dispatch(signInStart());
-      const res = await axios.post("http://localhost:4000/api/auth/login", formData);
+      const res = await axios.post("https://bharatroofers.com/api/property/login", formData);
   
       if (res.data && res.data.success === true) {
         dispatch(signInSuccess(res.data));
@@ -50,8 +51,14 @@ const Login = () => {
      if(currentUser){
       cogoToast.error(`Already loged In`);
       navigate("/")
+      const handleTop = () => {
+        window.scrollTo(0, 0);
+      };
+      handleTop();
      }
+
   },[])
+  
 
 
   // window.onscroll = () => {
@@ -61,7 +68,8 @@ const Login = () => {
   return !currentUser && (
     <>
       <Container>
-        <Navbar isScrolled={isScrolled}/>
+      <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+          <div className="nav2"><NavbarMob /> </div>
         <div>
           <div className="boxContainer">
             <div className="formcontent">
@@ -132,6 +140,7 @@ const Container = styled.div`
   );
   .boxContainer {
     height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -149,5 +158,22 @@ const Container = styled.div`
         color: #08494c;
       }
     }
+  }
+  .nav1{
+    display: block;
+    @media screen and (max-width: 1000px) {
+    
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+  
+    @media screen and (max-width: 1000px) {
+   display: block;
+   
+ }
+   
   }
 `;

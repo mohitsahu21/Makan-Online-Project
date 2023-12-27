@@ -13,17 +13,18 @@ import NavbarMob from "../components/NavbarMob";
 import axios from 'axios';
 import CommercialProperty from "../components/CommercialProperty";
 import RentProperty from "../components/RentProperty";
+
 export default function Homepage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [properties, setProperties] = useState([])
   const [propertiesImages,setPropertiesImages] = useState([])
 
   const getAllPropeties = async() =>{
-    const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+    const response = await axios.get('https://bharatroofers.com/api/property/getAllProperty');
     setProperties(response.data)
   }
   const getAllPropetiesImages = async() =>{
-    const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+    const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
     setPropertiesImages(response.data)
   }
 
@@ -34,16 +35,23 @@ export default function Homepage() {
   //    getAllPropetiesImages()
      
   // },[])
+  useEffect(()=>{
+    const handleTop = () => {
+      window.scrollTo(0, 0);
+    };
+    handleTop();
+  },[])
 
 
 
   
   return (
     <Wrapper>
-      <div>
-        <div className="container-fluid px-0">
-          <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+       <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
           <div className="nav2"><NavbarMob /> </div>
+      <div>
+        <div className="container-fluid">
+       
           <div className="bannerdiv">
             <Banner />
           </div>
@@ -141,6 +149,8 @@ const Wrapper = styled.div`
   //   rgba(255, 255, 255, 1) 100%
   // );
   // For All Screens
+
+  
   .nav-tabs {
     border-bottom: none; /* Remove the bottom border */
   }
@@ -172,8 +182,9 @@ const Wrapper = styled.div`
   // For Different screens
 
   .container-fluid {
+    padding: 0;
     @media only screen and (max-width: 768px) {
-      padding: 2px;
+      
     }
   }
 
@@ -192,16 +203,16 @@ const Wrapper = styled.div`
   }
   .nav1{
     display: block;
-    @media screen and (max-width: 768px) {
-   
+    @media screen and (max-width: 1000px) {
+    
     display: none;
     
   }
 }
   .nav2{
     display: none;
-    @media screen and (max-width: 768px) {
-   
+  
+    @media screen and (max-width: 1000px) {
    display: block;
    
  }

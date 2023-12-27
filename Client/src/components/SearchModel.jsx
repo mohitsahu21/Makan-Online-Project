@@ -6,6 +6,9 @@ import CarouselPlaceholder from './CarouselPlaceholder';
 import { BiCategoryAlt } from "react-icons/bi";
 import { CgCalendarDates } from "react-icons/cg";
 import { FaRupeeSign } from "react-icons/fa";
+import moment from "moment";
+import { FaLocationDot } from "react-icons/fa6";
+import { CiSearch } from "react-icons/ci";
 
 
 const SearchModel = () => {
@@ -14,7 +17,7 @@ const SearchModel = () => {
     const [propertiesImages, setPropertiesImages] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
     const [propertyType,setPropertyType] = useState("");
-    const [propertyFor,setPropertyFor] = useState("");
+    const [propertyFor,setPropertyFor] = useState("sale");
     const [propertyBudget,setPropertyBudget] = useState("");
 
 
@@ -46,7 +49,7 @@ const SearchModel = () => {
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/property/getAllProperty');
+        const response = await axios.get('https://bharatroofers.com/api/property/getAllProperty');
         setProperties(response.data);
       } catch (error) {
         console.error('Error fetching properties:', error);
@@ -61,7 +64,7 @@ useEffect(() => {
   useEffect(() => {
     const getAllPropertiesImages = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+        const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
         setPropertiesImages(response.data);
       } catch (error) {
         console.error('Error fetching property images:', error);
@@ -72,7 +75,7 @@ useEffect(() => {
   }, []); // Empty dependency array ensures the effect runs only once when the component mounts
 
   const isSearchTermEmpty = searchTerm.trim() === "";
-  // const isPropertyTypeSelected = propertyType !== "Property Type";
+  const isPropertyTypeSelected = propertyType !== "";
   const isPropertyForSelected = propertyFor !== "Select Property For Buy/Rent";
   // const isPropertyBudgetSelected = propertyBudget !== "Budget";
 
@@ -80,12 +83,16 @@ useEffect(() => {
   let filteredProperties;
   if(!isSearchTermEmpty || isPropertyForSelected){
      filteredProperties = properties?.data.filter((property) =>{
-        const includesSearchTerm = isSearchTermEmpty || property.property_name.toLowerCase().includes(searchTerm.toLowerCase());
-    // const matchesPropertyType = isPropertyTypeSelected ? property.property_type.toLowerCase() === propertyType.toLowerCase() : true;
-    const matchesPropertyFor = isPropertyForSelected ? property.property_for.toLowerCase() === propertyFor.toLowerCase() : true;
+        const includesSearchTerm = isSearchTermEmpty || property?.property_name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesPropertyType = isPropertyTypeSelected ? property.property_type.toLowerCase() === propertyType.toLowerCase() : true;
+    const matchesPropertyFor = isPropertyForSelected ? property?.property_for.toLowerCase() === propertyFor.toLowerCase() : false;
     // const matchesPropertyBudget = isPropertyBudgetSelected ? property.price <= Number(propertyBudget) : true;
-
-    return includesSearchTerm  && matchesPropertyFor ;
+    
+    // Include the property address filtering
+    const matchesPropertyAddress =
+      isSearchTermEmpty ||
+      property?.property_address.toLowerCase().includes(searchTerm.toLowerCase());
+    return (includesSearchTerm || matchesPropertyAddress) && matchesPropertyFor && matchesPropertyType;
     // && matchesPropertyBudget && matchesPropertyType;
 
      }
@@ -108,84 +115,171 @@ console.log(propertyBudget)
 
   return (
     <Wrapper>
+       
+    <div className="search-container row justify-content-center mt-md-5 ">
+  
 
-    <div className="search-container row justify-content-center mt-2 ">
-    <div className="main col-lg-6 col-md-8 col-10 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
-      <div className="row " id="inner-col">
-        <div className="col-lg-4" id="res1">
-         
-      <form>      
-      <div className="d-flex align-items-center">
-     
-       <i
-          className="bi bi-geo-alt-fill fs-5 px-2"
-          style={{ color: "red" }}
-        ></i>
-      
-        <input
-          type="text"
-          id="search-box"
-          className="border rounded-5"
-          placeholder="Enter Project"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
 
-        />
-      </div>
-      </form>
-      
-      </div>
-      {/* <div className="col-lg-3" id="res2">
-      <select className="px-2 py-1 mx-4 border rounded-5" id="mySelect"  onChange={(e) => setPropertyType(e.target.value)}>
-        <option  selected>
-          Property Type
-        </option>
-        <option value="house">House</option>
-        <option value="villa">Villa</option>
-        <option value="plot">Plot</option>
-        <option value="flat">Flat</option>
-        <option value="land">Land</option>
-        <option value="farmLand">Farm Land</option>
-        <option value="farmHouse">Farm House</option>
-        <option value="commercial">Commercial</option>
-      </select></div> */}
-      <div className="col-lg-3" id="res2">
-      <select className=" w-auto px-3 py-1 mx-4" id="mySelect" onChange={(e) => setPropertyFor(e.target.value)} required>
-        <option  selected>
-         Select Property For Buy
-        </option>
+     {/* bootsrap search */}
+     <div className="row">
+          
+          <div className="col-12  justify-content-center searchLarge">
+            <form className=" mt-4  justify-content-center  searchBox ">
+              <div className="input-group  d-flex flex-column flex-md-row">
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Enter Location Or Project"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  aria-label="Search"
+                />
+                <select
+                  className="form-select"
+                  onChange={(e) => setPropertyFor(e.target.value)}
+                  required
+                >
+                  <option value="sale">Buy</option>
+                  <option value="rent">Rent</option>
+                </select>
+                <select
+                  className="form-select"
+                  aria-label="Property Type"
+                  onChange={(e) => setPropertyType(e.target.value)}
+                >
+                  <option value="">All Types</option>
+                  <option value="house">House</option>
+      <option value="villa">Villa</option>
+      <option value="plot">Plot</option>
+      <option value="flat">Flat</option>
+      <option value="land">Land</option>
+      <option value="farmLand">Farm Land</option>
+      <option value="farmHouse">Farm House</option>
+      <option value="commercial">Commercial</option>
+                </select>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-lg"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                >
+                  Search
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className="col-12  justify-content-center searchMob">
+            <form className="  ">
+            <div className="d-flex">
+               
+               
+                 <div className="form-check form-check-inline ms-3 ps-3">
+    <input
+      className="form-check-input "
+      type="radio"
+      name="propertyFor"
+      id="buyRadio"
+      value="sale"
+      checked={propertyFor === "sale"}
+      onChange={() => setPropertyFor("sale")}
+    />
+    <label className="form-check-label font-weight-bold" htmlFor="buyRadio">Buy</label>
+  </div>
+  <div className="form-check form-check-inline">
+    <input
+      className="form-check-input"
+      type="radio"
+      name="propertyFor"
+      id="rentRadio"
+      value="rent"
+      checked={propertyFor === "rent"}
+      onChange={() => setPropertyFor("rent")}
+    />
+    <label className="form-check-label  font-weight-bold" htmlFor="rentRadio">Rent</label>
+  </div>
+
+               <select
+                 className="form-select p-1 typesInput"
+                 aria-label="Property Type"
+                 onChange={(e) => setPropertyType(e.target.value)}
+               >
+                 <option value="">All Types</option>
+                 <option value="house">House</option>
+     <option value="villa">Villa</option>
+     <option value="plot">Plot</option>
+     <option value="flat">Flat</option>
+     <option value="land">Land</option>
+     <option value="farmLand">Farm Land</option>
+     <option value="farmHouse">Farm House</option>
+     <option value="commercial">Commercial</option>
+               </select>
+              
+             </div>
+             <div className='d-flex inputBar mt-2'>
+            <input
+                  className="form-control input"
+                  type="text"
+                  placeholder="Enter Location Or Project"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  aria-label="Search"
+                />
+                 <button
+                 type="button"
+                 className="btn btn-primary btn-lg searchBtn"
+                 data-bs-toggle="modal"
+                 data-bs-target="#exampleModal"
+               >
+                <span className='searchIcon'> <CiSearch /></span>
+               </button>
+                </div>
+              
+            </form>
+          </div>
+        </div>
+    
+
+       {/* <div className="row">
+            <div className='col-8 mx-auto'>
+            <input className="form-control" type="text" placeholder="Enter Location Or Project" value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}aria-label="Search"/>
+            </div>
+            <div className="col-12 d-flex justify-content-center ">
+            <form className="d-flex mt-4 justify-content-center  gap-4 searchBox ">
+              
+        
+            
+      <select  className="form-select" onChange={(e) => setPropertyFor(e.target.value)} required>
+        
         <option value="sale">Buy</option>
         <option value="rent">Rent</option>
       
-      </select></div>
-      {/* <div className="col-lg-2 align-items-center " id="res3">
-        <i
-          class="bi bi-currency-rupee fs-5"
-          style={{ color: "red" }}
-        ></i>
-        <select
-         
-          className="w-auto px-3 py-1 "
-          id="budget"
-          placeholder="Budget"
-          
-          onChange={(e) => setPropertyBudget(e.target.value)}
-        >
-          <option selected>Budget</option>
-          <option value="1000000">10 L</option>
-          <option value="2500000">25 L</option>
-          <option value="5000000">50 L</option>
-          <option value="10000000">1 Cr</option> 
-          <option value="any">Any</option>
-        </select>
-      </div> */}
-      <div className="col-lg-2" id="res4">
-      <button className="btn btn-danger px-3 fs-5" id="btnsearch1" data-bs-toggle="modal" data-bs-target="#exampleModal"  onClick={() => {
-         
-             
-            }}>Search</button></div>
+      </select>
+      <select
+      className="form-select"
+      aria-label="Property Type"
+      onChange={(e) => setPropertyType(e.target.value)}
+      
+    >
+      <option value="">All Types</option>
+      <option value="house">House</option>
+      <option value="villa">Villa</option>
+      <option value="plot">Plot</option>
+      <option value="flat">Flat</option>
+      <option value="land">Land</option>
+      <option value="farmLand">Farm Land</option>
+      <option value="farmHouse">Farm House</option>
+      <option value="commercial">Commercial</option>
+
+      
+    </select>
+    <div className=''>
+      <button type="button" className="btn btn-primary btn-lg"  data-bs-toggle="modal" data-bs-target="#exampleModal" >Search</button>
       </div>
-    </div>
+      </form>
+     
+            </div>
+        </div> */}
 
     {/* model */}
     <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -234,16 +328,16 @@ console.log(propertyBudget)
                       <img src={imageSrc ? imageSrc : "https://img.freepik.com/free-photo/blue-house-with-blue-roof-sky-background_1340-25953.jpg?t=st=1701323109~exp=1701326709~hmac=da85cae6601708a5416a585b78ba630517ba8a0b698f72df228ae5ae10f58c58&w=900" } className="card-img-top" alt={`Property ${property.id}`} />
                     </a>
                     <div className="card-body address">
-                      <p className="card-text d-inline">
-                        <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
+                      <p className="card-text d-inline text-capitalize">
+                        <span className="fs-5"><FaLocationDot /></span> {property.property_address}
                       </p>
                       <a href={`/property/${property.id}`} target='blank' style={{ textDecoration: 'none' }}>
-                        <h5 className="card-title mt-2">{property.property_name}</h5>
+                        <h5 className="card-title mt-2 text-capitalize">{property.property_name}</h5>
                       </a>
                       <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                       <p className="card-text">
                         <small className="text-body-secondary">
-                          <span className="fs-5"><CgCalendarDates /></span> {property.created_at}
+                          <span className="fs-5"><CgCalendarDates /></span> posted on : {moment(property.created_at).fromNow()} 
                         </small>
                       </p>
                     </div>
@@ -288,6 +382,126 @@ console.log(propertyBudget)
 export default SearchModel;
 
 const Wrapper = styled.div`
+.searchIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+  }
+  .inputBar{
+      
+      border-radius:10px;
+      background-color: white;
+  }
+  .searchBtn{
+      margin-top: 5px;
+      margin-right: 5px;
+      width: 50px;
+      height:40px ;
+      border-radius: 20px;
+  }
+  .input{
+      height: 50px;
+      width: 70vw;
+      border-radius: 20px;
+      border: none;
+      padding: 10px;
+      
+      
+  }
+  .typesInput{
+    width: 40%;
+  }
+  
+  
+
+.searchMob{
+  display: none;
+  @media only screen and (max-width: 760px) {
+ 
+  display: flex;
+  background-color: grey;
+  padding: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  
+  
+
+    }
+
+}
+.searchLarge{
+  display: flex;
+  @media only screen and (max-width: 760px) {
+ display: none;
+  
+  
+
+    }
+}
+
+
+.searchBox{
+  display: flex;
+  width: 60%;
+  @media only screen and (max-width: 760px) {
+  width: 80%;
+  
+  
+
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: auto;
+    }
+  input{
+  width: 40%;
+ 
+  @media only screen and (max-width: 760px) {
+  width: 80%;
+  border-radius: 0;
+  
+      margin: 10px 0;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      
+    }
+}
+select{
+  width: 20%;
+  @media only screen and (max-width: 760px) {
+    
+  width: 80%;
+  margin: 10px 0;
+    }
+   
+}
+.input-group{
+  @media only screen and (max-width: 760px) {
+     margin-left: 35px;
+    }
+}
+button{
+  @media only screen and (max-width: 760px) {
+  width: 80%;
+  border-radius: 0;
+    }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      
+    }
+}
+
+
+
+
+
+
+
+
+
+
+ 
+}
+
 
 .address{
   overflow: hidden;
@@ -366,7 +580,7 @@ const Wrapper = styled.div`
     width: 300px;
     height: 2.1rem;
     @media screen and (max-width: 768px) {
-      width: 310px;
+      width: 280px;
 
     }
   
@@ -376,7 +590,7 @@ const Wrapper = styled.div`
     font-family: "Playpen Sans", cursive;
   }
   #btnsearch1{
-    margin-left: 16rem;
+    margin-left: 11rem;
     width: 85%;
      border-radius: 5rem;
      height: 42px;
@@ -389,30 +603,53 @@ const Wrapper = styled.div`
      border-radius: 5rem;
      height: 2.6rem;
     }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      
+      margin-left: 2rem;
+    width: 115%;
+     border-radius: 5rem;
+     height: 2.6rem;
+    }
+    @media screen and (min-width: 1024px) and (max-width: 1400px) {
+      
+      margin-left: 8rem;
+    width: 115%;
+     border-radius: 5rem;
+     height: 2.6rem;
+     
+    }
   }
   #main-col{
     width: 60rem;
     @media screen and (max-width: 768px) {
-      width: 23.5rem
+      width: 90%
       
     }
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 90%;
+    }
     @media screen and (min-width: 1024px) and (max-width: 1600px) {
-      width: 60rem;
+      width: 90%
     }
   }
   #inner-col{
     @media screen and (max-width: 768px) {
       gap: 1rem;
+      width: 90vh;
     }
   }
   #res1{
     @media screen and (max-width: 768px) {
       margin-left: 0rem;
+      
     }
   }
   #res2{
-    @media screen and (max-width: 768px) {
-      margin-left: 0.6rem;
+    @media screen and (max-width: 767px) {
+      margin-left: 2rem;
+      width: 80%;
+
+      
     }
   }
   #res3{
@@ -438,6 +675,7 @@ const Wrapper = styled.div`
       margin-left: 2rem;
     }
   }
+  
 
     
 `;

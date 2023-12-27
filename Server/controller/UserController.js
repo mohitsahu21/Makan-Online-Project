@@ -1,12 +1,12 @@
 const express = require("express");
 const { db } = require("../db");
 const mysql = require("mysql");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 const JWT = require('jsonwebtoken');
 dotenv.config();
 
-const userRegistration = async (req, res) => {
+const userRegistration = (req, res) => {
   try {
     const {
       name,
@@ -90,7 +90,7 @@ const userRegistration = async (req, res) => {
   }
 };
 
-const loginController = async (req, res) => {
+const loginController = (req, res) => {
   try {
     const { email, password } = req.body;
     
@@ -105,7 +105,7 @@ const loginController = async (req, res) => {
 
     // Check user in MySQL
     const checkUserQuery = "SELECT * FROM users WHERE email = ?";
-    db.query(checkUserQuery, [email], async (err, results) => {
+    db.query(checkUserQuery, [email], (err, results) => {
       if (err) {
         console.error("Error checking user in MySQL:", err);
         return res.status(500).send({
@@ -125,7 +125,7 @@ const loginController = async (req, res) => {
       const user = results[0];
 
       // Compare passwords
-      const match = await bcrypt.compare(password, user.password);
+      const match =  bcrypt.compare(password, user.password);
       if (!match) {
         return res.status(200).send({
           success: false,
@@ -134,7 +134,7 @@ const loginController = async (req, res) => {
       }
 
       // Generate token
-      const token = await JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
+      const token =  JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
         expiresIn: "7d",
       });
 
@@ -159,11 +159,92 @@ const loginController = async (req, res) => {
   }
 };
 
+const interestedUser = (req, res) => {
+  const { propertyId, propertyName, name, email, phone, message } = req.body;
+
+  const sql = 'INSERT INTO intrestedusers (property_id, propertyName, userName, userEmail,userPhone, message) VALUES (?, ?, ?, ?, ?, ?)';
+
+  db.query(sql, [propertyId, propertyName, name, email, phone, message], (err, result) => {
+    if (err) {
+      console.error('Error inserting data into MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error' , message: 'Internal Server Error'});
+    } else {
+      res.status(200).json({ success: true, message: 'Data inserted successfully' });
+    }
+  });
+};
+
+const contactedUser = (req, res) => {
+  const { name, email, phone, message } = req.body;
+
+  const sql = 'INSERT INTO contacted_user ( name, email, phone, message) VALUES (?, ?, ?, ?)';
+
+  db.query(sql, [propertyId, propertyName, name, email, phone, message], (err, result) => {
+    if (err) {
+      console.error('Error inserting data into MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error' , message: 'Internal Server Error'});
+    } else {
+      res.status(200).json({ success: true, message: 'Data inserted successfully' });
+    }
+  });
+};
+
+const getInterestedUsers = (req, res) => {
+  const sql = 'SELECT * FROM intrestedusers';
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error retrieving user data from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.length > 0) {
+        res.status(200).json({ success: true, data: result });
+      } else {
+        res.status(404).json({ success: false, error: 'No users found', message: 'No users found' });
+      }
+    }
+  });
+};
+
+const getRegisterUsers = (req, res) => {
+  const sql = 'SELECT * FROM users';
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error retrieving user data from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.length > 0) {
+        res.status(200).json({ success: true, data: result });
+      } else {
+        res.status(404).json({ success: false, error: 'No users found', message: 'No users found' });
+      }
+    }
+  });
+};
+
+
+const getContactedUsers = (req, res) => {
+  const sql = 'SELECT * FROM contacted_user';
+
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.error('Error retrieving user data from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.length > 0) {
+        res.status(200).json({ success: true, data: result });
+      } else {
+        res.status(404).json({ success: false, error: 'No users found', message: 'No users found' });
+      }
+    }
+  });
+};
+
 
 
 
 
 
 module.exports = {
-  userRegistration, loginController
-}
+  userRegistration, loginController,interestedUser,getInterestedUsers, getRegisterUsers,contactedUser, getContactedUsers}

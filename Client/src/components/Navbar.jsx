@@ -81,7 +81,7 @@ const StickyNavbar = ({isScrolled}) => {
 
      (
       <>
-    <Link to="/register"><button className="btn btn-outline-light mx-2 " type="submit">Registeration</button></Link>
+    <Link to="/register"><button className="btn btn-outline-light mx-2 " type="submit">Register</button></Link>
     <Link to="/login"> <button className="btn btn-outline-light  mx-4 " type="submit">Login</button> </Link> </> )
      }
 
@@ -93,6 +93,7 @@ const StickyNavbar = ({isScrolled}) => {
 
 export default StickyNavbar;
 const Wrapper = styled.div`
+
 
   .li{
     color: white;

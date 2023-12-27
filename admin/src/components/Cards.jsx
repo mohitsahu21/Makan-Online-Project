@@ -1,9 +1,96 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect } from 'react'
+import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 
 function Cards() {
+  const [properties, setProperties] = useState(null);
+  const [InterestedUser, setInterestedUser] = useState([]);
+  const [contactedUser, setContactedUser] = useState([]);
+  const [registeredUser, setRegisteredUser] = useState([]);
+
+
+  const getAllProperties = async () => {
+    try {
+      const response = await axios.get(`https://bharatroofers.com/api/property/getAllProperty/`);
+      
+      setProperties(response?.data);
+    } catch (error) {
+      console.error('Error fetching properties:', error);
+    }
+  }
+
+  const fetchRegisteredUser = async() =>{
+
+    try{
+      const res = await axios.get('https://bharatroofers.com/api/property/getRegisterUsers');
+
+      console.log(res);
+      if(res?.data.success){
+       setRegisteredUser(res?.data?.data)
+      }
+      else{
+       console.log(res?.error)
+      }
+    }
+    catch(err){
+      console.log(err)
+    }
+  
+}
+
+  const fetchInterestedUser = async() =>{
+
+    try{
+      const res = await axios.get('https://bharatroofers.com/api/property/getInterestedUsers');
+
+      console.log(res);
+      if(res?.data.success){
+       setInterestedUser(res?.data?.data)
+      }
+      else{
+       console.log(res?.error)
+      }
+    }
+    catch(err){
+      console.log(err)
+    }
+  
+}
+
+const fetchContadedUser = async() =>{
+
+  try{
+    const res = await axios.get('https://bharatroofers.com/api/property/getContactedUsers');
+
+    console.log(res);
+    if(res?.data.success){
+     setContactedUser(res?.data?.data)
+    }
+    else{
+     console.log(res?.error)
+    }
+  }
+  catch(err){
+    console.log(err)
+  }
+
+}
+
+
+
+
+
+  useEffect(() => {
+    getAllProperties();
+    fetchInterestedUser();
+    fetchContadedUser();
+    fetchRegisteredUser();
+ 
+  }, []);
+    
   return (
     <Wrapper>
     <div className="row" id='cardrow'>
@@ -15,12 +102,12 @@ function Cards() {
               <i className="bi  bi-building h1"></i>
               <div className="">
                 <h6 className="card-title" style={{ color: " #5a626d" }}>
-                  Property
+                 Total Property
                 </h6>
 
-                <p className=" h6 text-center text-dark">19</p>
+                <p className=" h6 text-center text-dark">{properties?.data?.length || 0}</p>
 
-                <p className="view h6">View Detail</p>
+               <Link to='/allproperties' className="text-decoration-none"> <p className=" h6 text-center">View Detail</p></Link>
               </div>
             </div>
           </div>
@@ -31,13 +118,13 @@ function Cards() {
             <div className="card-body d-flex justify-content-between">
             <i className="bi bi-file-post  h1 float-end"></i>
               <div className="">
-                <h6 className="card-title mx-3" style={{ color: " #5a626d" }}>
+                <h6 className="card-title" style={{ color: " #5a626d" }}>
               Registered User
                 </h6>
 
-                <p className=" h6 text-center text-dark">  <i className="bi "></i>5200</p>
+                <p className=" h6 text-center text-dark">  <i className="bi "></i>{registeredUser?.length || 0}</p>
 
-                <p className="view h6">View Detail</p>
+                <Link to='/registered_user' className="text-decoration-none">   <p className=" h6 text-center ">View Detail </p></Link>
               </div>
             </div>
           </div>
@@ -49,9 +136,9 @@ function Cards() {
               <div className="">
                 <h6 className="card-title">Interested User</h6>
 
-                <p className=" h6 text-center text-dark">256</p>
+                <p className=" h6 text-center text-dark">{InterestedUser?.length || 0}</p>
 
-                <p className="view h6"><Link to="/all_patient" className=" text-decoration-none" style={{color:"red"}}>View Detail</Link></p>
+                <p className="view h6 text-center"><Link to="/interested_user" className="text-decoration-none" >View Detail</Link></p>
               </div>
             </div>
           </div>
@@ -62,11 +149,11 @@ function Cards() {
             <div className="card-body d-flex justify-content-between">
               <i className="bi bi-people-fill h1"></i>
               <div className="">
-                <h6 className="card-title">Total User</h6>
+                <h6 className="card-title">Contacted User</h6>
 
-                <p className=" h6 text-center text-dark">256</p>
+                <p className=" h6 text-center text-dark">{contactedUser?.length || 0}</p>
 
-                <p className="view h6"><Link to="/all_patient" className=" text-decoration-none" style={{color:"red"}}>View Detail</Link></p>
+                <p className="view h6 text-center"><Link to="/contact_user" className=" text-decoration-none" >View Detail</Link></p>
               </div>
             </div>
           </div>

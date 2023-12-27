@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import house from '../images/house.jpg'
 import cull from '../images/cul1.cc3dc9f1.png'
@@ -9,13 +9,21 @@ import Happy from '../images/mantra.1e357178.png'
 import logo from '../images/logo.png'
 import profile from '../images/dummy-profile.jpg'
 import Navbar from "../components/Navbar";
+import NavbarMob from '../components/NavbarMob'
 
 
 function About() {
+  useEffect(()=>{
+    const handleTop = () => {
+      window.scrollTo(0, 0);
+    };
+    handleTop();
+  },[])
   return (
     <>
       <Container>
-        <Navbar/>
+      <div className="nav1"><Navbar   /></div>
+          <div className="nav2"><NavbarMob /> </div>
         <div>
           <div className="mt-5 container-fluid">
             <div className="container-fluid" id="About">
@@ -24,7 +32,7 @@ function About() {
                   <div className="row">
                     <div className="col-lg-6 col-sm-12 col mt-5 d-block">
                       <h1 className="About mt-5 d-flex  justify-content-start">About Us</h1>
-                      <p>At makan.com, we understand that people everywhere are searching for a home to
+                      <p>At Bharatroofers.com, we understand that people everywhere are searching for a home to
                         call their own. A home is a cherished memory that lasts forever, where the walls
                         embrace memories, the ceilings shelter love and laughter, where the quiet corners
                         offer a much-needed pause and life itself becomes a reason to celebrate.</p>
@@ -32,7 +40,7 @@ function About() {
                       <p>We want to make the journey as joyful as the moment when you finally find the
                         perfect home. So we begin by partnering with our customers from the start and
                         being there when it matters the most - right from online search to brokers to home
-                        loans to paperwork to finally finding that perfect home. At makan.com, we help
+                        loans to paperwork to finally finding that perfect home. At Bharatroofers.com, we help
                         you find joy.</p>
 
                       <h4>Our Vision</h4>
@@ -111,7 +119,7 @@ function About() {
                       <div className='into-center'>
                         <div className="mantra">
                           <h3 className='spreading'>Is spreading joy your mantra too?</h3>
-                          <pre>Shoot us an email at careers@makan.com
+                          <pre>Shoot us an email at careers@bharatroofers.com
                             and we'll be happy to meet you</pre>
                         </div>
                       </div>
@@ -142,22 +150,14 @@ function About() {
                                 <img src={profile} alt=" team" className='passport' />
                               </div>
                               <div className='col-lg-6 col-sm-12'>
-                                <h5>Shubhanshu Jaiswal</h5>
-                                <h6>Group Ceo</h6>
+                                {/* <h5>Anil Rajak</h5>
+                                <h6>Group Ceo</h6> */}
                               </div>
 
                             </div>
-                            <p>A serial entrepreneur, Dhruv has started and successfully exited several
-                              ventures across a wide spectrum of domains including education, mining
-                              and fintech. Dhruv co-founded iTrust Financial Advisors, an online
-                              financial advisory and distribution company which was bought by Karvy
-                              Private Wealth.Prior to this, he was the CEO of General Electric’s (GE)
-                              infrastructure business in India and also led the Institutional Sales
-                              function for GE in India. </p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio veniam amet facilis esse exercitationem sint doloribus at sapiente! Sapiente vitae eos voluptas sint reprehenderit doloribus corporis facere autem rerum dolore! </p>
 
-                            <p>Dhruv holds a Bachelors and Masters degree in Materials Science and
-                              Engineering from Northwestern and Stanford University respectively and
-                              an MBA from Harvard Business School.</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet consequuntur libero natus ea earum corrupti, nobis impedit officiis ut veniam, odio tempora magni nam atque quam, incidunt pariatur sequi modi!</p>
                           </div>
 
                           <div className='col-lg-6  '>
@@ -182,28 +182,7 @@ function About() {
           </div>
 
           <div>
-            <div className='container-fluid'>
-              <div className='container-fluid' id='Rea-Group'>
-                <div className='row'>
-                  <div className='rea col-lg-6 col-sm-12'>
-                    <div className='Group'>
-                      <h2 className='mt-5 '>A part of <i>REA</i> Group</h2>
-                    </div>
-                    <p>Makaan.com was acquired by REA India in May 2015, with a vision to establish a true "marketplace"
-                      in real estate. With consumer ratings on a large number of sellers, credible listings data, and
-                      real-time intelligence on property search, Makaan.com has quickly emerged as the preferred partner
-                      for consumers looking to rent, buy or sell a home. Makaan.com offers its online consumers maximum
-                      property options and has become one of the largest advertising platforms in online real estate in
-                      India.
-                    </p>
-                  </div>
-
-                  <div className='col-lg-6 col-sm-12 mt-5 re-group'>
-                    <img src={logo} alt='logo' className='logo' />
-                  </div>
-                </div>
-              </div>
-            </div>
+         
           </div>
         </div>
 
@@ -218,12 +197,12 @@ function About() {
               </div>
             </div>
             <div className='col-lg-4 col-sm-12 secand-child'>
-              <h3>Makan.com</h3>
+              <h3>Bharatroofers.com</h3>
               <p>1815 Wright Town,
                 Jabalpur, Madhya pradesh INDIA
                 482002
-                Phone:+91-7440992424
-                Fax: +91-01X4-4866XXX</p>
+                Phone:+91-8839280515
+                </p>
             </div>
           </div>
         </div>
@@ -234,6 +213,23 @@ function About() {
 export default About;
 
 const Container = styled.div`
+.nav1{
+    display: block;
+    @media screen and (max-width: 1000px) {
+    
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+  
+    @media screen and (max-width: 1000px) {
+   display: block;
+   
+ }
+   
+  }
  body{
   overflow: hidden;
   margin:0;
@@ -575,6 +571,7 @@ pre{
   }
 }
 }
+
 `;
 
 

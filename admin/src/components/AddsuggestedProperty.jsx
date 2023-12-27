@@ -29,7 +29,7 @@ const AddsuggestedProperty = () => {
         //   formData.append('property_id', property);
          
       
-          const response = await axios.post('http://localhost:4000/api/property/addSuggestedProperty',{ property_id: property }, {
+          const response = await axios.post('https://bharatroofers.com/api/property/addSuggestedProperty',{ property_id: property }, {
             headers: {
                 'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`

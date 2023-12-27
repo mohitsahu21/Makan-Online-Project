@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { Link,useNavigate } from "react-router-dom";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
+import NavbarMob from "../components/NavbarMob";
 
 
 
@@ -22,7 +23,7 @@ const Registration = () => {
     e.preventDefault();
     try{
       setLoading(true);
-      const res = await axios.post("http://localhost:4000/api/auth/register" , formData)
+      const res = await axios.post("https://bharatroofers.com/api/property/register" , formData)
       setLoading(false)
       console.log(res)
       if(res.data.success === true){
@@ -42,17 +43,17 @@ const Registration = () => {
   }
 
 
-  
-  
-
-  // window.onscroll = () => {
-  //   setIsScrolled(window.pageYOffset === 0 ? false : true);
-  //   return () => (window.onscroll = null);
-  // };
+  useEffect(()=>{
+    const handleTop = () => {
+      window.scrollTo(0, 0);
+    };
+    handleTop();
+  },[])
   return (
     <>
       <Container>
-        <Navbar isScrolled={isScrolled} />
+      <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
+          <div className="nav2"><NavbarMob /> </div>
         <div>
           <div className="boxContainer">
          
@@ -94,7 +95,7 @@ const Registration = () => {
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter your email"
+                  placeholder="Enter your mobile number"
                   name="phone"
                   maxLength={10}
                   className="form-control"
@@ -151,7 +152,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
+    width: 100vw;
     .formcontent {
       background-color: #0dcaf0;
       padding: 1rem 2rem;
@@ -168,5 +169,22 @@ const Container = styled.div`
         margin-bottom: 0rem !important;
       }
     }
+  }
+  .nav1{
+    display: block;
+    @media screen and (max-width: 1000px) {
+    
+    display: none;
+    
+  }
+}
+  .nav2{
+    display: none;
+  
+    @media screen and (max-width: 1000px) {
+   display: block;
+   
+ }
+   
   }
 `;

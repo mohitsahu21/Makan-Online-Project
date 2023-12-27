@@ -37,9 +37,8 @@ const NavbarAd = () => {
       <Navbar.Brand >
        <Link to="/"> <img src={makan_logo} height={35} width={35} alt="" className='mx-2' /></Link>
         </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto m-auto">
+      
+        <Nav className="ml-auto m-auto" style={{height:"50px"}}>
          
           <Nav.Link className='li'></Nav.Link>
           <Nav.Link  className='li'></Nav.Link>
@@ -48,12 +47,12 @@ const NavbarAd = () => {
         </Nav>
         {currentAdmin ? 
          ( <>
-          <NavDropdown title={currentAdmin.user.name} id="navbarScrollingDropdown" className='text-white me-5'>
-            <NavDropdown.Item href="#action3" onClick={handleLogout}>Logout</NavDropdown.Item>
+          <Nav.Link className='text-white me-5'>{currentAdmin.user.name}</Nav.Link>
+            {/* <NavDropdown.Item href="#action3" onClick={handleLogout}>Logout</NavDropdown.Item> */}
             
            
           
-          </NavDropdown>
+         
           
          
 
@@ -71,8 +70,8 @@ const NavbarAd = () => {
       }
        
 
-      </Navbar.Collapse>
-    </Navbar>
+      </Navbar>
+    
     </Wrapper>
   );
 };

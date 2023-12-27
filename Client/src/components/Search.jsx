@@ -162,125 +162,69 @@ export default function () {
     <div>
       <Wrapper>
         <section>
-          <div className="container-fluid mb-4">
-            <div className="border border-1 rounded py-4 my-2">
-              <h1 className="text-center fw-bold" id="search-heading">
+          <div className="container-fluid mb-4 px-0 py-0">
+          
+            <div className="border border-1 rounded py-md-4 my-md-2">
+            <SearchModel/>
+              <h1 className="text-center fw-bold mt-5" id="search-heading">
               Explore Our Properties
               </h1>
-              {/* <div className="tabs-container pt-2">
-                <ul
-                  className="nav nav-tabs d-flex justify-content-center"
-                  id="categoryTab"
-                  role="tablist"
-                >
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link active"
-                      id="houseTab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#house-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="house-tab-pane"
-                    >
-                      House
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="plotTab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#plot-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="plot-tab-pane"
-                    >
-                      Plots
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="apartmentTab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#apartment-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="apartment-tab-pane"
-                    >
-                      Apartment
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="villaTab"
-                      data-bs-toggle="tab"
-                      data-bs-target="#villa-tab-pane"
-                      type="button"
-                      role="tab"
-                      aria-controls="villa-tab-pane"
-                    >
-                      Villa
-                    </button>
-                  </li>
-                </ul>
-              </div> */}
+              
+            
 
-<div className="row">
+<div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-5 mb-2 justify-content-center text-center cat-list ">
   <div className="col-md-3 col-12 mb-3">
-  <a href="/property/propertyType/house" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
+  <a href="/property/propertyType/house" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50 house">
         <h3>House</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/villa" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
+    <a href="/property/propertyType/villa" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50 villa">
         <h3>Villa</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/plot" target="blank"> <button type="button" className="btn btn-outline-secondary w-75 w-md-50"> 
+    <a href="/property/propertyType/plot" target="blank"> <button type="button" className="btn btn-outline-secondary w-75 w-md-50 plot"> 
         <h3>Plot</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/flat" target="blank">   <button type="button" className="btn btn-outline-secondary w-75 w-md-50">
+    <a href="/property/propertyType/flat" target="blank">   <button type="button" className="btn btn-outline-secondary w-75 w-md-50 flat">
         <h3>Flat</h3>
       </button></a>
     </div>
   </ul>
 </div>
 
-<div className="row">
+<div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-2 justify-content-center text-center cat-list">
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/land" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertyType/land" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 land">
         <h3>Land</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/farmLand" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertyType/farmLand" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 farmland">
         <h3>Farm Land</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/farmHouse" target="blank">   <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertyType/farmHouse" target="blank">   <button type="button" className="btn btn-outline-secondary w-75 farmhouse">
         <h3>Farm House</h3>
       </button></a>
     </div>
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertyType/commercial" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertyType/commercial" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 commercial">
         <h3>Commercial</h3>
       </button></a>
     </div>
   </ul>
 </div>
-<div className="row">
+<div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-5 justify-content-center text-center cat-list">
     <div className="col-md-3 col-12 mb-3">
-    <a href="/property/propertiesForRent" target="blank">    <button type="button" className="btn btn-outline-secondary w-75">
+    <a href="/property/propertiesForRent" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 rent">
         <h3>Property For Rent</h3>
       </button></a>
     </div>
@@ -291,7 +235,7 @@ export default function () {
 {/* model for search result */}
 
    
-             <SearchModel/>
+             
               {/* <div className="search-container row justify-content-center mt-2 mb-md-5">
                 <div className="main col-lg-6 col-md-8 col-10 border border-1 rounded-2 d-flex justify-content-between" id="main-col">
                   <div className="row " id="inner-col">
@@ -353,6 +297,49 @@ export default function () {
 }
 
 const Wrapper = styled.div`
+.house{
+  background-color: #8d99ae;
+  color: white;
+}
+.villa{
+  background-color: #98c1d9;
+  color: white;
+}
+.land{
+  background-color: #013a63;
+  color: white;
+}
+.plot{
+  background-color: #99582a;
+  color: white;
+}
+.flat{
+  background-color: #50514f;
+  color: white;
+}
+.farmland{
+  background-color: #3b6064;
+  color: white;
+}
+.farmhouse{
+  background-color: #577590;
+  color: white;
+}
+.commercial{
+  background-color: #5e6472;
+  color: white;
+}
+.rent{
+  background-color: #6d2e46;
+  color: white;
+  
+}
+
+
+
+ .links{
+  width: 100vw;
+ }
   .cat-list{
     
     list-style: none;

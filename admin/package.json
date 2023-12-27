@@ -13,6 +13,7 @@
     "cogo-toast": "^4.2.3",
     "eslint": "version_number",
     "eslint-plugin-react": "version_number",
+    "moment": "^2.30.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-chartjs-2": "^5.2.0",

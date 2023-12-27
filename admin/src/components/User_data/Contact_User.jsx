@@ -1,30 +1,41 @@
 
-import React from 'react'
-import styled from 'styled-components'
-import Sidebar from '../Sidebar'
-import SiderbarMob from '../SiderbarMob'
-import NavbarAd from '../NavbarAd'
-import { useState } from 'react'
-import { useEffect } from 'react'
+
+
+
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Sidebar from '../Sidebar';
+import SiderbarMob from '../SiderbarMob';
+import NavbarAd from '../NavbarAd';
 import axios from 'axios';
-function Contact_User() {
-    const [userData, setUserData] = useState();
+import moment from "moment";
+
+function  Contact_User() {
+    const [user, setUser] = useState([]);
+    console.log(user)
 
     useEffect(()=>{
-        const AllUserData = async ()=>{
+      const fetchUser = async() =>{
 
-            try{
-                const response = await axios.get('http://localhost:9000/api/auth/contact_us/data');
-                 setUserData(response.data.data);
-            }
-            catch (error){
-                console.error('Error fetching all user data:', error.response.data);
+          try{
+            const res = await axios.get('https://bharatroofers.com/api/property/getContactedUsers');
 
+            console.log(res);
+            if(res?.data.success){
+             setUser(res?.data.data)
             }
-        };
-        AllUserData();
+            else{
+             console.log(res?.error)
+            }
+          }
+          catch(err){
+            console.log(err)
+          }
         
-    },[]);
+      }
+      fetchUser();
+    },[])
+ 
   return (
    <Wrapper>
     <NavbarAd/>
@@ -40,35 +51,59 @@ function Contact_User() {
       <div className="row">
    <div className="col-lg-12">
   <div className="widget-area-2 proclinic-box-shadow " id='tableres'>
-                    <h5 className="widget-title" id='title'>Contact User</h5>
+                    <h5 className="widget-title" id='title'>Contacted User</h5>
+                    <div className="table-responsive">
+                        <table className="table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>User id</th>
+                              <th>User Name</th>
+                              <th>Phone Number</th>
+                              <th>Email</th>
+                              <th>Message</th>
 
-                    <div className="table-container"> 
-      {userData ? (
-        <table className="table table-bordered table-striped" id="tableres">
-          <thead>
-            <tr>
-               <th>User id</th>  
-              <th>User Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-            
-            </tr>
-          </thead>
-          <tbody>
-            {userData.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.phone}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <p>Loading user data...</p>
-      )}
-    </div>
+                              <th>Contacted At</th>
+                            
+                            
+                             
+                            </tr>
+                          </thead>
+                          
+                      {user && user?.length > 0 ?  
+                      <>
+                     {user && user?.length > 0 &&  user?.map((user) => {
+                      return (
+                        <tbody key={user?.id}>
+                        <tr>
+                          <td>{user?.id}</td>
+                          <td>{user?.name}</td>
+                          <td>{user?.phone}</td>
+                          <td>{user?.email}</td>
+                          <td>{user?.message}</td>
+
+                          <td>{moment(user?.created_at).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                    
+
+                        
+                          
+                        </tr>
+                       
+                        
+                      </tbody>
+                      )
+                     }
+
+                     )}
+                     </>
+                     :
+                     <>
+                     <p className='mt-2'>
+                     No User Found
+                     </p>
+                     </>
+                     }
+                     </table>
+                      </div>
                   </div>
    </div>
   
@@ -88,7 +123,8 @@ function Contact_User() {
   )
 }
 
-export default Contact_User
+export default  Contact_User;
+
 const Wrapper = styled.div`
   #sider{
     display: block;
@@ -140,3 +176,7 @@ const Wrapper = styled.div`
   }
 
 `
+
+
+
+
