@@ -427,7 +427,7 @@ export default function PropertyType() {
             <form className="d-flex mt-4 justify-content-center searchBox ">
         <input className="form-control me-2" type="search" placeholder="Search by ID or Name" aria-label="Search" onChange={(e) => setSearchTerm(e.target.value)}/>
         <select
-      className="form-select"
+      className="form-select me-2"
       aria-label="Property Type"
       onChange={handlePropertyFor}
     >
