@@ -147,6 +147,7 @@ import Sidebar from '../Sidebar'
 import SiderbarMob from '../SiderbarMob'
 import NavbarAd from '../NavbarAd'
 import axios from 'axios'
+import moment from "moment";
 
 function Registered_User() {
     const [user, setUser] = useState([]);
@@ -156,7 +157,7 @@ function Registered_User() {
       const fetchUser = async() =>{
 
           try{
-            const res = await axios.get('http://localhost:4000/api/property/getRegisterUsers');
+            const res = await axios.get('https://bharatroofers.com/api/property/getRegisterUsers');
 
             console.log(res);
             if(res?.data.success){
@@ -215,7 +216,7 @@ function Registered_User() {
                           <td>{user?.name}</td>
                           <td>{user?.phone}</td>
                           <td>{user?.email}</td>
-                          <td>{user?.created_at}</td>
+                          <td>{moment(user?.created_at).format('MMMM Do YYYY, h:mm:ss a')}</td>
                     
 
                         

@@ -3,8 +3,24 @@ import { Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Dropdown } from 'react-bootstrap';
 import styled from "styled-components";
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from "../redux/admin/adminSlice";
 
 function Sidebar() {
+  const dispatch = useDispatch();
+  const {currentAdmin,loading,error} = useSelector((state) => state.admin);
+
+  const handleLogout = () => {
+    // Display a confirmation popup
+    const isConfirmed = window.confirm('Are you sure you want to Logout?');
+
+    if (!isConfirmed) {
+      // If the user cancels the deletion, do nothing
+      return;
+    }
+   dispatch(logout())
+}
+
   return (
     <Wrapper>
       <div className=" px-sm-2 px-0 " id="sidebar">
@@ -44,7 +60,7 @@ function Sidebar() {
           <Dropdown.Item><Link to="/admin/add-property">Add Property</Link></Dropdown.Item>
           <Dropdown.Item><Link to="/allproperties">Available Property</Link></Dropdown.Item>
           <Dropdown.Item><Link to="/soldproperties">Sold Out Property</Link></Dropdown.Item>
-          <Dropdown.Item><Link to="/admin/add-suggested-property">Add Suggested</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/admin/suggested-property">Suggested Property</Link></Dropdown.Item>
           
         </Dropdown.Menu>
       </Dropdown>
@@ -80,7 +96,7 @@ function Sidebar() {
               </li>
             <li>
             
-                <a className="nav-link px-0 align-middle d-flex gap-2">
+                <a className="nav-link px-0 align-middle d-flex gap-2"onClick={handleLogout} style={{cursor:"pointer"}}>
                 <i className="fs-4 bi bi-power"></i>
                   <br />
                   <span className=" d-none d-sm-inline mt-2 mx-2 " id="navleft">

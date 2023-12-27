@@ -4,6 +4,7 @@ import Sidebar from '../Sidebar'
 import SiderbarMob from '../SiderbarMob'
 import NavbarAd from '../NavbarAd'
 import axios from 'axios'
+import moment from "moment";
 
 function Interested_User() {
     const [user, setUser] = useState([]);
@@ -13,7 +14,7 @@ function Interested_User() {
       const fetchUser = async() =>{
 
           try{
-            const res = await axios.get('http://localhost:4000/api/property/getInterestedUsers');
+            const res = await axios.get('https://bharatroofers.com/api/property/getInterestedUsers');
 
             console.log(res);
             if(res?.data.success){
@@ -77,7 +78,7 @@ function Interested_User() {
                           <td>{user?.property_id}</td>
                           <td>{user?.PropertyName}</td>
                           <td>{user?.message}</td>
-                          <td>{user?.created_at}</td>
+                          <td>{moment(user?.created_at).format('MMMM Do YYYY, h:mm:ss a')}</td>
 
                         
                           

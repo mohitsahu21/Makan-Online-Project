@@ -27,7 +27,7 @@ function AdminHome() {
       <div className="row">
    <div className="col-lg-12">
     <h3 className='hdd'>Dashboard
-    <h6 className='mt-2'>Welcome to Makaan Online</h6>
+    <h6 className='mt-2'>Welcome to Bharat Roofers Admin</h6>
    </h3>
    </div>
    <div className="col-lg-12">
@@ -46,6 +46,13 @@ function AdminHome() {
 export default AdminHome
 
 const Wrapper = styled.div`
+.row{
+  @media screen and (max-width: 768px) {
+   
+  margin-bottom: 10px;
+}
+
+}
 .hdd{
     margin-top: 5rem;
     margin-left: 8rem;

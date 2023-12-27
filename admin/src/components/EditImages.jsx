@@ -88,7 +88,23 @@ const EditImages = () => {
     return (
       <Wrapper>
         <NavbarAd />
-        <div className="mb-4 mt-5 pt-5">
+        <div className="row">
+    <div className="col-lg-2 col-1" id='sider'>
+    <Sidebar/>
+    </div>
+    <div className="col-lg-2 col-1" id='sider1'>
+    <SiderbarMob/>
+    </div>
+    <div className="col-lg-10 mt-2" id='set'>
+      <div className="row">
+   <div className="col-lg-12">
+
+    
+         
+       
+      <div className="mb-lg-4 mt-lg-5 pt-lg-5">
+      
+        
           {loading ? (
             <CarouselPlaceholder />
           ) : (
@@ -101,13 +117,8 @@ const EditImages = () => {
                 <button onClick={()=> navigate(`/admin/add-property/add-images/${propertyId}`)} className="btn btn-primary mx-3 mx-1 btn-sm">Add Property Images</button> 
                 </div>
                
-                <div className="col-lg-2" id="nav1">
-                  <Sidebar />
-                </div>
-                <div className="col-lg-2" id="nav2">
-                  <SiderbarMob />
-                </div>
-                <div className="col-lg-10">
+              
+                <div className="col-lg-12">
                   <div className="row cardBox">
                     {propertyImages?.length > 0 ? (
                         
@@ -119,7 +130,7 @@ const EditImages = () => {
                               className="card-img-top"
                               alt={`Property ${image?.id}`}
                             />
-                            <div className="card-body address">
+                            <div className="card-body address text-center">
                               <button onClick={()=>handleImageDelete(image?.id)} className="btn btn-danger mx-3 mx-md-1 btn-sm">Delete</button>
                             </div>
                           </div>
@@ -138,6 +149,11 @@ const EditImages = () => {
             </div>
           )}
         </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
       </Wrapper>
     );
   };
@@ -145,6 +161,24 @@ const EditImages = () => {
   export default EditImages;
 
 const Wrapper = styled.div`
+
+#sider{
+    display: block;
+    
+    @media screen and (max-width: 1000px) {
+   
+    display: none;
+    
+  }
+}
+  #sider1{
+    display: none;
+    @media screen and (max-width: 1000px) {
+   
+   display: block;
+   
+ }
+}
 .searchBox{
     height: 50px;
     width: 60%;

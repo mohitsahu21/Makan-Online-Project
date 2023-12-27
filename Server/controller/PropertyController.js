@@ -486,7 +486,7 @@ const getSuggestedProperty = (req, res) => {
             if (results.length > 0) {
                 res.status(200).json({success:true, data: results, message: 'suggested Property fetched successfully' });
             } else {
-                res.status(404).json({success:false, error: 'Property not found' ,message:'Property not found' });
+                res.status(200).json({success:false, error: 'Property not found' ,message:'Property not found' });
             }
         }
     });

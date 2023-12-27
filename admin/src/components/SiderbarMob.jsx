@@ -3,7 +3,25 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
 import logo from '../images/Makaan_logo.jpg'
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from "../redux/admin/adminSlice";
+
 function SiderbarMob() {
+
+  const dispatch = useDispatch();
+  const {currentAdmin,loading,error} = useSelector((state) => state.admin);
+
+  const handleLogout = () => {
+    // Display a confirmation popup
+    const isConfirmed = window.confirm('Are you sure you want to Logout?');
+
+    if (!isConfirmed) {
+      // If the user cancels the deletion, do nothing
+      return;
+    }
+   dispatch(logout())
+}
+
   return (
     <Wrapper>
     <nav className="navbar bg-light">
@@ -14,7 +32,7 @@ function SiderbarMob() {
     </button>
     <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div className="offcanvas-header">
-        <h5 className="offcanvas-title d-flex gap-2 " id="offcanvasNavbarLabel"><img src={logo} height={30} width={30} alt="" /><h6 className='mt-1'>Makaan Online</h6></h5>
+        <h5 className="offcanvas-title d-flex gap-2 " id="offcanvasNavbarLabel"><img src={logo} height={30} width={30} alt="" /><h6 className='mt-1'>BharatRoofers</h6></h5>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div className="offcanvas-body">
@@ -26,7 +44,7 @@ function SiderbarMob() {
                   <i className="fs-4 bi bi-house-door-fill"></i>
                   <br />
                   <span className=" text-black  mt-2 mx-2" id="navleft1">
-                    Dashboard
+                  <Link to="/" className=" text-decoration-none text-black">Dashboard</Link> 
                   </span>{" "}
                 </a>
              
@@ -44,8 +62,10 @@ function SiderbarMob() {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          <Dropdown.Item href="#/house">Add Property</Dropdown.Item>
-          <Dropdown.Item href="#/villa">All Property</Dropdown.Item>
+        <Dropdown.Item><Link to="/admin/add-property">Add Property</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/allproperties">Available Property</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/soldproperties">Sold Out Property</Link></Dropdown.Item>
+          <Dropdown.Item><Link to="/admin/suggested-property">Suggested Property</Link></Dropdown.Item>
           
         </Dropdown.Menu>
       </Dropdown>
@@ -53,28 +73,7 @@ function SiderbarMob() {
                 </a>
              {" "}
             </li>
-            <li>
-            
-                <a className="d-flex gap-2 text-decoration-none">
-                  <i className="fs-4 bi bi-receipt-cutoff"></i>
-                  <br />
-                  <span className=" d-sm-inline" id="navleft">
-      <Dropdown>
-        <Dropdown.Toggle variant="" id="dropdown-basic">
-          Types
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item href="#/house">House</Dropdown.Item>
-          <Dropdown.Item href="#/villa">Villa</Dropdown.Item>
-          <Dropdown.Item href="#/plot">Plot</Dropdown.Item>
-          <Dropdown.Item href="#/apartment">Apartment</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    </span>
-                </a>
-             
-            </li>
+          
             <li>
             
                 <a className="nav-link px-0 align-middle d-flex gap-2">
@@ -89,8 +88,9 @@ function SiderbarMob() {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item ><Link to="/registered_user">Registerd User</Link></Dropdown.Item>
+          <Dropdown.Item ><Link to="/registered_user">Registerd User</Link></Dropdown.Item>
             <Dropdown.Item ><Link to="/interested_user">Interested User</Link></Dropdown.Item>
+            <Dropdown.Item ><Link to="/contact_user">Contact_Us_User</Link></Dropdown.Item>
             
           </Dropdown.Menu>
         </Dropdown>
@@ -100,10 +100,10 @@ function SiderbarMob() {
             </li>
             <li>
             
-                <a className="nav-link px-0 align-middle d-flex gap-2">
+                <a className="nav-link px-0 align-middle d-flex gap-2" onClick={handleLogout}>
                 <i className="fs-4 bi bi-power"></i>
                   <br />
-                  <span className=" text-black  mt-2 mx-2 " id="navleft">
+                  <span className=" text-black  mt-2 mx-2 " id="navleft" >
                     Logout
                   </span>{" "}
                 </a>

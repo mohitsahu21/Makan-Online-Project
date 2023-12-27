@@ -17,6 +17,8 @@ import Sidebar from "./Sidebar";
 import SiderbarMob from "./SiderbarMob";
 import { useDispatch, useSelector } from "react-redux";
 import cogoToast from 'cogo-toast';
+import { FaLocationDot } from "react-icons/fa6";
+import moment from "moment";
 
 
 
@@ -36,7 +38,7 @@ export default function SoldProperties() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/property/getAllProperty/`);
+      const response = await axios.get(`https://bharatroofers.com/api/property/getAllProperty/`);
       setProperties(response.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -45,7 +47,7 @@ export default function SoldProperties() {
 
   const getAllPropertiesImages = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getAllPropertyImages');
+      const response = await axios.get('https://bharatroofers.com/api/property/getAllPropertyImages');
       setPropertiesImages(response.data);
     } catch (error) {
       console.error('Error fetching property images:', error);
@@ -56,7 +58,7 @@ export default function SoldProperties() {
 
   const getSuggestedProperties = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/property/getSuggestedProperty');
+      const response = await axios.get('https://bharatroofers.com/api/property/getSuggestedProperty');
       setSuggestedProperties(response?.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -72,7 +74,7 @@ export default function SoldProperties() {
       // If the user cancels the deletion, do nothing
       return;
     }
-      const response = await axios.delete(`http://localhost:4000/api/property/deleteproperty/${propertyId}`,{
+      const response = await axios.delete(`https://bharatroofers.com/api/property/deleteproperty/${propertyId}`,{
              headers:{
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
@@ -106,7 +108,7 @@ export default function SoldProperties() {
       // If the user cancels the deletion, do nothing
       return;
     }
-      const response = await axios.put(`http://localhost:4000/api/property/removeAsSold/${propertyId}`,
+      const response = await axios.put(`https://bharatroofers.com/api/property/removeAsSold/${propertyId}`,
       {},
       {
              headers:{
@@ -147,7 +149,7 @@ export default function SoldProperties() {
 
      
   
-      const response = await axios.post('http://localhost:4000/api/property/addSuggestedProperty',{ property_id: propertyId }, {
+      const response = await axios.post('https://bharatroofers.com/api/property/addSuggestedProperty',{ property_id: propertyId }, {
         headers: {
             'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -177,7 +179,7 @@ export default function SoldProperties() {
       // If the user cancels the deletion, do nothing
       return;
     }
-      const response = await axios.delete(`http://localhost:4000/api/property/removeSuggestedProperty/${propertyId}`,{
+      const response = await axios.delete(`https://bharatroofers.com/api/property/removeSuggestedProperty/${propertyId}`,{
              headers:{
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
@@ -352,7 +354,7 @@ setRefresh((prevRefresh) => !prevRefresh);
                       </Link>
                       <div className="card-body address">
                         <p className="card-text d-inline">
-                          <span className="fs-5"><BiCategoryAlt /></span> {property.property_address}
+                          <span className="fs-5"><FaLocationDot /></span> {property.property_address}
                         </p>
                         <Link to={`/property/${property.id}`} style={{ textDecoration: 'none' }}>
                           <h5 className="card-title mt-2">{property.property_name}</h5>
@@ -360,7 +362,7 @@ setRefresh((prevRefresh) => !prevRefresh);
                         <h5 className="card-text"><FaRupeeSign />{property.price}</h5>
                         <p className="card-text">
                           <small className="text-body-secondary">
-                            <span className="fs-5"><CgCalendarDates /></span> {property.created_at}
+                            <span className="fs-5"><CgCalendarDates /></span> posted on : {moment(property.created_at).fromNow()} 
                             
                           </small>
                           
@@ -372,15 +374,15 @@ setRefresh((prevRefresh) => !prevRefresh);
                         <Link to={`/property/edit-property/${property.id}`}> <button className="btn btn-primary   btn-sm ">Edit Details</button></Link>
                        <Link to={`/property/edit-property-images/${property.id}`}> <button className="btn btn-secondary  btn-sm mx-3 mx-md-1">Edit Images</button></Link>
                        <button  onClick={()=>deleteProperty(property.id)} className="btn btn-danger  btn-sm ">Delete Property</button>
-                       <button  onClick={()=>removePropertySold(property.id)} className="btn btn-danger btn-sm ">Remove Soldout</button>
+                       <button  onClick={()=>removePropertySold(property.id)} className="btn btn-success btn-sm ">Remove Soldout</button>
 
                        {
           property?.property_for == "sale" && 
                     
-        ( suggestedProperties?.data.some((suggProperty) => suggProperty?.id === property?.id) ? (
-          <button onClick={() => removeSuggested(property?.id)} className="btn btn-danger btn-sm">Remove from Suggested</button>
+        ( suggestedProperties?.data?.some((suggProperty) => suggProperty?.id === property?.id) ? (
+          <button onClick={() => removeSuggested(property?.id)} className="btn btn-dark btn-sm">Remove from Suggested</button>
         ) : (
-          <button onClick={() => addToSuggested(property?.id)} className="btn btn-danger btn-sm">Add to Suggested</button>
+          <button onClick={() => addToSuggested(property?.id)} className="btn btn-info btn-sm">Add to Suggested</button>
         ))
       }  
                        

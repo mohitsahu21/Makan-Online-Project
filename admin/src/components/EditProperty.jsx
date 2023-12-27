@@ -5,6 +5,8 @@ import { useNavigate,Link , useParams} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import NavbarAd from './NavbarAd';
 import axios from 'axios';
+import Sidebar from './Sidebar';
+import SiderbarMob from './SiderbarMob';
 
 
 function EditProperty() {
@@ -237,10 +239,27 @@ function EditProperty() {
 
   return (
     <>
-    <NavbarAd/>
+   
     <Container>
+    <NavbarAd/>
+
+<div className="row">
+<div className="col-lg-2 col-1" id='sider'>
+<Sidebar/>
+</div>
+<div className="col-lg-2 col-1" id='sider1'>
+<SiderbarMob/>
+</div>
+<div className="col-lg-10 mt-2" id='set'>
+<div className="row">
+<div className="col-lg-12">
+
+
+
+
+<div className="mb-lg-4 mt-lg-3 pt-lg-3">
         
-    <div className='container-fluid mt-5'>
+    <div className='container-fluid'>
         <div className="row">
             <form onSubmit={handleSubmit}>
             <div className="col-12">
@@ -843,6 +862,11 @@ function EditProperty() {
         </form>
          </div>
     </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     </Container>
    
     </>
@@ -852,6 +876,23 @@ function EditProperty() {
 export default EditProperty
 
 const Container = styled.div`
+#sider{
+    display: block;
+    
+    @media screen and (max-width: 1000px) {
+   
+    display: none;
+    
+  }
+}
+  #sider1{
+    display: none;
+    @media screen and (max-width: 1000px) {
+   
+   display: block;
+   
+ }
+}
     
 `;
 

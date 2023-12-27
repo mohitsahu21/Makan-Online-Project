@@ -1,123 +1,4 @@
-// import React from "react";
-// import styled from "styled-components";
-// import NavbarAd from "./NavbarAd";
-// import SingleProperty from "./PropertyAd";
-// import PropertyAd from "./PropertyAd";
-// import Sidebar from "./Sidebar";
-// import SiderbarMob from "./SiderbarMob";
 
-// export default function AllProperties() {
-//   return (                                              
-//     <Wrapper>
-//       <NavbarAd/>
-// <div className="container-fluid">
-//   <div className="row">
-//   <div className="col-lg-2" id='nav1'>
-//                <Sidebar/>
-//             </div>
-//             <div className="col-lg-2" id='nav2'>
-//                <SiderbarMob/>
-//             </div>
-//     <div className="col-lg-10">
-//       <div className="">
-//         <h3 className="post-heading fw-semibold mb-3 ms-lg-3">All Properties</h3>
-//         <div className="row  cardBox">
-//           <div className="col-12  col-xl-4 mb-1 ">
-//         <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//      <PropertyAd/>
-//           </div>
-
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-        
-      
-//           <div className="col-12  col-xl-4 mb-1 ">
-//         <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//      <PropertyAd/>
-//           </div>
-
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-      
-      
-//           <div className="col-12  col-xl-4 mb-1 ">
-//         <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//      <PropertyAd/>
-//           </div>
-
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-
-//           <div className="col-12  col-xl-4 mb-1 ">
-//       <PropertyAd/>
-//           </div>
-//           </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
- 
-
-      
-//     </Wrapper>
-//   );
-// }
-
-// const Wrapper = styled.div`
-//   .post-heading {
-//     margin-top: 5rem;
-//     @media only screen and (max-width: 768px) {
-//       font-size: 20px;
-//       text-align: center;
-//     }
-//     @media screen and (min-width: 768px) and (max-width: 1024px) {
-//       font-size: 20px;
-//     }
-//   }
-//   #nav1{
-//     display: block;
-//     @media screen and (max-width: 768px) {
-   
-//     display: none;
-    
-//   }
-// }
-//   #nav2{
-//     display: none;
-//     @media screen and (max-width: 768px) {
-   
-//    display: block;
-   
-//  }
-   
-//   }
-  
-// `;
 
 
 import React, { useEffect, useState } from "react";
@@ -141,10 +22,12 @@ import { FaLocationDot } from "react-icons/fa6";
 
 
 
-export default function PropertyType() {
+
+export default function SuggestedProperty() {
  
   const {currentAdmin} = useSelector((state) => state.admin)
-  const [properties, setProperties] = useState(null);
+  const [suggestedProperties,setSuggestedProperties] = useState(null);
+  const [properties, setProperties] = useState(suggestedProperties);
   const [propertiesImages, setPropertiesImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -153,7 +36,7 @@ export default function PropertyType() {
   const [selectPropertyFor,setSelectPropertyFor] = useState('sale');
   const token = currentAdmin?.token;
   const [refresh, setRefresh] = useState(false);
-  const [suggestedProperties,setSuggestedProperties] = useState(null);
+  
 
   const getAllProperties = async () => {
     try {
@@ -335,7 +218,7 @@ export default function PropertyType() {
 
 
   useEffect(() => {
-    getAllProperties();
+    // getAllProperties();
     getAllPropertiesImages();
     getSuggestedProperties();
   }, [refresh]);
@@ -345,7 +228,7 @@ export default function PropertyType() {
     // Update setFilteredProperties with the filtered result
     // For example, assuming properties.data is an array of properties
     const filteredResult = selectedType
-    ? properties?.data.filter(
+    ? suggestedProperties?.data?.filter(
         (property) =>
         property?.isSold == 0 &&
           property?.property_type === selectedType &&
@@ -355,7 +238,7 @@ export default function PropertyType() {
           property?.property_address.toLowerCase().includes(searchTerm.toLowerCase())
           )
       )
-    : properties?.data.filter((property) =>
+    : suggestedProperties?.data?.filter((property) =>
     property?.isSold == 0 &&
         property?.property_for === selectPropertyFor &&
        ( property?.property_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -369,7 +252,7 @@ export default function PropertyType() {
 
   useEffect(() => {
     filterProperties();
-  }, [searchTerm, selectedType, selectPropertyFor,properties,refresh]); // Trigger the filtering whenever searchTerm, selectedType, or properties change
+  }, [searchTerm, selectedType, selectPropertyFor,properties,refresh,suggestedProperties]); // Trigger the filtering whenever searchTerm, selectedType, or properties change
   
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
@@ -415,11 +298,11 @@ export default function PropertyType() {
 
         // Render the component only if data is available
         
-        properties && properties?.data.length > 0 ? (
+        suggestedProperties && suggestedProperties?.data?.length > 0 ? (
             <div className="container-fluid">
               <div className="row">
               <h3 className="post-heading fw-semibold mb-3 ms-lg-3">
-        <p className="text-uppercase text-center">Available Properties </p>
+        <p className="text-uppercase text-center">Suggested Properties </p>
         </h3>
 
      
@@ -492,7 +375,7 @@ export default function PropertyType() {
                         <h5 className="card-text"><FaRupeeSign />{property?.price}</h5>
                         <p className="card-text">
                           <small className="text-body-secondary">
-                            <span className="fs-5"><CgCalendarDates /></span>posted on : {moment(property.created_at).fromNow()} 
+                            <span className="fs-5"><CgCalendarDates /></span> posted on : {moment(property.created_at).fromNow()} 
                             
                           </small>
                           

@@ -2,12 +2,13 @@
 
 
 
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import Sidebar from '../Sidebar'
-import SiderbarMob from '../SiderbarMob'
-import NavbarAd from '../NavbarAd'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Sidebar from '../Sidebar';
+import SiderbarMob from '../SiderbarMob';
+import NavbarAd from '../NavbarAd';
+import axios from 'axios';
+import moment from "moment";
 
 function  Contact_User() {
     const [user, setUser] = useState([]);
@@ -17,7 +18,7 @@ function  Contact_User() {
       const fetchUser = async() =>{
 
           try{
-            const res = await axios.get('http://localhost:4000/api/property/getContactedUsers');
+            const res = await axios.get('https://bharatroofers.com/api/property/getContactedUsers');
 
             console.log(res);
             if(res?.data.success){
@@ -50,7 +51,7 @@ function  Contact_User() {
       <div className="row">
    <div className="col-lg-12">
   <div className="widget-area-2 proclinic-box-shadow " id='tableres'>
-                    <h5 className="widget-title" id='title'>Contected User</h5>
+                    <h5 className="widget-title" id='title'>Contacted User</h5>
                     <div className="table-responsive">
                         <table className="table table-bordered table-striped">
                           <thead>
@@ -61,7 +62,7 @@ function  Contact_User() {
                               <th>Email</th>
                               <th>Message</th>
 
-                              <th>Contected At</th>
+                              <th>Contacted At</th>
                             
                             
                              
@@ -80,7 +81,7 @@ function  Contact_User() {
                           <td>{user?.email}</td>
                           <td>{user?.message}</td>
 
-                          <td>{user?.created_at}</td>
+                          <td>{moment(user?.created_at).format('MMMM Do YYYY, h:mm:ss a')}</td>
                     
 
                         
