@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { BsFacebook, BsWhatsapp, BsInstagram } from "react-icons/bs";
+
+import { IoLogoYoutube } from "react-icons/io";
 import { BiLogoInstagramAlt, BiLogoWhatsappSquare } from "react-icons/bi";
 
 import logo from '../images/Makaan_logo.jpg'
@@ -74,27 +76,18 @@ const Footer = () => {
                 <ul>
                   <li> <img src={logo} height={100} width={200} alt="" className="rounded-3" /> </li>
                   <li><h5 className="mt-3 mx-5">Follow us on</h5></li>
-                  <li><div className="d-flex gap-5 mt-3">
+                  <li><div className="d-flex gap-4 mt-3">
                     
-                  <BsFacebook size={30}    onMouseOver={({ target }) =>
-                        (target.style.color = "blue")
+                  <BsFacebook size={30} style={{color:"#316FF6"}}/>
+                  <BsInstagram size={30} style={{color:"#E4405F"}}/>
+                  <Link className="" to={"https://wa.me/+918839280515"}><BsWhatsapp size={30} style={{color:"#128C7E"}} onMouseOver={({ target }) =>
+                        (target.style.color = "#128C7E")
                       }
                       onMouseOut={({ target }) =>
-                        (target.style.color = "white")
-                      } />
-                  <BsInstagram size={30} onMouseOver={({ target }) =>
-                        (target.style.color = "red")
-                      }
-                      onMouseOut={({ target }) =>
-                        (target.style.color = "white")
-                      }  />
-                  <Link className="text-white" to={"https://wa.me/+918839280515"}><BsWhatsapp size={30} onMouseOver={({ target }) =>
-                        (target.style.color = "green")
-                      }
-                      onMouseOut={({ target }) =>
-                        (target.style.color = "white")
+                        (target.style.color = "#128C7E")
                         
                     } /></Link>
+                   <IoLogoYoutube size={30} style={{color:"#CD201F"}}/>
                         
                 </div></li>
                  
@@ -104,7 +97,7 @@ const Footer = () => {
                 </div>
              
               <div>
-                  <h5 className="text-white text-center">Copyright &copy; 2024 Bharatroofers. All Right Reserved</h5> 
+                  <h5 className="text-white text-center fs-6">Copyright &copy; 2024 Bharatroofers.com | All Rights Reserved</h5> 
                 
                 </div>
             </div>

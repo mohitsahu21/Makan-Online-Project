@@ -62,7 +62,7 @@ export default function RecentlyPosted() {
         // Render the component only if data is available
         properties && properties.data && properties.data.length > 0 ? (
           <div className="row cardBox">
-            <Carousel responsive={responsive} showDots={true} infinite={true} autoPlay={true} autoPlaySpeed={3000}>
+            <Carousel responsive={responsive} showDots={true} infinite={true}>
               
               {properties.data.map((property) => {
                 const matchingImages = propertiesImages?.data.filter(

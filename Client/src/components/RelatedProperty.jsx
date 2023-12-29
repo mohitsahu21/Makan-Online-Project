@@ -79,7 +79,7 @@ export default function RelatedProperty({propertyType,propertyFor,propertyId}) {
         properties && properties?.data && properties?.data.length > 0 && properties?.data
         .filter(property => property.id != propertyId).length>0 ? (
           <div className="row cardBox">
-            <Carousel responsive={responsive} showDots={true} infinite={true} autoPlay={true} autoPlaySpeed={3000}>
+            <Carousel responsive={responsive} showDots={true} infinite={true}>
               
               {properties?.data
               .filter(property => property.id != propertyId) // Filter out the property with the specified ID

@@ -9,7 +9,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import moment from "moment";
 import { FaLocationDot } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
-
+const stringSimilarity = require('string-similarity');
 
 const SearchModel = () => {
     const [properties,setProperties] = useState(null);
@@ -83,16 +83,19 @@ useEffect(() => {
   let filteredProperties;
   if(!isSearchTermEmpty || isPropertyForSelected){
      filteredProperties = properties?.data.filter((property) =>{
-        const includesSearchTerm = isSearchTermEmpty || property?.property_name.toLowerCase().includes(searchTerm.toLowerCase());
+      const nameSimilarity = stringSimilarity.compareTwoStrings(searchTerm.toLowerCase(), property?.property_name.toLowerCase());
+    const addressSimilarity = stringSimilarity.compareTwoStrings(searchTerm.toLowerCase(), property?.property_address.toLowerCase());
+
+    const includesSearchTerm = isSearchTermEmpty || nameSimilarity > 0.2 || addressSimilarity > 0.2; // Adjust threshold as needed
     const matchesPropertyType = isPropertyTypeSelected ? property.property_type.toLowerCase() === propertyType.toLowerCase() : true;
     const matchesPropertyFor = isPropertyForSelected ? property?.property_for.toLowerCase() === propertyFor.toLowerCase() : false;
     // const matchesPropertyBudget = isPropertyBudgetSelected ? property.price <= Number(propertyBudget) : true;
     
     // Include the property address filtering
-    const matchesPropertyAddress =
-      isSearchTermEmpty ||
-      property?.property_address.toLowerCase().includes(searchTerm.toLowerCase());
-    return (includesSearchTerm || matchesPropertyAddress) && matchesPropertyFor && matchesPropertyType;
+    // const matchesPropertyAddress =
+    //   isSearchTermEmpty ||
+    //   property?.property_address.toLowerCase().includes(searchTerm.toLowerCase());
+    return  includesSearchTerm  && matchesPropertyFor && matchesPropertyType;
     // && matchesPropertyBudget && matchesPropertyType;
 
      }
@@ -101,9 +104,7 @@ useEffect(() => {
   
   
 )};
-console.log(propertyFor);
-console.log(propertyType);
-console.log(propertyBudget)
+
  
 // If search term is empty, set filteredProperties to an empty array
 
