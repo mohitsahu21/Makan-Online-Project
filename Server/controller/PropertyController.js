@@ -195,7 +195,7 @@ const uploadImages =  (req, res) => {
 //Method to get all property details 
 
 const getAllProperty = (req, res) =>{
-    const sql = 'SELECT * FROM properties'; // Replace properties with your actual table name
+    const sql = 'SELECT * FROM properties WHERE isSold = "0"'; // Replace properties with your actual table name
 
     db.query(sql, (err, results) => {
         if (err) {
@@ -208,13 +208,29 @@ const getAllProperty = (req, res) =>{
 
 }
 
+//Method to get all property For Admin 
+
+const getAllPropertyAdmin = (req, res) =>{
+  const sql = 'SELECT * FROM properties'; // Replace properties with your actual table name
+
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error fetching properties from MySQL:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+          res.status(200).json({ data: results, message: 'Properties fetched successfully' });
+      }
+  });
+
+}
+
  //Method to get all property by type.
 
 const getPropertyByType = (req, res) =>{
 
     const propertyType = req.params.propertyType;
     
-    const sql = 'SELECT * FROM properties WHERE property_type = ? AND property_for = "sale"'; // Replace properties with your actual table name
+    const sql = 'SELECT * FROM properties WHERE property_type = ? AND property_for = "sale" AND isSold = "0"'; // Replace properties with your actual table name
 
     db.query(sql,[propertyType] , (err, results) => {
         if (err) {
@@ -240,7 +256,7 @@ const getPropertyByTypeAndBhk = (req, res) => {
     const propertyType = req.params.propertyType;
     const bhk = req.params.bhk; // Added line to get BHK from URL parameter
 
-    const sql = 'SELECT * FROM properties WHERE property_type = ? AND bhk = ? AND property_for = "sale"'; // Updated SQL query
+    const sql = 'SELECT * FROM properties WHERE property_type = ? AND bhk = ? AND property_for = "sale" AND isSold = "0"'; // Updated SQL query
 
     db.query(sql, [propertyType, bhk], (err, results) => {
         if (err) {
@@ -262,7 +278,7 @@ const getPropertyForResaleAndType = (req, res) => {
     const propertyType = req.params.propertyType;
     
 
-    const sql = 'SELECT * FROM properties WHERE property_type = ? AND new_resale = "resale" AND property_for = "sale"'; // Updated SQL query
+    const sql = 'SELECT * FROM properties WHERE property_type = ? AND new_resale = "resale" AND property_for = "sale" AND isSold = "0"'; // Updated SQL query
 
     db.query(sql, [propertyType], (err, results) => {
         if (err) {
@@ -284,7 +300,7 @@ const getPropertyForRent = (req, res) =>{
 
     
     
-    const sql = 'SELECT * FROM properties WHERE property_for = "rent"'; // Replace properties with your actual table name
+    const sql = 'SELECT * FROM properties WHERE property_for = "rent" AND isSold = "0"'; // Replace properties with your actual table name
 
     db.query(sql, (err, results) => {
         if (err) {
@@ -310,7 +326,7 @@ const getPropertyForRentByType = (req, res) =>{
 
     
     const propertyType = req.params.propertyType;
-    const sql = 'SELECT * FROM properties WHERE property_for = "rent" AND property_type = ?'; // Replace properties with your actual table name
+    const sql = 'SELECT * FROM properties WHERE property_for = "rent" AND property_type = ? AND isSold = "0"'; // Replace properties with your actual table name
 
     db.query(sql,[propertyType], (err, results) => {
         if (err) {
@@ -470,10 +486,10 @@ const deletePropertyImageById = (req, res) => {
     });
 };
 
-
+// method for suggested property for user
 
 const getSuggestedProperty = (req, res) => {
-    const sql = 'SELECT * FROM properties WHERE id IN (SELECT property_id FROM suggestions) AND property_for = "sale"';
+    const sql = 'SELECT * FROM properties WHERE id IN (SELECT property_id FROM suggestions) AND property_for = "sale" AND isSold = "0"';
      // Assuming the parameter name in the route is 'propertyId'
     // const sql = 'SELECT * FROM properties_images WHERE property_id = ?';
      // Replace properties with your actual table name
@@ -490,6 +506,28 @@ const getSuggestedProperty = (req, res) => {
             }
         }
     });
+}
+
+// method for suggested property for admin
+
+const getSuggestedPropertyAdmin = (req, res) => {
+  const sql = 'SELECT * FROM properties WHERE id IN (SELECT property_id FROM suggestions) AND property_for = "sale"';
+   // Assuming the parameter name in the route is 'propertyId'
+  // const sql = 'SELECT * FROM properties_images WHERE property_id = ?';
+   // Replace properties with your actual table name
+
+  db.query(sql, (err, results) => {
+      if (err) {
+          console.error('Error fetching property from MySQL:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+          if (results.length > 0) {
+              res.status(200).json({success:true, data: results, message: 'suggested Property fetched successfully' });
+          } else {
+              res.status(200).json({success:false, error: 'Property not found' ,message:'Property not found' });
+          }
+      }
+  });
 }
 
 // method for suggested property images
@@ -557,7 +595,7 @@ const addSuggestedPropperty = (req, res) => {
 // method to get most visited property;
 
 const getMostVisitedProperties = (req, res) => {
-    const sqlSelectMostVisited = 'SELECT * FROM properties WHERE property_for = "sale" ORDER BY visits DESC LIMIT 20'; // Adjust the LIMIT as needed
+    const sqlSelectMostVisited = 'SELECT * FROM properties WHERE property_for = "sale" AND isSold = "0" ORDER BY visits DESC LIMIT 20'; // Adjust the LIMIT as needed
 
     db.query(sqlSelectMostVisited, (error, results) => {
         if (error) {
@@ -576,7 +614,7 @@ const getMostVisitedProperties = (req, res) => {
 // method to get Recently posted property;
 
 const getRecentlyPostedProperties = (req, res) => {
-    const sqlSelectMostVisited = 'SELECT * FROM properties WHERE property_for = "sale" ORDER BY id DESC LIMIT 20'; // Adjust the LIMIT as needed
+    const sqlSelectMostVisited = 'SELECT * FROM properties WHERE property_for = "sale" AND isSold = "0" ORDER BY id DESC LIMIT 20'; // Adjust the LIMIT as needed
 
     db.query(sqlSelectMostVisited, (error, results) => {
         if (error) {
@@ -1022,4 +1060,4 @@ const userRegistration = (req, res) => {
 
 
 
-module.exports = {addProperty, interestedUser, adminLoginController, adminRegistration, userRegistration, loginController, uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty,delete_Property,deletePropertyImageById, getPropertyByTypeAndBhk , getPropertyForRentByType,getPropertyForResaleAndType,markedAsSold,romeveAsSold,removeSuggestedProperty}
+module.exports = {addProperty, interestedUser, adminLoginController, adminRegistration, userRegistration, loginController, uploadImages, getAllProperty,getAllPropertyImages,getPropertyById ,getPropertyImagesById ,getSuggestedProperty ,addSuggestedPropperty,getSuggestedPropertyImages,getPropertyByType,getMostVisitedProperties,getRecentlyPostedProperties,getPropertyForRent,editProperty,delete_Property,deletePropertyImageById, getPropertyByTypeAndBhk , getPropertyForRentByType,getPropertyForResaleAndType,markedAsSold,romeveAsSold,removeSuggestedProperty,getAllPropertyAdmin,getSuggestedPropertyAdmin}

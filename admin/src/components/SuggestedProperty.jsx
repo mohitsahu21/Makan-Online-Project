@@ -40,7 +40,7 @@ export default function SuggestedProperty() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`https://bharatroofers.com/api/property/getAllProperty/`);
+      const response = await axios.get(`https://bharatroofers.com/api/property/getAllPropertyAdmin/`);
       setProperties(response?.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -61,7 +61,7 @@ export default function SuggestedProperty() {
 
   const getSuggestedProperties = async () => {
     try {
-      const response = await axios.get('https://bharatroofers.com/api/property/getSuggestedProperty');
+      const response = await axios.get('https://bharatroofers.com/api/property/getSuggestedPropertyAdmin');
       setSuggestedProperties(response?.data);
     } catch (error) {
       console.error('Error fetching properties:', error);

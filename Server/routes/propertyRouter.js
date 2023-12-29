@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require('multer');
 const authenticate = require('../middleware/authMiddleware.js');
-const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties, getPropertyForRent, editProperty, delete_Property, deletePropertyImageById, getPropertyByTypeAndBhk, getPropertyForRentByType, getPropertyForResaleAndType, userRegistration, loginController, adminLoginController, adminRegistration, interestedUser, removeSuggestedProperty, markedAsSold, romeveAsSold} = require('../controller/PropertyController.js');
+const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties, getPropertyForRent, editProperty, delete_Property, deletePropertyImageById, getPropertyByTypeAndBhk, getPropertyForRentByType, getPropertyForResaleAndType, userRegistration, loginController, adminLoginController, adminRegistration, interestedUser, removeSuggestedProperty, markedAsSold, romeveAsSold, getAllPropertyAdmin, getSuggestedPropertyAdmin} = require('../controller/PropertyController.js');
 const { contactedUser, getInterestedUsers, getRegisterUsers, getContactedUsers } = require("../controller/UserController.js");
 
 const storage = multer.diskStorage({
@@ -52,6 +52,9 @@ router.get("/getRegisterUsers" , getRegisterUsers);
 router.get("/getContactedUsers" , getContactedUsers);
 router.put("/markedAsSold/:propertyId" ,authenticate, markedAsSold);
 router.put("/removeAsSold/:propertyId" ,authenticate, romeveAsSold);
+router.get("/getAllPropertyAdmin" , getAllPropertyAdmin);
+router.get("/getSuggestedPropertyAdmin", getSuggestedPropertyAdmin);
+
 
 
 

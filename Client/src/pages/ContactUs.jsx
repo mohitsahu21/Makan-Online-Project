@@ -6,20 +6,70 @@ import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidContact } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 import NavbarMob from "../components/NavbarMob";
+import cogoToast from 'cogo-toast';
+import axios from "axios";
 
 function ContactUs() {
     const [isScrolled, setIsScrolled] = useState(false);
+    
+    const [formData,setFormData] = useState({
+     
+      name : "",
+      email : "",
+      phone : "",
+      message : ""
+  
+    });
+  
+    const handleChange = (e) =>{
+      setFormData({...formData,[e.target.name] : e.target.value})
+    };
+     console.log(formData.message)
+  
+     const handleSubmit = async (e) => {
+      e.preventDefault();
+      // Check if required fields are empty
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
+      cogoToast.error('Please fill in all required fields.');
+      return;
+    }
+     
+      try{
+       
+        const res = await axios.post("https://bharatroofers.com/api/property/contacted" , formData)
+        
+        console.log(res)
+        if(res.data.success === true){
+          cogoToast.success(`${res.data.message}`)
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            message: ""
+          });
+        
+        }
+        
+      }
+      catch(error){
+        
+        console.log(error.response)
+        cogoToast.error(`${error.response.data.error}`)
+        
+  
+      }
+  
+    }
+
+
+
     useEffect(()=>{
       const handleTop = () => {
         window.scrollTo(0, 0);
       };
       handleTop();
     },[])
-  
-    // window.onscroll = () => {
-    //   setIsScrolled(window.pageYOffset === 0 ? false : true);
-    //   return () => (window.onscroll = null);
-    // };
+
   return (
     <>
     <Container>
@@ -59,7 +109,9 @@ function ContactUs() {
                   </ul>
 
             </div>
+            
             <div className='col-12 col-md-6'>
+            <form onSubmit={handleSubmit}>
             <div className="mb-3 mt-4">
                
                 <input
@@ -67,8 +119,12 @@ function ContactUs() {
                   placeholder="Enter your fullname"
                   name="name"
                   className="form-control"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
                 />
               </div>
+              
               <div className="mb-3 mt-4">
                
                 <input
@@ -76,6 +132,8 @@ function ContactUs() {
                   placeholder="Enter your email"
                   name="email"
                   className="form-control"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
               </div>
               <div className="mb-3 mt-4">
@@ -86,22 +144,30 @@ function ContactUs() {
                   name="phone"
                   maxLength={10}
                   className="form-control"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
                 />
               </div>
               <div className="mb-3">
                
                 <textarea placeholder="Write message"
                 className="form-control"
+                name="message"
                 rows="6"
+                onChange={handleChange}
+                value={formData.message}
                 />
 
                 
               </div>
-              <div className="d-flex justify-content-center">
-                <button className="btn btn-success">Submit</button>
-              </div>
 
+              <div className="d-flex justify-content-center">
+                <button type="submit" className="btn btn-success" >Submit</button>
+              </div>
+              </form>
             </div>
+            
 
 
         </div>

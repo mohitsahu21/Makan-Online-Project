@@ -179,7 +179,7 @@ const contactedUser = (req, res) => {
 
   const sql = 'INSERT INTO contacted_user ( name, email, phone, message) VALUES (?, ?, ?, ?)';
 
-  db.query(sql, [propertyId, propertyName, name, email, phone, message], (err, result) => {
+  db.query(sql, [ name, email, phone, message], (err, result) => {
     if (err) {
       console.error('Error inserting data into MySQL:', err);
       res.status(500).json({ success: false, error: 'Internal Server Error' , message: 'Internal Server Error'});

@@ -157,7 +157,7 @@ export default function PropertyType() {
 
   const getAllProperties = async () => {
     try {
-      const response = await axios.get(`https://bharatroofers.com/api/property/getAllProperty/`);
+      const response = await axios.get(`https://bharatroofers.com/api/property/getAllPropertyAdmin/`);
       setProperties(response?.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -178,7 +178,7 @@ export default function PropertyType() {
 
   const getSuggestedProperties = async () => {
     try {
-      const response = await axios.get('https://bharatroofers.com/api/property/getSuggestedProperty');
+      const response = await axios.get('https://bharatroofers.com/api/property/getSuggestedPropertyAdmin');
       setSuggestedProperties(response?.data);
     } catch (error) {
       console.error('Error fetching properties:', error);
@@ -415,7 +415,7 @@ export default function PropertyType() {
 
         // Render the component only if data is available
         
-        properties && properties?.data.length > 0 ? (
+        properties && properties?.data?.length > 0 ? (
             <div className="container-fluid">
               <div className="row">
               <h3 className="post-heading fw-semibold mb-3 ms-lg-3">
