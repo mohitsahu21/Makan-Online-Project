@@ -446,7 +446,7 @@ function EditProperty() {
                 </select>
             </div>
             <div className="col-12 col-md-6 mb-3">
-            <label className="form-check-label" htmlFor="structure">structure</label>
+            <label className="form-check-label" htmlFor="structure">Structure</label>
                 <select className="form-select" id="structure" name="structure" disabled={formData?.property_type === "plot" || formData?.property_type === "land" || formData?.property_type === "farmLand" } onChange={handleInputChange} value={formData?.structure} required>
                     <option value="">Select structure</option>
                     <option value="Simplex">Simplex</option>
@@ -498,7 +498,15 @@ function EditProperty() {
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="furnishing">Furnishing</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='furnishing' placeholder="Furnishing" onChange={handleInputChange} value={formData?.furnishing} required/>
+                    
+                    <select className="form-select" id="exampleInputEmail1" name="furnishing" disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } onChange={handleInputChange}  value={formData?.furnishing}  required>
+                    <option value="">Select furnishing</option>
+                    <option value="Full Furnished">Full Furnished</option>
+                    <option value="Semi Furnished">Semi Furnished</option>
+                    <option value="Not Furnished">Not Furnished</option>
+                    
+                
+                </select>
                     </div>
 
                     <div className="col-12 col-md-6 mb-3">
@@ -507,19 +515,19 @@ function EditProperty() {
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="bathroom">Bathroom</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='bathroom' placeholder="Bathroom" onChange={handleInputChange} value={formData?.bathroom} required/>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='bathroom' placeholder="Bathroom" onChange={handleInputChange} value={formData?.bathroom} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required/>
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="property_on_floor">Property On Floor</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='property_on_floor' placeholder="Property On Floor" onChange={handleInputChange} value={formData?.property_on_floor} required/>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='property_on_floor' placeholder="Property On Floor" onChange={handleInputChange} value={formData?.property_on_floor} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required/>
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="flooring">Flooring</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='flooring' placeholder="Flooring" onChange={handleInputChange} value={formData?.flooring} required/>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='flooring' placeholder="Flooring" onChange={handleInputChange} value={formData?.flooring} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required/>
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="age_of_property">Age Of Property</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='age_of_property' placeholder="Age Of Property" onChange={handleInputChange} value={formData?.age_of_property} required/>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='age_of_property' placeholder="Age Of Property" onChange={handleInputChange} value={formData?.age_of_property} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required/>
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="parking">Parking</label>
@@ -528,7 +536,7 @@ function EditProperty() {
                     
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="lift">Lift</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='lift' placeholder="Lift" onChange={handleInputChange} value={formData?.lift} required/>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='lift' placeholder="Lift" onChange={handleInputChange} value={formData?.lift} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required/>
                     </div>
                 
                 </div>
@@ -541,7 +549,7 @@ function EditProperty() {
                 <div className="row">
                     <div className='col-12 col-md-3 mb-3'>
                     <label className="form-check-label" htmlFor="service_lift_available">Service Lift Available -</label>   
-                    <select className="form-select" id="service_lift_available" name="service_lift_available" onChange={handleInputChange} value={formData?.service_lift_available} required>
+                    <select className="form-select" id="service_lift_available" name="service_lift_available" onChange={handleInputChange} value={formData?.service_lift_available} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -555,7 +563,7 @@ function EditProperty() {
                        
                        
                         <label className="form-check-label" htmlFor="common_visitor_parking">Good No. of Common/Visitor Parking</label>   
-                    <select className="form-select" id="common_visitor_parking" name="common_visitor_parking" onChange={handleInputChange} value={formData?.common_visitor_parking} required>
+                    <select className="form-select" id="common_visitor_parking" name="common_visitor_parking" onChange={handleInputChange} value={formData?.common_visitor_parking} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -573,11 +581,11 @@ function EditProperty() {
                     </select>
                    
                     </div>
-                    <div className='col-12 col-md-3 mb-3'>
+                    <div className='col-12 col-md-3 mb-3 d-none' >
                         
                     <label className="form-check-label" htmlFor="working_24_7">24 X 7 working</label>   
                     <select className="form-select" id="working_24_7" name="working_24_7" onChange={handleInputChange}
-                    value={formData?.working_24_7} required>
+                    value={formData?.working_24_7} required disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" }>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -587,7 +595,7 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                         
                     <label className="form-check-label" htmlFor="good_ceiling_height">Good Ceiling Height</label>   
-                    <select className="form-select" id="good_ceiling_height" name="good_ceiling_height" onChange={handleInputChange} value={formData?.good_ceiling_height} required>
+                    <select className="form-select" id="good_ceiling_height" name="good_ceiling_height" onChange={handleInputChange} value={formData?.good_ceiling_height} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -679,7 +687,7 @@ function EditProperty() {
                        
                     <label className="form-check-label" htmlFor="swimming_pool">Swimming pool</label>   
                     <select className="form-select" id="swimming_pool" name="swimming_pool" onChange={handleInputChange}
-                    value={formData?.swimming_pool} required>
+                    value={formData?.swimming_pool} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -689,7 +697,7 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                         
                     <label className="form-check-label" htmlFor="terrace">Terrace</label>   
-                    <select className="form-select" id="terrace" name="terrace" onChange={handleInputChange} value={formData?.terrace} required>
+                    <select className="form-select" id="terrace" name="terrace" onChange={handleInputChange} value={formData?.terrace} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -698,7 +706,7 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                        
                     <label className="form-check-label" htmlFor="air_conditioning">Air conditioning</label>   
-                    <select className="form-select" id="air_conditioning" name="air_conditioning" onChange={handleInputChange} value={formData?.air_conditioning} required>
+                    <select className="form-select" id="air_conditioning" name="air_conditioning" onChange={handleInputChange} value={formData?.air_conditioning} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -707,7 +715,7 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                         
                     <label className="form-check-label" htmlFor="internet">Internet</label>   
-                    <select className="form-select" id="internet" name="internet" onChange={handleInputChange} value={formData?.internet} required>
+                    <select className="form-select" id="internet" name="internet" onChange={handleInputChange} value={formData?.internet} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -717,7 +725,7 @@ function EditProperty() {
                        
                     <label className="form-check-label" htmlFor="balcony">Balcony</label>   
                     <select className="form-select" id="balcony" name="balcony" onChange={handleInputChange}
-                    value={formData?.balcony} required>
+                    value={formData?.balcony} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -727,7 +735,7 @@ function EditProperty() {
                        
                     <label className="form-check-label" htmlFor="cable_tv">Cable TV</label>   
                     <select className="form-select" id="cable_tv" name="cable_tv" onChange={handleInputChange}
-                    value={formData?.cable_tv} required>
+                    value={formData?.cable_tv} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -736,7 +744,7 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                        
                     <label className="form-check-label" htmlFor="computer">Computer</label>   
-                    <select className="form-select" id="computer" name="computer" onChange={handleInputChange} value={formData?.computer} required>
+                    <select className="form-select" id="computer" name="computer" onChange={handleInputChange} value={formData?.computer} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -746,7 +754,7 @@ function EditProperty() {
                         
                     <label className="form-check-label" htmlFor="dishwasher">Dishwasher</label>   
                     <select className="form-select" id="dishwasher" name="dishwasher" onChange={handleInputChange}
-                    value={formData?.dishwasher} required>
+                    value={formData?.dishwasher} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -771,7 +779,7 @@ function EditProperty() {
                     <option value="0">No</option>
                     </select>
                     </div>
-                    <div className='col-12 col-md-3 mb-3'>
+                    <div className='col-12 col-md-3 mb-3 d-none'>
                      
                     <label className="form-check-label" htmlFor="entry_gate">Entry Gate</label>   
                     <select className="form-select" id="entry_gate" name="entry_gate" onChange={handleInputChange}
@@ -784,7 +792,7 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                         
                     <label className="form-check-label" htmlFor="activity_area">Activity Area</label>   
-                    <select className="form-select" id="activity_area" name="activity_area" onChange={handleInputChange}  value={formData?.activity_area}     required>
+                    <select className="form-select" id="activity_area" name="activity_area" onChange={handleInputChange}  value={formData?.activity_area} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" }     required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>

@@ -435,11 +435,13 @@ const fetchPropertyImages = async (propertyId) => {
                         <span className="fw-semibold text-capitalize">{property?.rera}</span>
                     </div>
                     )}
-                   
-                <div className="col-4">
+                  {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand"  ) && 
+                (<div className="col-4">
                 <span className="d-block">Structure</span>
                     <p className="fw-semibold text-capitalize">{property?.structure}</p>
-                </div>
+                </div>)
+                  }
                 <div className="col-4">
                 <span className="d-block">Square Feet</span>
                     <p className="fw-semibold text-capitalize">{`${property?.square_ft} Sq.Ft.`}</p>    
