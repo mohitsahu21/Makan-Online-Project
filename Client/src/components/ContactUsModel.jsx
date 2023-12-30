@@ -256,12 +256,14 @@ function ContactUsModel({propertyId,propertyName}) {
 
   return (
     <>
+     <Container>
     <div className="d-grid gap-2 col-10 mx-auto">
           
             
               <>
-                  <button className="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              CONTACT US
+                  <button className="btn btn-primary contactusButton" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  
+               CONTACT US
             </button>
                <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div className="modal-dialog" role="document">
@@ -394,8 +396,28 @@ function ContactUsModel({propertyId,propertyName}) {
 
            
           </div>
+          </Container>
     </>
   )
 }
 
 export default ContactUsModel
+
+const Container = styled.div`
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.contactusButton {
+  animation: pulsate 2s infinite; /* Adjust the duration as needed */
+}
+` 

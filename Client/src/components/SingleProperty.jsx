@@ -17,10 +17,9 @@ import SideBlog3 from "./Blogs/SideBlogs/SideBlog3";
 import SideBlog4 from "./Blogs/SideBlogs/SideBlog4";
 import SideBlog5 from "./Blogs/SideBlogs/SideBlog5";
 import { Carousel } from 'react-bootstrap';
-import { useFullscreen } from 'react-use';
-import ReactImageZoom from 'react-image-zoom';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // Don't forget to import the styles
+
 
 
 
@@ -345,9 +344,9 @@ const fetchPropertyImages = async (propertyId) => {
 
 {propertyImages && propertyImages?.length > 0 ? (
         <>
-          <Carousel id="carouselExampleIndicators" interval={null}>
+          <Carousel id="carouselExampleIndicators" interval={null} className="custom-carousel-transition">
             {propertyImages?.map((image, index) => (
-              <Carousel.Item key={image?.id} active={index === 0} onClick={() => setLightboxOpen(true)}>
+              <Carousel.Item key={image?.id} active={index === 0} onClick={() => setLightboxOpen(true)} className="carousel-inner">
                 <img
                   src={image?.image}
                   className="d-block img-fluid mx-auto zoomable-image"
@@ -358,6 +357,7 @@ const fetchPropertyImages = async (propertyId) => {
           </Carousel>
 
           {lightboxOpen && (
+            <div className="lightbox-fullscreen">
             <Lightbox
               mainSrc={propertyImages[photoIndex]?.image}
               nextSrc={propertyImages[(photoIndex + 1) % propertyImages.length]?.image}
@@ -366,6 +366,9 @@ const fetchPropertyImages = async (propertyId) => {
               onMovePrevRequest={() => setPhotoIndex((photoIndex + propertyImages.length - 1) % propertyImages.length)}
               onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % propertyImages.length)}
             />
+            {/* Optional: Close button or any other elements inside the lightbox */}
+    <div className="close-button" onClick={() => setLightboxOpen(false)}>×</div>
+    </div>
           )}
         </>
       ) : (
@@ -434,7 +437,7 @@ const fetchPropertyImages = async (propertyId) => {
                     )}
                    
                 <div className="col-4">
-                <span className="d-block">Structur</span>
+                <span className="d-block">Structure</span>
                     <p className="fw-semibold text-capitalize">{property?.structure}</p>
                 </div>
                 <div className="col-4">
@@ -677,6 +680,28 @@ const fetchPropertyImages = async (propertyId) => {
 export default SingleProperty
 
 const Container = styled.div`
+.custom-carousel-transition .carousel-inner {
+  transition: transform 0.2s ease-in-out; /* Adjust the duration as needed */
+}
+.lightbox-fullscreen {
+  position: fixed;
+  top: 10%;
+  right: 5%;
+ 
+
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ .lightbox-fullscreen .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 30px;
+} 
 .nav1{
     display: block;
     @media screen and (max-width: 1000px) {
@@ -709,6 +734,7 @@ const Container = styled.div`
   /* height: 100vh; */
   overflow: hidden;
   background-color: #eaebed;
+  
 }
 
 
