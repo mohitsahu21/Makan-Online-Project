@@ -174,22 +174,22 @@ export default function () {
 
 <div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-5 mb-2 justify-content-center text-center cat-list ">
-  <div className="col-md-3 col-12 mb-3">
+  <div className="col-md-3 col-12 mb-3 button">
   <a href="/property/propertyType/house" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50 house">
         <h3>House</h3>
       </button></a>
     </div>
-    <div className="col-md-3 col-12 mb-3">
+    <div className="col-md-3 col-12 mb-3 button">
     <a href="/property/propertyType/villa" target="blank">  <button type="button" className="btn btn-outline-secondary w-75 w-md-50 villa">
         <h3>Villa</h3>
       </button></a>
     </div>
-    <div className="col-md-3 col-12 mb-3">
+    <div className="col-md-3 col-12 mb-3 button">
     <a href="/property/propertyType/plot" target="blank"> <button type="button" className="btn btn-outline-secondary w-75 w-md-50 plot"> 
         <h3>Plot</h3>
       </button></a>
     </div>
-    <div className="col-md-3 col-12 mb-3">
+    <div className="col-md-3 col-12 mb-3 button">
     <a href="/property/propertyType/flat" target="blank">   <button type="button" className="btn btn-outline-secondary w-75 w-md-50 flat">
         <h3>Flat</h3>
       </button></a>
@@ -199,22 +199,22 @@ export default function () {
 
 <div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-2 justify-content-center text-center cat-list">
-    <div className="col-md-3 col-12 mb-3">
+    <div className="col-md-3 col-12 mb-3 button">
     <a href="/property/propertyType/land" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 land">
         <h3>Land</h3>
       </button></a>
     </div>
-    <div className="col-md-3 col-12 mb-3">
+    <div className="col-md-3 col-12 mb-3 button">
     <a href="/property/propertyType/farmLand" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 farmland">
         <h3>Farm Land</h3>
       </button></a>
     </div>
-    <div className="col-md-3 col-12 mb-3">
+    <div className="col-md-3 col-12 mb-3 button">
     <a href="/property/propertyType/farmHouse" target="blank">   <button type="button" className="btn btn-outline-secondary w-75 farmhouse">
         <h3>Farm House</h3>
       </button></a>
     </div>
-    <div className="col-md-3 col-12 mb-3">
+    <div className="col-md-3 col-12 mb-3 button">
     <a href="/property/propertyType/commercial" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 commercial">
         <h3>Commercial</h3>
       </button></a>
@@ -223,7 +223,7 @@ export default function () {
 </div>
 <div className="row links">
   <ul className="d-flex flex-column flex-md-row mt-lg-4 mb-5 justify-content-center text-center cat-list">
-    <div className="col-md-3 col-12 mb-3">
+    <div className="col-md-3 col-12 mb-3 button">
     <a href="/property/propertiesForRent" target="blank">    <button type="button" className="btn btn-outline-secondary w-75 rent">
         <h3>Property For Rent</h3>
       </button></a>
@@ -297,12 +297,21 @@ export default function () {
 }
 
 const Wrapper = styled.div`
+
+ .button{
+  :hover{
+    transform: scale(1.1);
+    transition: 0.3s ease-in-out;
+    
+  }
+ }
 .house{
-  background-color: #8d99ae;
+  background-color: #312244;
   color: white;
+ 
 }
 .villa{
-  background-color: #98c1d9;
+  background-color: #4d194d;
   color: white;
 }
 .land{
@@ -310,23 +319,23 @@ const Wrapper = styled.div`
   color: white;
 }
 .plot{
-  background-color: #99582a;
+  background-color: #532c1e;
   color: white;
 }
 .flat{
-  background-color: #50514f;
+  background-color: #453a49;
   color: white;
 }
 .farmland{
-  background-color: #3b6064;
+  background-color: #193d31;
   color: white;
 }
 .farmhouse{
-  background-color: #577590;
+  background-color: #364156;
   color: white;
 }
 .commercial{
-  background-color: #5e6472;
+  background-color: #40434e;
   color: white;
 }
 .rent{
@@ -355,7 +364,7 @@ const Wrapper = styled.div`
   }
   #search-heading {
     @media screen and (max-width: 620px) {
-      font-size: 15px;
+      font-size: 25px;
       text-align: center;
     }
     @media only screen and (min-width: 620px) and (max-width: 768px) {

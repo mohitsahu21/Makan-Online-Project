@@ -16,6 +16,11 @@ import SideBlog2 from "./Blogs/SideBlogs/SideBlog2";
 import SideBlog3 from "./Blogs/SideBlogs/SideBlog3";
 import SideBlog4 from "./Blogs/SideBlogs/SideBlog4";
 import SideBlog5 from "./Blogs/SideBlogs/SideBlog5";
+import { Carousel } from 'react-bootstrap';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css'; // Don't forget to import the styles
+
+
 
 
 function SingleProperty() {
@@ -24,7 +29,9 @@ function SingleProperty() {
     const [property, setProperty] = useState(null);
     const [propertyImages, setPropertyImages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  
 
   // Function to fetch property details by propertyId
 const fetchPropertyDetails = async (propertyId) => {
@@ -50,35 +57,74 @@ const fetchPropertyImages = async (propertyId) => {
   
 
   // Function for fullscreen the image
-  const toggleFullScreen = () => {
-    const element = document.getElementById("carousel-inner");
+  // const toggleFullScreen = () => {
+  //   const element = document.getElementById("carousel-inner");
   
-    const fullscreenChangeHandler = () => {
-      setIsFullScreen(
-        document.fullscreenElement ||
-          document.mozFullScreenElement ||
-          document.webkitFullscreenElement ||
-          document.msFullscreenElement
-      );
+  //   const fullscreenChangeHandler = () => {
+  //     setIsFullScreen(
+  //       document.fullscreenElement ||
+  //         document.mozFullScreenElement ||
+  //         document.webkitFullscreenElement ||
+  //         document.msFullscreenElement
+  //     );
   
-      // Check if zoomable image exists
-      const image = document.querySelector(".zoomable-image");
-      if (image) {
-        image.classList.remove("zoomed-image");
-      }
-    };
+  //     // Check if zoomable image exists
+  //     const image = document.querySelector(".zoomable-image");
+  //     if (image) {
+  //       image.classList.remove("zoomed-image");
+  //     }
+  //   };
   
-    if (!isFullScreen) {
-      if (element.requestFullscreen) {
-        element.requestFullscreen();
-      } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen();
-      } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen();
-      } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen();
-      }
-    } else {
+  //   if (!isFullScreen) {
+  //     if (element.requestFullscreen) {
+  //       element.requestFullscreen();
+  //     } else if (element.mozRequestFullScreen) {
+  //       element.mozRequestFullScreen();
+  //     } else if (element.webkitRequestFullscreen) {
+  //       element.webkitRequestFullscreen();
+  //     } else if (element.msRequestFullscreen) {
+  //       element.msRequestFullscreen();
+  //     }
+  //   } else {
+  //     if (document.exitFullscreen) {
+  //       document.exitFullscreen();
+  //     } else if (document.mozCancelFullScreen) {
+  //       document.mozCancelFullScreen();
+  //     } else if (document.webkitExitFullscreen) {
+  //       document.webkitExitFullscreen();
+  //     } else if (document.msExitFullscreen) {
+  //       document.msExitFullscreen();
+  //     }
+  //   }
+  
+  //   // Add event listener for fullscreen change
+  //   document.addEventListener("fullscreenchange", fullscreenChangeHandler);
+  //   document.addEventListener("mozfullscreenchange", fullscreenChangeHandler);
+  //   document.addEventListener(
+  //     "webkitfullscreenchange",
+  //     fullscreenChangeHandler
+  //   );
+  //   document.addEventListener("msfullscreenchange", fullscreenChangeHandler);
+  
+  //   // Add click event listener for zooming
+  //   const image = document.querySelector(".zoomable-image");
+  //   if (image) {
+  //     image.addEventListener("click", () => {
+  //       image.classList.toggle("zoomed-image");
+  //     });
+  //   }
+  // };
+
+  const toggleFullScreen = (event) => {
+    const element = event.target;
+  
+    if (
+      document.fullscreenElement ||
+      document.mozFullScreenElement ||
+      document.webkitFullscreenElement ||
+      document.msFullscreenElement
+    ) {
+      // Element is in fullscreen mode, so exit fullscreen
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.mozCancelFullScreen) {
@@ -88,25 +134,21 @@ const fetchPropertyImages = async (propertyId) => {
       } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
       }
-    }
-  
-    // Add event listener for fullscreen change
-    document.addEventListener("fullscreenchange", fullscreenChangeHandler);
-    document.addEventListener("mozfullscreenchange", fullscreenChangeHandler);
-    document.addEventListener(
-      "webkitfullscreenchange",
-      fullscreenChangeHandler
-    );
-    document.addEventListener("msfullscreenchange", fullscreenChangeHandler);
-  
-    // Add click event listener for zooming
-    const image = document.querySelector(".zoomable-image");
-    if (image) {
-      image.addEventListener("click", () => {
-        image.classList.toggle("zoomed-image");
-      });
+    } else {
+      // Element is not in fullscreen mode, so enter fullscreen
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+      }
     }
   };
+  
+
   
 
   
@@ -240,7 +282,7 @@ const fetchPropertyImages = async (propertyId) => {
 
            {/* carousel for property images */}
 
-           {
+           {/* {
             propertyImages&& propertyImages?.length>0 ? (
               <>
               <div id="carouselExampleIndicators" className="carousel slide">
@@ -280,8 +322,65 @@ const fetchPropertyImages = async (propertyId) => {
             )
             :
             <img src={placeholder_img} className="d-block img-fluid mx-auto" alt="Placeholder" style={{ maxWidth: "100%", maxHeight: "70vh" }} />
-           }  
-           
+           }   */}
+
+
+{/* {propertyImages && propertyImages?.length > 0 ? (
+  <Carousel id="carouselExampleIndicators" interval={null}>
+    {propertyImages?.map((image, index) => (
+      <Carousel.Item key={image?.id} active={index === 0}>
+        <img
+          src={image?.image}
+          className="d-block img-fluid mx-auto zoomable-image"
+          onClick={toggleFullScreen}
+          alt={`Slide ${index + 1}`}
+        />
+      </Carousel.Item>
+    ))}
+  </Carousel>
+) : (
+  <img src={placeholder_img} className="d-block img-fluid mx-auto" alt="Placeholder" style={{ maxWidth: "100%", maxHeight: "70vh" }} />
+)} */}
+
+{propertyImages && propertyImages?.length > 0 ? (
+        <>
+          <Carousel id="carouselExampleIndicators" interval={null} className="custom-carousel-transition">
+            {propertyImages?.map((image, index) => (
+              <Carousel.Item key={image?.id} active={index === 0} onClick={() => setLightboxOpen(true)} className="carousel-inner">
+                <img
+                  src={image?.image}
+                  className="d-block img-fluid mx-auto zoomable-image"
+                  alt={`Slide ${index + 1}`}
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
+
+          {lightboxOpen && (
+            <div className="lightbox-fullscreen">
+            <Lightbox
+              mainSrc={propertyImages[photoIndex]?.image}
+              nextSrc={propertyImages[(photoIndex + 1) % propertyImages.length]?.image}
+              prevSrc={propertyImages[(photoIndex + propertyImages.length - 1) % propertyImages.length]?.image}
+              onCloseRequest={() => setLightboxOpen(false)}
+              onMovePrevRequest={() => setPhotoIndex((photoIndex + propertyImages.length - 1) % propertyImages.length)}
+              onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % propertyImages.length)}
+            />
+            {/* Optional: Close button or any other elements inside the lightbox */}
+    <div className="close-button" onClick={() => setLightboxOpen(false)}>×</div>
+    </div>
+          )}
+        </>
+      ) : (
+        <img
+          src={placeholder_img}
+          className="d-block img-fluid mx-auto"
+          alt="Placeholder"
+          style={{ maxWidth: "100%", maxHeight: "70vh" }}
+        />
+      )}
+
+   
 
             </div>
         </div>
@@ -338,7 +437,7 @@ const fetchPropertyImages = async (propertyId) => {
                     )}
                    
                 <div className="col-4">
-                <span className="d-block">Structur</span>
+                <span className="d-block">Structure</span>
                     <p className="fw-semibold text-capitalize">{property?.structure}</p>
                 </div>
                 <div className="col-4">
@@ -581,6 +680,28 @@ const fetchPropertyImages = async (propertyId) => {
 export default SingleProperty
 
 const Container = styled.div`
+.custom-carousel-transition .carousel-inner {
+  transition: transform 0.2s ease-in-out; /* Adjust the duration as needed */
+}
+.lightbox-fullscreen {
+  position: fixed;
+  top: 10%;
+  right: 5%;
+ 
+
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ .lightbox-fullscreen .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 30px;
+} 
 .nav1{
     display: block;
     @media screen and (max-width: 1000px) {
@@ -613,6 +734,7 @@ const Container = styled.div`
   /* height: 100vh; */
   overflow: hidden;
   background-color: #eaebed;
+  
 }
 
 

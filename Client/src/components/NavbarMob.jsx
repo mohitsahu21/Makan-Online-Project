@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar, Nav, Button,} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ import { logout } from "../redux/user/userSlice";
 function NavbarMob() {
   const {currentUser,loading,error} = useSelector((state) => state.user)
   const dispatch = useDispatch();
+  const [isOffcanvasVisible, setIsOffcanvasVisible] = useState(false);
 
   const handleLogout = () => {
     // Display a confirmation popup
@@ -22,6 +23,28 @@ function NavbarMob() {
     }
       dispatch(logout())
  }
+ useEffect(() => {
+  const handleOffcanvasShow = () => {
+    setIsOffcanvasVisible(true);
+  };
+
+  const handleOffcanvasHide = () => {
+    setIsOffcanvasVisible(false);
+  };
+
+  const offcanvasElement = document.getElementById('offcanvasNavbar');
+  offcanvasElement.addEventListener('show.bs.offcanvas', handleOffcanvasShow);
+  offcanvasElement.addEventListener('hidden.bs.offcanvas', handleOffcanvasHide);
+
+  return () => {
+    offcanvasElement.removeEventListener('show.bs.offcanvas', handleOffcanvasShow);
+    offcanvasElement.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHide);
+  };
+}, []);
+
+useEffect(() => {
+  document.body.style.overflow = isOffcanvasVisible ? 'hidden' : '';
+}, [isOffcanvasVisible]);
  
   return (
     <Wrapper>
@@ -29,10 +52,10 @@ function NavbarMob() {
   <div className="container-fluid">
     <Link className="navbar-brand mx-3" to='/'><img src={logo} height={35} width={35} alt="" /></Link>
     
-    <button className="navbar-toggler mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+    <button className="navbar-toggler mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" onClick={() => setIsOffcanvasVisible(!isOffcanvasVisible)}>
       <span className="navbar-toggler-icon"></span>
     </button>
-    <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div className={`offcanvas offcanvas-start${isOffcanvasVisible ? ' show' : ''}`} tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" >
       <div className="offcanvas-header">
       <span className="offcanvas-title d-flex gap-1" id="offcanvasNavbarLabel"><img src={logo} height={30} width={30} alt="" /><span className='mt-1'>Bharatroofers</span></span>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

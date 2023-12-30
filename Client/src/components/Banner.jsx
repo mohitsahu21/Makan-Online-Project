@@ -57,7 +57,7 @@
 
 import React from "react";
 import styled from "styled-components";
-import Background_Computer from "../images/Background-Computer.jpg"
+import Background_Computer from "../images/Background-Computer.webp"
 import Background_Tab from "../images/Background-Tab.jpg"
 import Background_Mobile from "../images/Background-Mobile.jpg"
 
@@ -116,7 +116,7 @@ const Wrapper = styled.div`
     }
     }
     @media only screen and  (max-width: 767px){ 
-      background-image: url(${Background_Mobile});
+      background-image: url();
       height:0;
       
      
