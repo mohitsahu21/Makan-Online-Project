@@ -10,9 +10,11 @@ import SideBlog from "./SideBlog";
 import RelatedProperty from "./RelatedProperty";
 import axios from 'axios';
 import placeholder_img from '../../images/placeholder-image.jpeg';
-
+import { Carousel } from 'react-bootstrap';
 
 import NavbarAd from "../NavbarAd";
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css'; // Don't forget to import the styles
 
 
 function SingleProperty() {
@@ -22,6 +24,8 @@ function SingleProperty() {
     const [propertyImages, setPropertyImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
 
   // Function to fetch property details by propertyId
 const fetchPropertyDetails = async (propertyId) => {
@@ -232,47 +236,43 @@ const fetchPropertyImages = async (propertyId) => {
 
            {/* carousel for property images */}
 
-           {
-            propertyImages&& propertyImages?.length>0 ? (
-              <>
-              <div id="carouselExampleIndicators" className="carousel slide">
-              <div className="carousel-indicators">
-                {propertyImages &&
-                  propertyImages?.map((image, index) => (
-                    <button
-                      type="button"
-                      data-bs-target="#carouselExampleIndicators"
-                      data-bs-slide-to={index}
-                      className={index === 0 ? 'active' : ''}
-                      key={index}
-                      aria-label={`Slide ${index + 1}`}
-                    ></button>
-                  ))}
-              </div>
-              <div className="carousel-inner" id="carousel-inner">
-                {propertyImages &&
-                  propertyImages?.map((image, index) => (
-                    <div key={image?.id} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                      <img src={image?.image} className="d-block img-fluid mx-auto zoomable-image" onClick={toggleFullScreen}  alt="propertyImages" />
-                     
-                    </div>
-                  ))}
-              </div>
-            
-              <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span className="visually-hidden">Previous</span>
-              </button>
-              <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                <span className="visually-hidden">Next</span>
-              </button>
-            </div>
-            </>
-            )
-            :
-            <img src={placeholder_img} className="d-block img-fluid mx-auto" alt="Placeholder" style={{ maxWidth: "100%", maxHeight: "70vh" }} />
-           }  
+           {propertyImages && propertyImages?.length > 0 ? (
+        <>
+          <Carousel id="carouselExampleIndicators" interval={null} className="custom-carousel-transition">
+            {propertyImages?.map((image, index) => (
+              <Carousel.Item key={image?.id} active={index === 0} onClick={() => setLightboxOpen(true)} className="carousel-inner">
+                <img
+                  src={image?.image}
+                  className="d-block img-fluid mx-auto zoomable-image"
+                  alt={`Slide ${index + 1}`}
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
+
+          {lightboxOpen && (
+            <div className="lightbox-fullscreen">
+            <Lightbox
+              mainSrc={propertyImages[photoIndex]?.image}
+              nextSrc={propertyImages[(photoIndex + 1) % propertyImages?.length]?.image}
+              prevSrc={propertyImages[(photoIndex + propertyImages?.length - 1) % propertyImages?.length]?.image}
+              onCloseRequest={() => setLightboxOpen(false)}
+              onMovePrevRequest={() => setPhotoIndex((photoIndex + propertyImages?.length - 1) % propertyImages.length)}
+              onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % propertyImages?.length)}
+            />
+            {/* Optional: Close button or any other elements inside the lightbox */}
+    <div className="close-button" onClick={() => setLightboxOpen(false)}>×</div>
+    </div>
+          )}
+        </>
+      ) : (
+        <img
+          src={placeholder_img}
+          className="d-block img-fluid mx-auto"
+          alt="Placeholder"
+          style={{ maxWidth: "100%", maxHeight: "70vh" }}
+        />
+      )} 
            
 
             </div>
@@ -299,96 +299,137 @@ const fetchPropertyImages = async (propertyId) => {
                 </div>
                 <div className="col-4">
                 <span className="d-block">Type</span>
-                    <p className="fw-semibold">{property?.property_type}</p>
+                    <p className="fw-semibold text-capitalize">{property?.property_type}</p>
                 </div>
+                {
+                   (property?.property_type === "commercial"  ) && 
+                (<div className="col-4">
+                <span className="d-block">Commercial Property Type</span>
+                    <p className="fw-semibold text-capitalize">{property?.commercial_property_type}</p>
+                    </div>)
+                  }
                 <div className="col-4">
                 <span className="d-block">Property For</span>
-                    <p className="fw-semibold">{property?.property_for}</p>
+                    <p className="fw-semibold text-capitalize">{property?.property_for}</p>
                 </div>
-
-                <div className="col-4">
+                 
+                {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" ||   property?.property_type == "commercial" ) && 
+                (<div className="col-4">
                 <span className="d-block">Number of BHK</span>
-                    <p className="fw-semibold">{property?.bhk}</p>
-                    </div>
+                    <p className="fw-semibold text-capitalize">{property?.bhk}</p>
+                    </div>)
+                  }
+                
                     {property?.property_for == "sale" && (
                         <div className="col-4">
                         <span className="d-block">New/Resale</span>
-                        <span className="fw-semibold">{property?.new_resale}</span>
+                        <span className="fw-semibold text-capitalize">{property?.new_resale}</span>
                     </div>
                     )}
                     {property?.property_for == "sale" && (
                         <div className="col-4">
                         <span className="d-block">TNCP Approved</span>
-                        <span className="fw-semibold">{property?.tncp}</span>
+                        <span className="fw-semibold text-capitalize">{property?.tncp}</span>
                     </div>
                     )}
                      {property?.property_for == "sale" && (
                         <div className="col-4">
                         <span className="d-block">RERA Number</span>
-                        <span className="fw-semibold">{property?.rera}</span>
+                        <span className="fw-semibold text-capitalize">{property?.rera}</span>
                     </div>
                     )}
-                   
-                <div className="col-4">
-                <span className="d-block">Structur</span>
-                    <p className="fw-semibold">{property?.structure}</p>
-                </div>
+                  {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.property_type == "commercial"  ) && 
+                (<div className="col-4">
+                <span className="d-block">Structure</span>
+                    <p className="fw-semibold text-capitalize">{property?.structure}</p>
+                </div>)
+                  }
                 <div className="col-4">
                 <span className="d-block">Square Feet</span>
-                    <p className="fw-semibold">{`${property?.square_ft} Sq.Ft.`}</p>    
+                    <p className="fw-semibold text-capitalize">{`${property?.square_ft} Sq.Ft.`}</p>    
                 </div>
                 <div className="col-4">
                 <span className="d-block">Dimention</span>
-                    <p className="fw-semibold">{property?.dimension}</p>
+                    <p className="fw-semibold text-capitalize">{property?.dimension}</p>
                     </div>
                     <div className="col-4">
                     <span className="d-block">Car Parking</span>
-                    <span className="fw-semibold">{property?.car_parking}</span>
+                    <span className="fw-semibold text-capitalize">{property?.car_parking}</span>
                 </div>
                 <div className="col-4">
                 <span className="d-block">Year Built</span>
-                    <p className="fw-semibold">{property?.year_built}</p>
+                    <p className="fw-semibold text-capitalize">{property?.year_built}</p>
                 </div>
                 <div className="col-4">
                 <span className="d-block">Facing</span>
-                    <p className="fw-semibold">{property?.facing}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.facing}</p>    
                 </div>
-                <div className="col-4">
+                {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.commercial_property_type == "commercial plot" || property?.commercial_property_type == "commercial land"  ) && 
+                (<div className="col-4">
                 <span className="d-block">Furnishing</span>
-                    <p className="fw-semibold">{property?.furnishing}</p>    
-                </div>
+                    <p className="fw-semibold text-capitalize">{property?.furnishing}</p>    
+                </div>)
+                  }
+                
                 <div className="col-4">
                 <span className="d-block">Carpet Area</span>
-                    <p className="fw-semibold">{property?.carpet_area}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.carpet_area}</p>    
                 </div>
-                <div className="col-4">
+                {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.property_type == "commercial"  ) && 
+                (<div className="col-4">
                 <span className="d-block">Bathroom</span>
-                    <p className="fw-semibold">{property?.bathroom}</p>    
-                </div>
-                <div className="col-4">
+                    <p className="fw-semibold text-capitalize">{property?.bathroom}</p>    
+                </div>)
+                  }
+                  
+                  {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.commercial_property_type == "commercial plot" || property?.commercial_property_type == "commercial land" ) && 
+                ( <div className="col-4">
                 <span className="d-block">Property On Floor</span>
-                    <p className="fw-semibold">{property?.property_on_floor}</p>    
-                </div>
-                <div className="col-4">
+                    <p className="fw-semibold text-capitalize">{property?.property_on_floor}</p>    
+                </div>)
+                  }
+
+                  {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.commercial_property_type == "commercial plot" || property?.commercial_property_type == "commercial land"  ) && 
+                (  <div className="col-4">
                 <span className="d-block">Flooring</span>
-                    <p className="fw-semibold">{property?.flooring}</p>    
-                </div>
-                <div className="col-4">
+                    <p className="fw-semibold text-capitalize">{property?.flooring}</p>    
+                </div>)
+                  }
+
+                  {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.commercial_property_type == "commercial plot" || property?.commercial_property_type == "commercial land"   ) && 
+                (  <div className="col-4">
                 <span className="d-block">Age of Property</span>
-                    <p className="fw-semibold">{`${property?.age_of_property} years`}</p>    
-                </div>
+                    <p className="fw-semibold text-capitalize">{`${property?.age_of_property} years`}</p>    
+                </div>)
+                  }
+
+               
+               
+                
                 <div className="col-4">
                 <span className="d-block">Parking</span>
-                    <p className="fw-semibold">{property?.parking}</p>    
+                    <p className="fw-semibold text-capitalize">{property?.parking}</p>    
                 </div>
-                <div className="col-4">
+
+                {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.commercial_property_type == "commercial plot" || property?.commercial_property_type == "commercial land"   ) && 
+                (   <div className="col-4">
                 <span className="d-block">Lift</span>
-                    <p className="fw-semibold">{property?.lift}</p>    
-                </div>
+                    <p className="fw-semibold text-capitalize">{property?.lift}</p>    
+                </div>)
+                  }
+               
 
               </div>
               <h5 className="mt-3">ABOUT PROPERTY</h5>
-              <p className="text-muted about-property">
+              <p className="text-muted about-property text-capitalize">
               {property?.property_description}
               </p>
               <div className="row">
@@ -399,7 +440,7 @@ const fetchPropertyImages = async (propertyId) => {
                           {property?.service_lift_available == 1 && (<li><p><PiArrowFatLineRightFill /> Service Lift Available</p></li>)}
                           {property?.common_visitor_parking == 1 && (<li><p><PiArrowFatLineRightFill /> Good No. of Common/Visitor Parking</p></li>)}
                           {property?.main_road_facing == 1 && (<li><p><PiArrowFatLineRightFill /> Main Road Facing</p></li>)}
-                          {property?.working_24_7 == 1 && <li><p><PiArrowFatLineRightFill /> 24 X 7 working</p>  </li>}
+                          
                           {property?.good_ceiling_height == 1 && (<li><p><PiArrowFatLineRightFill /> Good Ceiling Height</p></li>)}
                           {property?.good_natural_light == 1 && (<li><p><PiArrowFatLineRightFill /> Good Natural Light in the unit</p>  </li>)}
                           {property?.attractive_entrance_gate == 1 && (<li><p><PiArrowFatLineRightFill /> Attractive entrance gate</p>  </li>)}
@@ -470,10 +511,7 @@ const fetchPropertyImages = async (propertyId) => {
                   
               </div>)}
               
-             {property?.entry_gate==1 && ( <div className="col-4">
-              <p><PiArrowFatLineRightFill />  Entry Gate</p>
-                  
-              </div>)}
+             
               
              {property?.activity_area==1 && ( <div className="col-4">
               <p><PiArrowFatLineRightFill />  Activity Area</p>
@@ -573,6 +611,28 @@ const fetchPropertyImages = async (propertyId) => {
 export default SingleProperty
 
 const Container = styled.div`
+.custom-carousel-transition .carousel-inner {
+  transition: transform 0.2s ease-in-out; /* Adjust the duration as needed */
+}
+.lightbox-fullscreen {
+  position: fixed;
+  top: 10%;
+  right: 5%;
+ 
+
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ .lightbox-fullscreen .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 30px;
+} 
 .nav1{
     display: block;
     @media screen and (max-width: 768px) {
