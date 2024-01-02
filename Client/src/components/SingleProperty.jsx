@@ -465,6 +465,14 @@ const fetchPropertyImages = async (propertyId) => {
                     <span className="d-block">Car Parking</span>
                     <span className="fw-semibold text-capitalize">{property?.car_parking}</span>
                 </div>
+
+                {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.property_type == "commercial"  ) && 
+                (<div className="col-4">
+                <span className="d-block">Modular Kitchen</span>
+                    <p className="fw-semibold text-capitalize">{property?.modularKitchen}</p>    
+                </div>)
+                  }
                 <div className="col-4">
                 <span className="d-block">Year Built</span>
                     <p className="fw-semibold text-capitalize">{property?.year_built}</p>
@@ -544,7 +552,7 @@ const fetchPropertyImages = async (propertyId) => {
                 <h5 className="mt-3">SPECIAL HIGHLIGHTS :</h5>
 
                         <ul className="list p-0">
-                          {property?.service_lift_available == 1 && (<li><p><PiArrowFatLineRightFill /> Service Lift Available</p></li>)}
+                        
                           {property?.common_visitor_parking == 1 && (<li><p><PiArrowFatLineRightFill /> Good No. of Common/Visitor Parking</p></li>)}
                           {property?.main_road_facing == 1 && (<li><p><PiArrowFatLineRightFill /> Main Road Facing</p></li>)}
                           
@@ -572,6 +580,29 @@ const fetchPropertyImages = async (propertyId) => {
               <p><PiArrowFatLineRightFill />  Swimming Pool</p>
                   
               </div>)}
+              
+              {property?.fall_ceiling==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Fall Ceiling</p>
+                  
+              </div>)}
+
+              {property?.wallpaper==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Wallpaper</p>
+                  
+              </div>)}
+
+              {property?.lights==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Lights</p>
+                  
+              </div>)}
+
+              {property?.fans==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Fans</p>
+                  
+              </div>)}
+
+              
+
               
              {property?.terrace==1 && ( <div className="col-4">
               <p><PiArrowFatLineRightFill />  Terrace</p>
@@ -628,6 +659,21 @@ const fetchPropertyImages = async (propertyId) => {
               <p><PiArrowFatLineRightFill />  24/7 Security</p>
                   
               </div>)}
+
+              {property?.road==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Road</p>
+                  
+              </div>)}
+              {property?.drainage==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill />  Drainage</p>
+                  
+              </div>)}
+              {property?.roadLight==1 && ( <div className="col-4">
+              <p><PiArrowFatLineRightFill /> Road Light </p>
+                  
+              </div>)}
+
+
               
             
               

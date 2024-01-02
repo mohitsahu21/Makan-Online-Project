@@ -77,7 +77,6 @@ function EditProperty() {
         age_of_property : propertyData?.age_of_property,
         parking : propertyData?.parking,
         lift : propertyData?.lift,
-        service_lift_available : propertyData?.service_lift_available,
         common_visitor_parking  : propertyData?.common_visitor_parking,
         main_road_facing : propertyData?.main_road_facing,
         working_24_7  : propertyData?.working_24_7,
@@ -105,7 +104,15 @@ function EditProperty() {
         security_24_7 : propertyData?.security_24_7,
         long_term_investment : propertyData?.long_term_investment,
         own_purpose  : propertyData?.own_purpose,
-        investment  : propertyData?.investment
+        investment  : propertyData?.investment,
+        fall_ceiling :propertyData?.fall_ceiling ,
+    wallpaper : propertyData?.wallpaper,
+    lights : propertyData?.lights,
+    fans : propertyData?.fans,
+    modularKitchen : propertyData?.modularKitchen,
+    road : propertyData?.road,
+    drainage : propertyData?.drainage,
+    roadLight : propertyData?.roadLight
             // ... (populate other fields)
           });
         }
@@ -143,7 +150,6 @@ function EditProperty() {
     age_of_property : '',
     parking : '',
     lift : '',
-    service_lift_available : '0',
     common_visitor_parking  : '0',
     main_road_facing : '0',
     working_24_7  : '0',
@@ -171,7 +177,15 @@ function EditProperty() {
     security_24_7 : '0',
     long_term_investment : '0',
     own_purpose  : '0',
-    investment  : '0'
+    investment  : '0',
+    fall_ceiling : '0',
+    wallpaper : '0',
+    lights : '0',
+    fans : '0',
+    modularKitchen : '0',
+    road : '0',
+    drainage : '0',
+    roadLight : '0'
         // Add other form fields here
     });
 
@@ -564,23 +578,12 @@ function EditProperty() {
             <div className="col-12">
                 <h5 className='mb-4'>SPECIAL HIGHLIGHTS :</h5>
                 <div className="row">
-                    <div className='col-12 col-md-3 mb-3'>
-                    <label className="form-check-label" htmlFor="service_lift_available">Service Lift Available -</label>   
-                    <select className="form-select" id="service_lift_available" name="service_lift_available" onChange={handleInputChange} value={formData?.service_lift_available} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
-
-                   
-                   
-
+                 
                     <div className='col-12 col-md-3 mb-3'>
                        
                        
                         <label className="form-check-label" htmlFor="common_visitor_parking">Good No. of Common/Visitor Parking</label>   
-                    <select className="form-select" id="common_visitor_parking" name="common_visitor_parking" onChange={handleInputChange} value={formData?.common_visitor_parking} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
+                    <select className="form-select" value={formData?.common_visitor_parking} id="common_visitor_parking" name="common_visitor_parking" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" } required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -591,63 +594,38 @@ function EditProperty() {
                         
 
                         <label className="form-check-label" htmlFor="main_road_facing">Main Road Facing</label>   
-                    <select className="form-select" id="main_road_facing" name="main_road_facing" onChange={handleInputChange} value={formData?.main_road_facing} required>
+                    <select className="form-select" id="main_road_facing" name="main_road_facing" onChange={handleInputChange}  value={formData?.main_road_facing}  required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                    
                     </div>
-                    <div className='col-12 col-md-3 mb-3 d-none' >
+                    <div className='col-12 col-md-3 mb-3 d-none'>
                         
                     <label className="form-check-label" htmlFor="working_24_7">24 X 7 working</label>   
-                    <select className="form-select" id="working_24_7" name="working_24_7" onChange={handleInputChange}
-                    value={formData?.working_24_7} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" }>
+                    <select className="form-select" id="working_24_7" name="working_24_7" onChange={handleInputChange}  value={formData?.working_24_7} >
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                     
                     </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                        
-                    <label className="form-check-label" htmlFor="good_ceiling_height">Good Ceiling Height</label>   
-                    <select className="form-select" id="good_ceiling_height" name="good_ceiling_height" onChange={handleInputChange} value={formData?.good_ceiling_height} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                       
-                    <label className="form-check-label" htmlFor="good_natural_light">Good Natural Light in the unit</label>   
-                    <select className="form-select" id="good_natural_light" name="good_natural_light" onChange={handleInputChange} value={formData?.good_natural_light} required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
+                
+                   
                     <div className='col-12 col-md-3 mb-3'>
                     <label className="form-check-label" htmlFor="attractive_entrance_gate">Attractive entrance gate</label>   
-                    <select className="form-select" id="attractive_entrance_gate" name="attractive_entrance_gate" onChange={handleInputChange} value={formData?.attractive_entrance_gate} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } required>
+                    <select className="form-select" id="attractive_entrance_gate" name="attractive_entrance_gate" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" }  value={formData?.attractive_entrance_gate}  required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                     </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                       
-                    <label className="form-check-label" htmlFor="gated_community">Gated community</label>   
-                    <select className="form-select" id="gated_community" name="gated_community" onChange={handleInputChange}  value={formData?.gated_community}  disabled={ formData.property_type === "commercial" } required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
+                   
                     <div className='col-12 col-md-3 mb-3'>
                        
                     <label className="form-check-label" htmlFor="immediate_possession">Immediate possession</label>   
-                    <select className="form-select" id="immediate_possession" name="immediate_possession" onChange={handleInputChange} disabled={formData?.property_for === "rent"} value={formData.immediate_possession} required>
+                    <select className="form-select" id="immediate_possession" name="immediate_possession" onChange={handleInputChange} disabled={formData.property_for === "rent"}  value={formData?.immediate_possession}  required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -656,34 +634,18 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                         
                     <label className="form-check-label" htmlFor="landscape_garden">Landscape Garden</label>   
-                    <select className="form-select" id="landscape_garden" name="landscape_garden" onChange={handleInputChange} value={formData?.landscape_garden}  disabled={ formData.property_type === "commercial" } required>
+                    <select className="form-select" id="landscape_garden" name="landscape_garden" onChange={handleInputChange} disabled={ formData.property_type === "commercial" }  value={formData?.landscape_garden}  required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                     </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                       
-                    <label className="form-check-label" htmlFor="water_supply_24_7">24/7 Water Supply</label>   
-                    <select className="form-select" id="water_supply_24_7" name="water_supply_24_7" onChange={handleInputChange} value={formData?.water_supply_24_7}  disabled={ formData.property_type === "commercial" } required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                       
-                    <label className="form-check-label" htmlFor="bore_well_water_24_7">24/7 Bore well Water</label>   
-                    <select className="form-select" id="bore_well_water_24_7" name="bore_well_water_24_7" onChange={handleInputChange} value={formData?.bore_well_water_24_7} required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
+                  
+                   
                     <div className='col-12 col-md-3 mb-3'>
                       
                     <label className="form-check-label" htmlFor="environment_clearance_available">Environment Clearance Available</label>   
-                    <select className="form-select" id="environment_clearance_available" name="environment_clearance_available" value={formData?.environment_clearance_available} onChange={handleInputChange} required>
+                    <select className="form-select" id="environment_clearance_available" name="environment_clearance_available" onChange={handleInputChange} value={formData?.environment_clearance_available} required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -695,92 +657,235 @@ function EditProperty() {
             </div>
         </div>
 
+        <div className="row mb-4 p-4 border-bottom">
+            <div className="col-12">
+                <h5 className='mb-4'>INTERNAL AMENITIES :</h5>
+                <div className="row">
+                   
+
+                   
+                        <div className='col-12 col-md-3 mb-3'>
+                        
+                        <label className="form-check-label" htmlFor="fall_ceiling">Fall Ceiling</label>   
+                        <select className="form-select" id="fall_ceiling" name="fall_ceiling" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" ||  formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } value={formData?.fall_ceiling}   required>
+                        <option value="">Select</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                        </select>
+                        </div>
+
+                        <div className='col-12 col-md-3 mb-3'>
+                        
+                        <label className="form-check-label" htmlFor="wallpaper">Wallpaper</label>   
+                        <select className="form-select" id="wallpaper" name="wallpaper" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" ||  formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } value={formData?.wallpaper} required>
+                        <option value="">Select</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                        </select>
+                        </div>
+
+                        <div className='col-12 col-md-3 mb-3'>
+                        
+                        <label className="form-check-label" htmlFor="lights">Lights</label>   
+                        <select className="form-select" id="lights" name="lights" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" ||  formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } value={formData?.lights} required>
+                        <option value="">Select</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                        </select>
+                        </div>
+
+                        <div className='col-12 col-md-3 mb-3'>
+                        
+                        <label className="form-check-label" htmlFor="fans">Fans</label>   
+                        <select className="form-select" id="fans" name="fans" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" ||  formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } value={formData?.fans} required>
+                        <option value="">Select</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                        </select>
+                        </div>
+
+                        <div className='col-12 col-md-3 mb-3'>
+                        
+                        <label className="form-check-label" htmlFor="modularKitchen">Modular Kitchen</label>   
+                        <select className="form-select" id="modularKitchen" name="modularKitchen" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" ||  formData.property_type === "commercial"  } value={formData?.modularKitchen}required>
+                        <option value="">Select</option>
+                        <option value="Full Modular">Full Modular</option>
+                        <option value="Semi Modular">Semi Modular</option>
+                        <option value="Non Modular">Non Modular</option>
+                        </select>
+                        </div>
+                      
+                        <div className='col-12 col-md-3 mb-3'>
+                       
+                       <label className="form-check-label" htmlFor="air_conditioning">Air conditioning</label>   
+                       <select className="form-select" id="air_conditioning" name="air_conditioning" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } value={formData?.air_conditioning}required>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+                       <div className='col-12 col-md-3 mb-3'>
+                           
+                       <label className="form-check-label" htmlFor="internet">Internet</label>   
+                       <select className="form-select" id="internet" name="internet" onChange={handleInputChange} required disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } value={formData?.internet}>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+
+                       <div className='col-12 col-md-3 mb-3'>
+                       
+                       <label className="form-check-label" htmlFor="cable_tv">Cable TV</label>   
+                       <select className="form-select" id="cable_tv" name="cable_tv" onChange={handleInputChange} required disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial"} value={formData?.cable_tv}>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+                       <div className='col-12 col-md-3 mb-3'>
+                          
+                       <label className="form-check-label" htmlFor="computer">Computer</label>   
+                       <select className="form-select" id="computer" name="computer" onChange={handleInputChange} required disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land"}
+                       value={formData?.computer}>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+                       <div className='col-12 col-md-3 mb-3'>
+                           
+                       <label className="form-check-label" htmlFor="dishwasher">Dishwasher</label>   
+                       <select className="form-select" id="dishwasher" name="dishwasher" onChange={handleInputChange} required disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial"}  value={formData?.dishwasher}>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+
+                       
+                    <div className='col-12 col-md-3 mb-3'>
+                        
+                    <label className="form-check-label" htmlFor="good_ceiling_height">Good Ceiling Height</label>   
+                    <select className="form-select" id="good_ceiling_height" name="good_ceiling_height" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" ||  formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" }  value={formData?.good_ceiling_height} required>
+                    <option value="">Select</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                    </select>
+                    </div>
+                   
+                   
+                   
+                   
+                   
+                   
+                                 
+                    
+                </div>
+            </div>
+        </div>
+
 
         <div className="row mb-4 p-4 border-bottom">
             <div className="col-12">
-                <h5 className='mb-4'>AMENITIES :</h5>
+                <h5 className='mb-4'>EXTERNAL AMENITIES :</h5>
                 <div className="row">
                     <div className='col-12 col-md-3 mb-3'>
                        
                     <label className="form-check-label" htmlFor="swimming_pool">Swimming pool</label>   
-                    <select className="form-select" id="swimming_pool" name="swimming_pool" onChange={handleInputChange}
-                    value={formData?.swimming_pool} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial" } required>
+                    <select className="form-select" id="swimming_pool" name="swimming_pool" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial"}  value={formData?.swimming_pool} required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                     
                     </div>
+
+                    <div className='col-12 col-md-3 mb-3'>
+                       
+                       <label className="form-check-label" htmlFor="water_supply_24_7">Water Supply</label>   
+                       <select className="form-select" id="water_supply_24_7" name="water_supply_24_7" onChange={handleInputChange}   value={formData?.water_supply_24_7} required>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+                       <div className='col-12 col-md-3 mb-3'>
+                          
+                       <label className="form-check-label" htmlFor="bore_well_water_24_7">Bore well</label>   
+                       <select className="form-select" id="bore_well_water_24_7" name="bore_well_water_24_7" onChange={handleInputChange}  value={formData?.bore_well_water_24_7} required>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+
+                       <div className='col-12 col-md-3 mb-3'>
+                          
+                       <label className="form-check-label" htmlFor="road">Road</label>   
+                       <select className="form-select" id="road" name="road" onChange={handleInputChange}  value={formData?.road} required>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+
+                       <div className='col-12 col-md-3 mb-3'>
+                          
+                       <label className="form-check-label" htmlFor="drainage">Drainage</label>   
+                       <select className="form-select" id="drainage" name="drainage" onChange={handleInputChange}  value={formData?.drainage} required>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+
+                       <div className='col-12 col-md-3 mb-3'>
+                          
+                       <label className="form-check-label" htmlFor="roadLight">Road Light</label>   
+                       <select className="form-select" id="roadLight" name="roadLight" onChange={handleInputChange}  value={formData?.roadLight} required>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+
+
+                       
                     <div className='col-12 col-md-3 mb-3'>
                         
                     <label className="form-check-label" htmlFor="terrace">Terrace</label>   
-                    <select className="form-select" id="terrace" name="terrace" onChange={handleInputChange} value={formData?.terrace} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial"} required>
+                    <select className="form-select" id="terrace" name="terrace" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial"} value={formData?.terrace} required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                     </div>
+
                     <div className='col-12 col-md-3 mb-3'>
                        
-                    <label className="form-check-label" htmlFor="air_conditioning">Air conditioning</label>   
-                    <select className="form-select" id="air_conditioning" name="air_conditioning" onChange={handleInputChange} value={formData?.air_conditioning} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land" } required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                        
-                    <label className="form-check-label" htmlFor="internet">Internet</label>   
-                    <select className="form-select" id="internet" name="internet" onChange={handleInputChange} value={formData?.internet} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land"} required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
+                       <label className="form-check-label" htmlFor="good_natural_light">Good Natural Light</label>   
+                       <select className="form-select" id="good_natural_light" name="good_natural_light" onChange={handleInputChange} value={formData?.good_natural_light} required>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
+                   
                     <div className='col-12 col-md-3 mb-3'>
                        
                     <label className="form-check-label" htmlFor="balcony">Balcony</label>   
-                    <select className="form-select" id="balcony" name="balcony" onChange={handleInputChange}
-                    value={formData?.balcony} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial"} required>
+                    <select className="form-select" id="balcony" name="balcony" onChange={handleInputChange} required disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial" } value={formData?.balcony}>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                     </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                       
-                    <label className="form-check-label" htmlFor="cable_tv">Cable TV</label>   
-                    <select className="form-select" id="cable_tv" name="cable_tv" onChange={handleInputChange}
-                    value={formData?.cable_tv} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial" } required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                       
-                    <label className="form-check-label" htmlFor="computer">Computer</label>   
-                    <select className="form-select" id="computer" name="computer" onChange={handleInputChange} value={formData?.computer} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial" } required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                        
-                    <label className="form-check-label" htmlFor="dishwasher">Dishwasher</label>   
-                    <select className="form-select" id="dishwasher" name="dishwasher" onChange={handleInputChange}
-                    value={formData?.dishwasher} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial" } required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
+                   
                     <div className='col-12 col-md-3 mb-3'>
                      
                     <label className="form-check-label" htmlFor="near_green_zone">Near Green Zone</label>   
-                    <select className="form-select" id="near_green_zone" name="near_green_zone" onChange={handleInputChange}  value={formData?.near_green_zone} required>
+                    <select className="form-select" id="near_green_zone" name="near_green_zone" onChange={handleInputChange} value={formData?.near_green_zone} required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -788,9 +893,8 @@ function EditProperty() {
                     </div>
                     <div className='col-12 col-md-3 mb-3'>
                         
-                    <label className="form-check-label" htmlFor="near_temple">Near Temple</label>   
-                    <select className="form-select" id="near_temple" name="near_temple" onChange={handleInputChange} 
-                    value={formData?.near_temple}  disabled={ formData.property_type === "commercial" }  required>
+                    <label className="form-check-label" htmlFor="near_temple">Temple</label>   
+                    <select className="form-select" id="near_temple" name="near_temple" onChange={handleInputChange} disabled={ formData.property_type === "commercial" } value={formData?.near_temple} required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -799,17 +903,26 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3 d-none'>
                      
                     <label className="form-check-label" htmlFor="entry_gate">Entry Gate</label>   
-                    <select className="form-select" id="entry_gate" name="entry_gate" onChange={handleInputChange}
-                    value={formData?.entry_gate} >
+                    <select className="form-select" id="entry_gate" name="entry_gate" onChange={handleInputChange} >
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                     </div>
+
+                    <div className='col-12 col-md-3 mb-3'>
+                       
+                       <label className="form-check-label" htmlFor="gated_community">Gated community</label>   
+                       <select className="form-select" id="gated_community" name="gated_community" onChange={handleInputChange} disabled={ formData.property_type === "commercial" } value={formData?.gated_community} required>
+                       <option value="">Select</option>
+                       <option value="1">Yes</option>
+                       <option value="0">No</option>
+                       </select>
+                       </div>
                     <div className='col-12 col-md-3 mb-3'>
                         
                     <label className="form-check-label" htmlFor="activity_area">Activity Area</label>   
-                    <select className="form-select" id="activity_area" name="activity_area" onChange={handleInputChange}  value={formData?.activity_area} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial" }     required>
+                    <select className="form-select" id="activity_area" name="activity_area" onChange={handleInputChange} disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.property_type === "commercial"} required value={formData?.activity_area}>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -818,8 +931,7 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                        
                     <label className="form-check-label" htmlFor="security_24_7">24/7 Security</label>   
-                    <select className="form-select" id="security_24_7" name="security_24_7" onChange={handleInputChange}
-                    value={formData?.security_24_7}  disabled={ formData.property_type === "commercial" }  required>
+                    <select className="form-select" id="security_24_7" name="security_24_7" onChange={handleInputChange} disabled={ formData.property_type === "commercial" } value={formData?.security_24_7} required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>
@@ -838,7 +950,7 @@ function EditProperty() {
                     <div className='col-12 col-md-3 mb-3'>
                         
                     <label className="form-check-label" htmlFor="long_term_investment">Long term investment</label>   
-                    <select className="form-select" id="long_term_investment" name="long_term_investment" onChange={handleInputChange} value={formData?.long_term_investment} required>
+                    <select className="form-select" id="long_term_investment" name="long_term_investment" onChange={handleInputChange} value={formData?.long_term_investment}  required>
                     <option value="">Select</option>
                     <option value="1">Yes</option>
                     <option value="0">No</option>

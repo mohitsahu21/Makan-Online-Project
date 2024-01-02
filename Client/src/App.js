@@ -29,6 +29,7 @@ import Singleblog8 from "./components/Blogs/Single Blogs/Singleblog8";
 import Flats from "./components/FooterComponents/Flats";
 import RentalProperty from "./components/FooterComponents/RentalProperty";
 import ResaleProperty from "./components/FooterComponents/ResaleProperty";
+import TermsAndCondition from "./pages/TermsAndCondition";
 
 function App() {
   
@@ -45,7 +46,7 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/blog" element={<Blogs/>} />
         {/* <Route path="/blog/single-blog" element={<SingleBlog/>} /> */}
-
+        
         <Route path="/blogs/single-blog1" element={<Singleblog1/>} />
         <Route path="/blogs/single-blog2" element={<Singleblog2/>} />
         <Route path="/blogs/single-blog3" element={<Singleblog3/>} />
@@ -64,6 +65,7 @@ function App() {
         <Route path="/property/propertiesForRent" element={<RentedProperties/>} />
         <Route path="/property/propertiesForRent/:propertyType" element={<RentalProperty/>} />
         <Route path="/property/propertiesForResale/:propertyType" element={<ResaleProperty/>} />
+        <Route path="/info/terms-and-conditions" element={<TermsAndCondition/>} />
 
       </Routes>
       <Footer />

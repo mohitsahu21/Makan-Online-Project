@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
@@ -10,6 +10,7 @@ function SiderbarMob() {
 
   const dispatch = useDispatch();
   const {currentAdmin,loading,error} = useSelector((state) => state.admin);
+  const [isOffcanvasVisible, setIsOffcanvasVisible] = useState(false);
 
   const handleLogout = () => {
     // Display a confirmation popup
@@ -21,16 +22,37 @@ function SiderbarMob() {
     }
    dispatch(logout())
 }
+useEffect(() => {
+  const handleOffcanvasShow = () => {
+    setIsOffcanvasVisible(true);
+  };
+
+  const handleOffcanvasHide = () => {
+    setIsOffcanvasVisible(false);
+  };
+
+  const offcanvasElement = document.getElementById('offcanvasNavbar');
+  offcanvasElement.addEventListener('show.bs.offcanvas', handleOffcanvasShow);
+  offcanvasElement.addEventListener('hidden.bs.offcanvas', handleOffcanvasHide);
+
+  return () => {
+    offcanvasElement.removeEventListener('show.bs.offcanvas', handleOffcanvasShow);
+    offcanvasElement.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHide);
+  };
+}, []);
+useEffect(() => {
+  document.body.style.overflow = isOffcanvasVisible ? 'hidden' : '';
+}, [isOffcanvasVisible]);
 
   return (
     <Wrapper>
     <nav className="navbar bg-light">
   <div className="container-fluid">
     <a className="navbar-brand" href="#">Offcanvas navbar</a>
-    <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" id='btnside'>
+    <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" id='btnside' onClick={() => setIsOffcanvasVisible(!isOffcanvasVisible)}>
       <span className="navbar-toggler-icon"></span>
     </button>
-    <div className="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div className={`offcanvas offcanvas-start${isOffcanvasVisible ? ' show' : ''}`} tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div className="offcanvas-header">
         <h5 className="offcanvas-title d-flex gap-2 " id="offcanvasNavbarLabel"><img src={logo} height={30} width={30} alt="" /><h6 className='mt-1'>BharatRoofers</h6></h5>
         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
