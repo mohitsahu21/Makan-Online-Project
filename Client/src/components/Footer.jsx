@@ -90,15 +90,16 @@ const Footer = () => {
                    <IoLogoYoutube size={30} style={{color:"#CD201F"}}/>
                         
                 </div></li>
+                
                  
                 </ul>
                  
-                   
+                  
                 </div>
              
               <div>
                   <h5 className="text-white text-center fs-6">Copyright &copy; 2024 Bharatroofers.com | All Rights Reserved</h5> 
-                
+                <p  className="text-white text-center fs-6"> <a href="https://bharatroofers.com/info/terms-and-conditions" target="blank" className="terms"><span className="text-white">Terms and Conditions</span></a> | <a href="https://bharatroofers.com/info/privacy-policy" target="blank" className="terms"><span className="text-white">Privacy Policy</span> </a></p> 
                 </div>
             </div>
           </div>
@@ -154,6 +155,11 @@ const Container = styled.div`
       color: white;
       
     }
+  }
+  .terms{
+    text-decoration:none;
+  
+
   }
 
 

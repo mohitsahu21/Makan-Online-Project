@@ -30,6 +30,7 @@ import Flats from "./components/FooterComponents/Flats";
 import RentalProperty from "./components/FooterComponents/RentalProperty";
 import ResaleProperty from "./components/FooterComponents/ResaleProperty";
 import TermsAndCondition from "./pages/TermsAndCondition";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   
@@ -66,6 +67,7 @@ function App() {
         <Route path="/property/propertiesForRent/:propertyType" element={<RentalProperty/>} />
         <Route path="/property/propertiesForResale/:propertyType" element={<ResaleProperty/>} />
         <Route path="/info/terms-and-conditions" element={<TermsAndCondition/>} />
+        <Route path="/info/privacy-policy" element={<PrivacyPolicy/>} />
 
       </Routes>
       <Footer />
