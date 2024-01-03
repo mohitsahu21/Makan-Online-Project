@@ -211,7 +211,7 @@ const getAllProperty = (req, res) =>{
 //Method to get all property For Admin 
 
 const getAllPropertyAdmin = (req, res) =>{
-  const sql = 'SELECT * FROM properties'; // Replace properties with your actual table name
+  const sql = 'SELECT * FROM properties ORDER BY id DESC'; // Replace properties with your actual table name
 
   db.query(sql, (err, results) => {
       if (err) {
