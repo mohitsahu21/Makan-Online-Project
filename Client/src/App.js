@@ -31,6 +31,7 @@ import RentalProperty from "./components/FooterComponents/RentalProperty";
 import ResaleProperty from "./components/FooterComponents/ResaleProperty";
 import TermsAndCondition from "./pages/TermsAndCondition";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   
@@ -44,6 +45,7 @@ function App() {
         <Route path="/register" element={<Registration />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path="/reset-password/:id/:token" element={<ResetPassword/>} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/blog" element={<Blogs/>} />
         {/* <Route path="/blog/single-blog" element={<SingleBlog/>} /> */}
