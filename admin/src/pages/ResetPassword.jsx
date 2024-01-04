@@ -27,7 +27,7 @@ function ResetPassword() {
           
           console.log(res?.data);
           cogoToast.success(`${res?.data?.message}`);
-          navigate("/login")
+          navigate("/admin_login")
          
           return;
         }

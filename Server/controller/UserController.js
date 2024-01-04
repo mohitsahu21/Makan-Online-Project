@@ -287,15 +287,17 @@ const forgotPassword = (req,res) =>{
 
 
       var transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'mail.bharatroofers.com',
+  port: 465,
+  secure: true, // Use SSL
         auth: {
-          user: 'doagurudigitalmarketing@gmail.com',
-          pass: 'puwk ngrp orsv zwin'
-        }
+    user: 'info@bharatroofers.com',
+    pass: 'bharatroofers@123'
+  }
       });
       
       var mailOptions = {
-        from: 'bharatroofers.com',
+        from: 'info@bharatroofers.com',
         to: email,
         subject: 'Password reset link',
         text:  `Click this link to reset password  https://bharatroofers.com/reset-password/${user.uid}/${token}`
@@ -426,18 +428,20 @@ const adminForgotPassword = (req,res) =>{
 
 
       var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'doagurudigitalmarketing@gmail.com',
-          pass: 'puwk ngrp orsv zwin'
+        host: 'mail.bharatroofers.com',
+        port: 465,
+        secure: true, // Use SSL
+              auth: {
+          user: 'info@bharatroofers.com',
+          pass: 'bharatroofers@123'
         }
       });
       
       var mailOptions = {
-        from: 'bharatroofers.com',
+        from: 'info@bharatroofers.com',
         to: email,
         subject: 'Password reset link',
-        text:  `Click this link to reset password  https://admin.bharatroofers.com/reset-password/${user.uid}/${token}`
+        text:  `Click this link to reset password  https://admin.bharatroofers.com/reset-password/${user.id}/${token}`
       };
       
       transporter.sendMail(mailOptions, function(error, info){

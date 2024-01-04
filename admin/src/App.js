@@ -39,7 +39,7 @@ function App() {
         <Route path="/allproperties" element={ currentAdmin ? <AllProperties/> :  <Navigate to="/admin_login" />} />
         <Route path="/soldproperties" element={ currentAdmin ? <SoldProperties/> :  <Navigate to="/admin_login" />} />
        {/* <PrivateRoute path="/allproperties" element={<AllProperties />} />  */}
-        <Route path="/admin_register" element={currentAdmin ?  <AdminHome/> :<RegistrationAd/>} />
+        {/* <Route path="/admin_register" element={currentAdmin ?  <AdminHome/> :<RegistrationAd/>} /> */}
         <Route path="/admin_forgot" element={ currentAdmin ?  <AdminHome/> :<ForgotPassword/>} />
         <Route path="/reset-password/:id/:token" element={ currentAdmin ?  <AdminHome/> :<ResetPassword/>} />
         <Route path="/admin_login"  element={currentAdmin ?  <AdminHome/> : <LoginAd/>} />
