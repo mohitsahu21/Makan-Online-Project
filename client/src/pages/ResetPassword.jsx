@@ -1,33 +1,35 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import { Link,useNavigate} from "react-router-dom";
+import { Link, useParams,useNavigate } from "react-router-dom";
 import NavbarMob from "../components/NavbarMob";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
     const [isScrolled, setIsScrolled] = useState(false);
-    const [email,setEmail] = useState("");
+    const [password,setPassword] = useState("");
+    const {id,token} = useParams();
     const navigate = useNavigate();
-
     
+
  const handleChange =  (e) =>{
-      setEmail(e.target.value)
+      setPassword(e.target.value)
  } 
+
  const handleSubmit = async(e) =>{
     e.preventDefault();
-    if(!email){
-      return cogoToast.error(`Please enter email`);
-  }
+    if(!password){
+        return cogoToast.error(`Please enter password`);
+    }
     try{
-       const res =await axios.post("https://bharatroofers.com/api/property/forgot-password",{ email: email });
+        
+       const res = await axios.post(`https://bharatroofers.com/api/property/reset-password/${id}/${token}`, { password: password });
        if (res?.data && res?.data?.success === true) {
         
         console.log(res?.data);
         cogoToast.success(`${res?.data?.message}`);
         navigate("/login")
-
        
         return;
       }
@@ -38,12 +40,11 @@ const ForgotPassword = () => {
       }
     }
     catch(err){
-      if (err?.response && err.response?.data) {
+        if (err?.response && err.response?.data) {
           
-        console.log(err);
-        cogoToast.error(`${err.response?.data?.message}`);
-      }  
-
+            console.log(err);
+            cogoToast.error(`${err.response?.data?.message}`);
+          }  
     }
 
  }
@@ -62,16 +63,16 @@ const ForgotPassword = () => {
           <div>
             <div className="boxContainer">
               <div className="formcontent">
-                <h1>Forgot Password</h1>
+                <h1>Reset Password</h1>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
-                    Email
+                  New Password
                   </label>
                   <input
-                    type="email"
-                    placeholder="Enter your email"
-                    name="email"
-                    value={email}
+                    type="password"
+                    placeholder="Enter your Password"
+                    name="password"
+                    value={password}
                     onChange={handleChange}
                     className="form-control"
                   />
@@ -93,7 +94,7 @@ const ForgotPassword = () => {
     );
   };
   
-  export default ForgotPassword;
+  export default ResetPassword;
 
   const Container = styled.div`
   background: linear-gradient(

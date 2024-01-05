@@ -61,7 +61,7 @@ const NavbarAd = () => {
          :
          (
           <>
-            <Link to="/admin_register"> <button className="btn btn-outline-light mx-2 " type="submit">Registeration</button></Link>
+            {/* <Link to="/admin_register"> <button className="btn btn-outline-light mx-2 " type="submit">Registeration</button></Link> */}
        <Link to="/admin_login"><button className="btn btn-outline-light  mx-4 " type="submit">Login</button></Link>
           </>
          )
