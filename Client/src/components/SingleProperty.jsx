@@ -461,10 +461,13 @@ const fetchPropertyImages = async (propertyId) => {
                 <span className="d-block">Dimention</span>
                     <p className="fw-semibold text-capitalize">{property?.dimension}</p>
                     </div>
-                    <div className="col-4">
-                    <span className="d-block">Car Parking</span>
-                    <span className="fw-semibold text-capitalize">{property?.car_parking}</span>
-                </div>
+                    {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.commercial_property_type == "commercial plot" || property?.commercial_property_type == "commercial land"  ) && 
+                (<div className="col-4">
+                <span className="d-block">Car Parking</span>
+                    <p className="fw-semibold text-capitalize">{property?.car_parking}</p>    
+                </div>)
+                  }
 
                 {
                    !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.property_type == "commercial"  ) && 
@@ -489,10 +492,13 @@ const fetchPropertyImages = async (propertyId) => {
                 </div>)
                   }
                 
-                <div className="col-4">
+                {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" ||   property?.property_type == "commercial" ) && 
+                (<div className="col-4">
                 <span className="d-block">Carpet Area</span>
-                    <p className="fw-semibold text-capitalize">{property?.carpet_area}</p>    
-                </div>
+                    <p className="fw-semibold text-capitalize">{property?.carpet_area}</p>
+                    </div>)
+                  }
                 {
                    !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.property_type == "commercial"  ) && 
                 (<div className="col-4">
@@ -528,10 +534,13 @@ const fetchPropertyImages = async (propertyId) => {
                
                
                 
-                <div className="col-4">
+                   {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" ||   property?.property_type == "commercial" ) && 
+                (<div className="col-4">
                 <span className="d-block">Parking</span>
-                    <p className="fw-semibold text-capitalize">{property?.parking}</p>    
-                </div>
+                    <p className="fw-semibold text-capitalize">{property?.parking}</p>
+                    </div>)
+                  }
 
                 {
                    !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.commercial_property_type == "commercial plot" || property?.commercial_property_type == "commercial land"   ) && 
