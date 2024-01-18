@@ -370,9 +370,17 @@ const fetchPropertyImages = async (propertyId) => {
                     <p className="fw-semibold text-capitalize">{property?.modularKitchen}</p>    
                 </div>)
                   }
-                <div className="col-4">
+
+                  {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.commercial_property_type == "commercial plot" || property?.commercial_property_type == "commercial land"  ) && 
+                (<div className="col-4">
                 <span className="d-block">Year Built</span>
-                    <p className="fw-semibold text-capitalize">{property?.year_built}</p>
+                    <p className="fw-semibold text-capitalize">{property?.year_built}</p>    
+                </div>)
+                  }
+                <div className="col-4">
+                <span className="d-block"></span>
+                    <p className="fw-semibold text-capitalize"></p>
                 </div>
                 <div className="col-4">
                 <span className="d-block">Facing</span>
@@ -537,10 +545,10 @@ const fetchPropertyImages = async (propertyId) => {
                   
               </div>)}
               
-             {property?.near_green_zone==1 && ( <div className="col-4">
+             {/* {property?.near_green_zone==1 && ( <div className="col-4">
               <p><PiArrowFatLineRightFill />  Near Green Zone</p>
                   
-              </div>)}
+              </div>)} */}
               
              {property?.near_temple==1 && ( <div className="col-4">
               <p><PiArrowFatLineRightFill />  Near Temple</p>

@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const authenticate = require('../middleware/authMiddleware.js');
 const {addProperty , uploadImages ,getAllProperty, getAllPropertyImages, getPropertyById, getPropertyImagesById, getSuggestedProperty, addSuggestedPropperty, getSuggestedPropertyImages, getPropertyByType, getMostVisitedProperties, getRecentlyPostedProperties, getPropertyForRent, editProperty, delete_Property, deletePropertyImageById, getPropertyByTypeAndBhk, getPropertyForRentByType, getPropertyForResaleAndType, userRegistration, loginController, adminLoginController, adminRegistration, interestedUser, removeSuggestedProperty, markedAsSold, romeveAsSold, getAllPropertyAdmin, getSuggestedPropertyAdmin} = require('../controller/PropertyController.js');
-const { contactedUser, getInterestedUsers, getRegisterUsers, getContactedUsers, forgotPassword, resetPassword, adminForgotPassword, adminResetPassword } = require("../controller/UserController.js");
+const { contactedUser, getInterestedUsers, getRegisterUsers, getContactedUsers, forgotPassword, resetPassword, adminForgotPassword, adminResetPassword, deleteContactedUser, deleteIntrestedUser, deleteRegisteredUser } = require("../controller/UserController.js");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -58,6 +58,11 @@ router.post("/forgot-password", forgotPassword);
 router.post("/reset-password/:id/:token", resetPassword);
 router.post("/admin-forgot-password", adminForgotPassword);
 router.post("/admin-reset-password/:id/:token", adminResetPassword);
+
+router.delete("/deleteContactedUser/:userId",authenticate,deleteContactedUser);
+router.delete("/deleteIntrestedUser/:userId",authenticate,deleteIntrestedUser);
+router.delete("/deleteRegisteredUser/:userId",authenticate,deleteRegisteredUser);
+
 
 
 

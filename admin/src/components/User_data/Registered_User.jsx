@@ -148,8 +148,12 @@ import SiderbarMob from '../SiderbarMob'
 import NavbarAd from '../NavbarAd'
 import axios from 'axios'
 import moment from "moment";
+import cogoToast from 'cogo-toast';
+import { useDispatch, useSelector } from "react-redux";
 
 function Registered_User() {
+  const {currentAdmin} = useSelector((state) => state.admin);
+  const token = currentAdmin?.token;
     const [user, setUser] = useState([]);
     console.log(user)
 
@@ -174,6 +178,33 @@ function Registered_User() {
       }
       fetchUser();
     },[])
+
+   
+
+    const handleDelete = async(id)=>{
+      try{
+        const res = await axios.delete(`https://bharatroofers.com/api/property/deleteRegisteredUser/${id}`,
+        {
+          headers:{
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log(res);
+        if(res?.data.success){
+         cogoToast.success(res?.data?.message)
+         // Update state to remove the deleted user without a page reload
+      setUser((prevUsers) => prevUsers.filter((user) => user.uid !== id));
+        }
+        else{
+         console.log(res?.error)
+         cogoToast.error(res?.data?.message || "Something went wrong")
+        }
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
  
   return (
    <Wrapper>
@@ -200,6 +231,7 @@ function Registered_User() {
                               <th>Phone Number</th>
                               <th>Email</th>
                               <th>Resgister At</th>
+                              <th></th>
                             
                             
                              
@@ -216,7 +248,8 @@ function Registered_User() {
                           <td>{user?.name}</td>
                           <td>{user?.phone}</td>
                           <td>{user?.email}</td>
-                          <td>{moment(user?.created_at).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                          <td>{moment(user?.created_at).format('DD/MM/YYYY')}</td>
+                          <td><button type="button" className="btn btn-danger" onClick={()=> handleDelete(user?.uid)}>Delete</button></td>
                     
 
                         
@@ -276,6 +309,21 @@ const Wrapper = styled.div`
    display: block;
    
  }
+ th {
+    
+    text-align: start;
+    white-space: nowrap;
+    
+    
+    
+  }
+  td {
+    
+    text-align: start;
+    white-space: nowrap;
+    
+ 
+}
    
   }
   #tableres{

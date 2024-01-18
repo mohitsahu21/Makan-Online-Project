@@ -9,8 +9,12 @@ import SiderbarMob from '../SiderbarMob';
 import NavbarAd from '../NavbarAd';
 import axios from 'axios';
 import moment from "moment";
+import cogoToast from 'cogo-toast';
+import { useDispatch, useSelector } from "react-redux";
 
 function  Contact_User() {
+  const {currentAdmin} = useSelector((state) => state.admin);
+  const token = currentAdmin?.token;
     const [user, setUser] = useState([]);
     console.log(user)
 
@@ -35,6 +39,32 @@ function  Contact_User() {
       }
       fetchUser();
     },[])
+
+
+    const handleDelete = async(id)=>{
+      try{
+        const res = await axios.delete(`https://bharatroofers.com/api/property/deleteContactedUser/${id}`,
+        {
+          headers:{
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log(res);
+        if(res?.data.success){
+         cogoToast.success(res?.data?.message);
+             // Update state to remove the deleted user without a page reload
+      setUser((prevUsers) => prevUsers.filter((user) => user.id !== id));
+        }
+        else{
+         console.log(res?.error)
+         cogoToast.error(res?.data?.message || "Something went wrong")
+        }
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
  
   return (
    <Wrapper>
@@ -63,6 +93,7 @@ function  Contact_User() {
                               <th>Message</th>
 
                               <th>Contacted At</th>
+                              <th></th>
                             
                             
                              
@@ -81,7 +112,8 @@ function  Contact_User() {
                           <td>{user?.email}</td>
                           <td>{user?.message}</td>
 
-                          <td>{moment(user?.created_at).format('MMMM Do YYYY, h:mm:ss a')}</td>
+                          <td>{moment(user?.created_at).format('DD/MM/YYYY')}</td>
+                          <td><button type="button" className="btn btn-danger" onClick={()=> handleDelete(user?.id)}>Delete</button></td>
                     
 
                         
@@ -147,6 +179,25 @@ const Wrapper = styled.div`
     margin-top: 5rem;
     
   }
+  th {
+    
+    text-align: start;
+    white-space: nowrap;
+    
+    
+    
+  }
+  td {
+    
+    text-align: start;
+   
+    overflow: hidden;
+  text-overflow: ellipsis;
+ 
+}
+     
+  
+ 
   .table-responsive{
     max-height: 35rem; /* Adjust the max height as needed */
   overflow-y: auto;
