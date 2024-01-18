@@ -393,7 +393,7 @@ function AddProperty() {
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="car_parking">Car Parking</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='car_parking' placeholder="Car Parking" onChange={handleInputChange}  required/>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='car_parking' placeholder="Car Parking" disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land"  } onChange={handleInputChange}  required/>
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="year_built">Year Built</label>
@@ -418,7 +418,7 @@ function AddProperty() {
 
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="carpet_area">Carpet Area</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='carpet_area' placeholder="Carpet Area" onChange={handleInputChange} required/>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='carpet_area' placeholder="Carpet Area" disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land"  } onChange={handleInputChange} required/>
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="bathroom">Bathroom</label>
@@ -438,7 +438,7 @@ function AddProperty() {
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="parking">Parking</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='parking' placeholder="Parking" onChange={handleInputChange} required/>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='parking' placeholder="Parking" disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land"  } onChange={handleInputChange} required/>
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="lift">Lift</label>

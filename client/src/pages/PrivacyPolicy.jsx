@@ -49,8 +49,8 @@ While using Our Service, We may ask You to provide Us with certain personally id
 Email address<br></br>
 First name and last name<br></br>
 Phone number<br></br>
-Address, State, Province, ZIP/Postal code, City<br></br>
-Usage Data <br></br>
+
+
 <br></br>
  <h5 className='text-black'>Usage Data</h5>
  <br></br>
