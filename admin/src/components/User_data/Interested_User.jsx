@@ -36,6 +36,14 @@ function Interested_User() {
       fetchUser();
     },[])
     const handleDelete = async(id)=>{
+
+        // Display a confirmation popup
+    const isConfirmed = window.confirm('Are you sure you want to Delete?');
+
+    if (!isConfirmed) {
+      // If the user cancels the deletion, do nothing
+      return;
+    }
       try{
         const res = await axios.delete(`https://bharatroofers.com/api/property/deleteIntrestedUser/${id}`,
         {
@@ -59,6 +67,27 @@ function Interested_User() {
         console.log(err)
       }
     }
+
+    const [currentPage, setCurrentPage] =
+    useState(1);
+  const studentsPerPage = 10;
+
+    const nextPage = () =>
+    setCurrentPage(currentPage + 1);
+  const prevPage = () =>
+    setCurrentPage(currentPage - 1);
+
+
+    const indexOfLastStudent =
+    currentPage * studentsPerPage;
+  const indexOfFirstStudent =
+    indexOfLastStudent -
+    studentsPerPage;
+  const currentuser =
+    user.slice(
+      indexOfFirstStudent,
+      indexOfLastStudent
+    );
  
   return (
    <Wrapper>
@@ -76,11 +105,12 @@ function Interested_User() {
    <div className="col-lg-12">
   <div className="widget-area-2 proclinic-box-shadow " id='tableres'>
                     <h5 className="widget-title" id='title'>Interested User</h5>
+                    <h5 className="total" >Total - {user?.length}</h5>
                     <div className="table-responsive" >
                         <table className="table table-bordered table-striped">
                           <thead>
                             <tr>
-                              <th>User id</th>
+                              <th>No.</th>
                               <th>User Name</th>
                               <th>Phone Number</th>
                               <th>Email</th>
@@ -96,11 +126,13 @@ function Interested_User() {
                           
                       {user && user?.length > 0 ?  
                       <>
-                     {user && user?.length > 0 &&  user?.map((user) => {
+                     {user && user?.length > 0 &&  currentuser?.map((user,index) => {
+                      const serialNumber = indexOfFirstStudent + index + 1; // Calculate serial number
+
                       return (
                         <tbody key={user?.id}>
                         <tr>
-                          <td>{user?.id}</td>
+                          <td>{serialNumber}</td>
                           <td>{user?.userName}</td>
                           <td>{user?.userPhone}</td>
                           <td>{user?.userEmail}</td>
@@ -130,6 +162,30 @@ function Interested_User() {
                      }
                      </table>
                       </div>
+                      <div className="pagination-section mt-3">
+              <div className="pagination">
+                <button
+                  onClick={prevPage}
+                  disabled={
+                    currentPage === 1
+                  }
+                  className="btn btn-danger">
+                  Previous
+                </button>
+                <span className="fs-4 mx-3">
+                  {currentPage}
+                </span>
+                <button
+                  onClick={nextPage}
+                  className="btn btn-success"
+                  disabled={
+                    currentuser.length <
+                    studentsPerPage
+                  }>
+                  Next
+                </button>
+              </div>
+            </div>
                   </div>
    </div>
   
@@ -190,7 +246,7 @@ const Wrapper = styled.div`
     
   }
   .table-responsive{
-    max-height: 35rem; /* Adjust the max height as needed */
+    max-height: 40rem; /* Adjust the max height as needed */
   overflow-y: auto;
   @media screen and (max-width: 768px) {
   width: 20rem;
@@ -215,6 +271,12 @@ const Wrapper = styled.div`
   
   margin-left: 2rem;
   }
+  }
+  .total{
+    @media screen and (max-width: 768px) {
+    margin-left: 2rem;
+  }
+    
   }
 
 `

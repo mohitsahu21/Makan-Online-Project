@@ -191,7 +191,7 @@ const contactedUser = (req, res) => {
 };
 
 const getInterestedUsers = (req, res) => {
-  const sql = 'SELECT * FROM intrestedusers';
+  const sql = 'SELECT * FROM intrestedusers ORDER BY id DESC';
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -208,7 +208,7 @@ const getInterestedUsers = (req, res) => {
 };
 
 const getRegisterUsers = (req, res) => {
-  const sql = 'SELECT * FROM users';
+  const sql = 'SELECT * FROM users ORDER BY uid DESC';
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -226,7 +226,7 @@ const getRegisterUsers = (req, res) => {
 
 
 const getContactedUsers = (req, res) => {
-  const sql = 'SELECT * FROM contacted_user';
+  const sql = 'SELECT * FROM contacted_user ORDER BY id DESC';
 
   db.query(sql, (err, result) => {
     if (err) {
