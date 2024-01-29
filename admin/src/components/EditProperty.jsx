@@ -521,7 +521,7 @@ function EditProperty() {
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="year_built">Year Built</label>
-                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='year_built' placeholder="Year Built" onChange={handleInputChange} value={formData?.year_built} required/>
+                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='year_built' placeholder="Year Built" disabled={formData.property_type === "plot" || formData.property_type === "land" || formData.property_type === "farmLand" || formData.commercial_property_type === "commercial plot" ||  formData.commercial_property_type === "commercial land"  } onChange={handleInputChange} value={formData?.year_built} required/>
                     </div>
                     <div className="col-12 col-md-6 mb-3">
                     <label className="form-check-label" htmlFor="facing">Facing</label>
@@ -631,15 +631,7 @@ function EditProperty() {
                     <option value="0">No</option>
                     </select>
                     </div>
-                    <div className='col-12 col-md-3 mb-3'>
-                        
-                    <label className="form-check-label" htmlFor="landscape_garden">Landscape Garden</label>   
-                    <select className="form-select" id="landscape_garden" name="landscape_garden" onChange={handleInputChange} disabled={ formData.property_type === "commercial" }  value={formData?.landscape_garden}  required>
-                    <option value="">Select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                    </div>
+                    
                   
                    
                     <div className='col-12 col-md-3 mb-3'>
@@ -790,6 +782,17 @@ function EditProperty() {
             <div className="col-12">
                 <h5 className='mb-4'>EXTERNAL AMENITIES :</h5>
                 <div className="row">
+                    
+                <div className='col-12 col-md-3 mb-3'>
+                        
+                        <label className="form-check-label" htmlFor="landscape_garden">Landscape Garden</label>   
+                        <select className="form-select" id="landscape_garden" name="landscape_garden" onChange={handleInputChange} disabled={ formData.property_type === "commercial" }  value={formData?.landscape_garden}  required>
+                        <option value="">Select</option>
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                        </select>
+                        </div>
+
                     <div className='col-12 col-md-3 mb-3'>
                        
                     <label className="form-check-label" htmlFor="swimming_pool">Swimming pool</label>   
@@ -882,7 +885,7 @@ function EditProperty() {
                     </select>
                     </div>
                    
-                    <div className='col-12 col-md-3 mb-3'>
+                    {/* <div className='col-12 col-md-3 mb-3'>
                      
                     <label className="form-check-label" htmlFor="near_green_zone">Near Green Zone</label>   
                     <select className="form-select" id="near_green_zone" name="near_green_zone" onChange={handleInputChange} value={formData?.near_green_zone} required>
@@ -890,7 +893,7 @@ function EditProperty() {
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
-                    </div>
+                    </div> */}
                     <div className='col-12 col-md-3 mb-3'>
                         
                     <label className="form-check-label" htmlFor="near_temple">Temple</label>   

@@ -191,7 +191,7 @@ const contactedUser = (req, res) => {
 };
 
 const getInterestedUsers = (req, res) => {
-  const sql = 'SELECT * FROM intrestedusers';
+  const sql = 'SELECT * FROM intrestedusers ORDER BY id DESC';
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -208,7 +208,7 @@ const getInterestedUsers = (req, res) => {
 };
 
 const getRegisterUsers = (req, res) => {
-  const sql = 'SELECT * FROM users';
+  const sql = 'SELECT * FROM users ORDER BY uid DESC';
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -226,7 +226,7 @@ const getRegisterUsers = (req, res) => {
 
 
 const getContactedUsers = (req, res) => {
-  const sql = 'SELECT * FROM contacted_user';
+  const sql = 'SELECT * FROM contacted_user ORDER BY id DESC';
 
   db.query(sql, (err, result) => {
     if (err) {
@@ -237,6 +237,64 @@ const getContactedUsers = (req, res) => {
         res.status(200).json({ success: true, data: result });
       } else {
         res.status(404).json({ success: false, error: 'No users found', message: 'No users found' });
+      }
+    }
+  });
+};
+
+const deleteContactedUser = (req, res) => {
+  const userId = req.params.userId;
+
+  const sql = 'DELETE FROM contacted_user WHERE id = ?';
+
+  db.query(sql, [userId], (err, result) => {
+    if (err) {
+      console.error('Error deleting user from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.affectedRows > 0) {
+        res.status(200).json({ success: true, message: 'User deleted successfully' });
+      } else {
+        res.status(404).json({ success: false, error: 'User not found', message: 'User not found' });
+      }
+    }
+  });
+};
+
+const deleteIntrestedUser = (req, res) => {
+  const userId = req.params.userId;
+
+  const sql = 'DELETE FROM intrestedusers WHERE id = ?';
+
+  db.query(sql, [userId], (err, result) => {
+    if (err) {
+      console.error('Error deleting user from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.affectedRows > 0) {
+        res.status(200).json({ success: true, message: 'User deleted successfully' });
+      } else {
+        res.status(404).json({ success: false, error: 'User not found', message: 'User not found' });
+      }
+    }
+  });
+};
+
+
+const deleteRegisteredUser = (req, res) => {
+  const userId = req.params.userId;
+
+  const sql = 'DELETE FROM users WHERE uid = ?';
+
+  db.query(sql, [userId], (err, result) => {
+    if (err) {
+      console.error('Error deleting user from MySQL:', err);
+      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+    } else {
+      if (result.affectedRows > 0) {
+        res.status(200).json({ success: true, message: 'User deleted successfully' });
+      } else {
+        res.status(404).json({ success: false, error: 'User not found', message: 'User not found' });
       }
     }
   });
@@ -531,4 +589,4 @@ const adminResetPassword = (req, res) => {
 
 
 module.exports = {
-  userRegistration, loginController,interestedUser,getInterestedUsers, getRegisterUsers,contactedUser, getContactedUsers,forgotPassword,resetPassword,adminForgotPassword,adminResetPassword}
+  userRegistration, loginController,interestedUser,getInterestedUsers, getRegisterUsers,contactedUser, getContactedUsers,forgotPassword,resetPassword,adminForgotPassword,adminResetPassword,deleteContactedUser,deleteIntrestedUser,deleteRegisteredUser}

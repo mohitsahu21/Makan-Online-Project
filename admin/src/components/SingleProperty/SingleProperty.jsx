@@ -227,11 +227,11 @@ const fetchPropertyImages = async (propertyId) => {
     <div className="container mt-5">
         <div className="row">
             <div className="col-12 mt-4">
-            <small> <span className="text-muted">{`All You Need To Know About ${property?.property_name}`} </span></small>
-                <h3 className="mt-3">
+            <small> <span className="text-muted text-capitalize">{`All You Need To Know About ${property?.property_name}`} </span></small>
+                <h3 className="mt-3 text-capitalize">
                 {property?.property_name}
                 </h3>
-                <div className="d-flex gap-3 justify-content-start"><span className="text-muted "><FaLocationDot/> {property?.property_address}</span>   <h4 className="me-2 text-info"><FaRupeeSign /> {property?.price}</h4>
+                <div className="d-flex gap-3 justify-content-start"><span className="text-muted text-capitalize"><FaLocationDot/> {property?.property_address}</span>   <h4 className="me-2 text-info"><FaRupeeSign /> {property?.price}</h4>
               </div>
 
            {/* carousel for property images */}
@@ -370,10 +370,15 @@ const fetchPropertyImages = async (propertyId) => {
                     <p className="fw-semibold text-capitalize">{property?.modularKitchen}</p>    
                 </div>)
                   }
-                <div className="col-4">
+
+                  {
+                   !(property?.property_type == "plot" || property?.property_type == "land" || property?.property_type == "farmLand" || property?.commercial_property_type == "commercial plot" || property?.commercial_property_type == "commercial land"  ) && 
+                (<div className="col-4">
                 <span className="d-block">Year Built</span>
-                    <p className="fw-semibold text-capitalize">{property?.year_built}</p>
-                </div>
+                    <p className="fw-semibold text-capitalize">{property?.year_built}</p>    
+                </div>)
+                  }
+              
                 <div className="col-4">
                 <span className="d-block">Facing</span>
                     <p className="fw-semibold text-capitalize">{property?.facing}</p>    
@@ -537,10 +542,10 @@ const fetchPropertyImages = async (propertyId) => {
                   
               </div>)}
               
-             {property?.near_green_zone==1 && ( <div className="col-4">
+             {/* {property?.near_green_zone==1 && ( <div className="col-4">
               <p><PiArrowFatLineRightFill />  Near Green Zone</p>
                   
-              </div>)}
+              </div>)} */}
               
              {property?.near_temple==1 && ( <div className="col-4">
               <p><PiArrowFatLineRightFill />  Near Temple</p>
