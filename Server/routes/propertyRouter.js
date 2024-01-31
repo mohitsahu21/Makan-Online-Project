@@ -23,7 +23,7 @@ router.post("/addproperty",authenticate, addProperty);
 router.put("/editproperty/:propertyId",authenticate, editProperty);
 router.delete("/deleteproperty/:propertyId",authenticate, delete_Property);
 router.delete("/delete-property-image/:imageId",authenticate, deletePropertyImageById);
-router.post("/upload-images", authenticate, upload.array('images', 20), uploadImages);
+router.post("/upload-images", authenticate, upload.array('images', 40), uploadImages);
 router.get("/getAllProperty", getAllProperty);
 router.get("/getAllPropertyImages", getAllPropertyImages);
 router.get("/getPropertyById/:propertyId", getPropertyById);
