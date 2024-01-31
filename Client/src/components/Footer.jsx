@@ -5,7 +5,7 @@ import { BsFacebook, BsWhatsapp, BsInstagram } from "react-icons/bs";
 import { IoLogoYoutube } from "react-icons/io";
 import { BiLogoInstagramAlt, BiLogoWhatsappSquare } from "react-icons/bi";
 
-import logo from '../images/Makaan_logo.jpg'
+import logo from '../images/Real-Estate-Logo.png'
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -73,8 +73,8 @@ const Footer = () => {
               
               </div>
               <div className="d-flex justify-content-center">
-                <ul>
-                  <li> <img src={logo} height={100} width={200} alt="" className="rounded-3" /> </li>
+                <ul className="text-center">
+                  <li> <img src={logo} height={100} width={100} alt="" className="rounded-3" /> </li>
                   <li><h5 className="mt-3 mx-5">Follow us on</h5></li>
                   <li><div className="d-flex gap-4 mt-3">
                     

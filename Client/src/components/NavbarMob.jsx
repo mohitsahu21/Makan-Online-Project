@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Navbar, Nav, Button,} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from '../images/Makaan_logo.jpg'
+import logo from '../images/Real-Estate-Logo.png'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../redux/user/userSlice";
@@ -50,7 +50,7 @@ useEffect(() => {
     <Wrapper>
     <nav className="navbar bg-light fixed-top">
   <div className="container-fluid">
-    <Link className="navbar-brand mx-3" to='/'><img src={logo} height={35} width={35} alt="" /></Link>
+    <Link className="navbar-brand mx-3" to='/'><img src={logo} height={40} width={50} alt="" /></Link>
     
     <button className="navbar-toggler mx-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" onClick={() => setIsOffcanvasVisible(!isOffcanvasVisible)}>
       <span className="navbar-toggler-icon"></span>

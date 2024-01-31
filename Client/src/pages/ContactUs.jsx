@@ -103,7 +103,7 @@ function ContactUs() {
                       <div className="d-flex align-items-center gap-3">
                       <span className="display-6"><MdEmail /></span>
                       <li className='mt-5'><h6> Email Address</h6>
-                          <p>bharatroofer.com</p>
+                          <p>info@bharatroofers.com</p>
                       </li>
                       </div>
                   </ul>
