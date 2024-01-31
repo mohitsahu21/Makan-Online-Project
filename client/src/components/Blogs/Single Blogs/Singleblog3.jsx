@@ -6,10 +6,12 @@ import { BiCategoryAlt } from "react-icons/bi";
 import { CgCalendarDates } from "react-icons/cg";
 import blog3 from "../../../images/blog3.avif";
 import NavbarMob from "../../NavbarMob";
+import ReactGa from "react-ga";
 
 function Singleblog3() {
   const [isScrolled, setIsScrolled] = useState(false);
   useEffect(()=>{
+    ReactGa.pageview(window.location.pathname);
     const handleTop = () => {
       window.scrollTo(0, 0);
     };

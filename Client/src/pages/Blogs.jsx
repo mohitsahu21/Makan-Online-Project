@@ -104,6 +104,7 @@ import Blog6 from "../components/Blogs/Blog6";
 import Blog7 from "../components/Blogs/Blog7";
 import Blog8 from "../components/Blogs/Blog8";
 import NavbarMob from "../components/NavbarMob";
+import ReactGa from "react-ga";
 
 function Blogs() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -117,6 +118,7 @@ function Blogs() {
     //   }, []);
    
     useEffect(()=>{
+      ReactGa.pageview(window.location.pathname);
       const handleTop = () => {
         window.scrollTo(0, 0);
       };

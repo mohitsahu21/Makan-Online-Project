@@ -8,6 +8,7 @@ import { MdEmail } from "react-icons/md";
 import NavbarMob from "../components/NavbarMob";
 import cogoToast from 'cogo-toast';
 import axios from "axios";
+import ReactGa from "react-ga";
 
 function ContactUs() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -64,6 +65,7 @@ function ContactUs() {
 
 
     useEffect(()=>{
+      ReactGa.pageview(window.location.pathname);
       const handleTop = () => {
         window.scrollTo(0, 0);
       };
