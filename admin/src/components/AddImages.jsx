@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Sidebar from './Sidebar';
 import SiderbarMob from './SiderbarMob';
 import NavbarAd from './NavbarAd';
+import CarouselPlaceholder from './CarouselPlaceholder';
 
 function AddImages() {
     const [selectedFiles, setSelectedFiles] = useState(null);
@@ -15,6 +16,7 @@ function AddImages() {
   const {currentAdmin} = useSelector((state) => state.admin)
   const token = currentAdmin?.token;
   const navigate = useNavigate();
+  const [loading,setLoading] = useState(false)
   console.log(propertyId)
 
   useEffect(() => {
@@ -49,7 +51,8 @@ function AddImages() {
   
       // Append the property ID to the FormData object
       formData.append('property_id', property);
-  
+      
+      setLoading(true); // Set loading to true before making the request
       const response = await axios.post('https://bharatroofers.com/api/property/upload-images', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -57,8 +60,9 @@ function AddImages() {
         },
       });
 
-      
+      setLoading(false)
       if(response?.data.success){
+        
         console.log('Upload successful:', response?.data);
         cogoToast.success(`${response?.data.message}`);
       navigate(`/property/edit-property-images/${propertyId}`)
@@ -71,6 +75,7 @@ function AddImages() {
 
       // Handle success (e.g., show a success message)
     } catch (error) {
+      setLoading(false)
       console.error('Error uploading images:', error);
       cogoToast.error(`Error uploading images: ${error}`);
       // cogoToast.error(`Error uploading images: ${error.response?.data.message}`);
@@ -82,65 +87,84 @@ function AddImages() {
   return (
     <>
     <Container>
-    <NavbarAd/>
+      
+          
+       
+        
+        <NavbarAd/>
 
-<div className="row">
-<div className="col-lg-2 col-1" id='sider'>
-<Sidebar/>
-</div>
-<div className="col-lg-2 col-1" id='sider1'>
-<SiderbarMob/>
-</div>
-<div className="col-lg-10 mt-2" id='set'>
-<div className="row">
-<div className="col-lg-12">
-
-
-
-
-<div className="mb-lg-4 mt-lg-3 pt-lg-3">
-
-
-          <div className='container '>
-              <div className="row text-center mt-4 mb-4">
-                  <div className="col-12">
-                      <h2>Add Property Images</h2>
-
-                  </div>
-              </div>
-              <div className="row d-flex justify-content-center mb-5">
-                  <div className="col-6">
-                      <form onSubmit={handleSubmit} >
-                      <div className="mb-3">
-                <label htmlFor="propertyId" className="form-label">Property ID</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="propertyId"
-                  value={propertyId}
-                  readOnly // Make the input read-only since it's derived from the URL
-                />
-              </div>
-
-                          <div class="mb-3">
-                              <label for="formFileMultiple" class="form-label">Select the images for Property</label>
-                              <input class="form-control" type="file" id="formFileMultiple" multiple  onChange={handleFileChange} accept="image/png, image/gif, image/jpeg"/>
+         <div className="row">
+        <div className="col-lg-2 col-1" id='sider'>
+        <Sidebar/>
+        </div>
+        <div className="col-lg-2 col-1" id='sider1'>
+        <SiderbarMob/>
+        </div>
+        <div className="col-lg-10 mt-2" id='set'>
+        <div className="row">
+        <div className="col-lg-12">
+        
+        
+        
+        
+        <div className="mb-lg-4 mt-lg-3 pt-lg-3">
+        
+                {
+                  loading 
+                  ?
+                  <>
+                  
+                  <CarouselPlaceholder/>
+                  <h5 className='text-center mt-4'>Uploading Images...</h5>
+                  </>
+                  :
+                  <>
+                   <div className='container '>
+                      <div className="row text-center mt-4 mb-4">
+                          <div className="col-12">
+                              <h2>Add Property Images</h2>
+        
                           </div>
-                          <div className='d-sm-flex justify-content-sm-center align-item-sm-center gap-3 text-center '>
-                          <button type="submit" className="btn btn-primary mt-2">Submit</button>
-                          <button onClick={()=> navigate('/allproperties')}  className="btn btn-primary mt-2 mt-0">Upload Later</button>
+                      </div>
+                      <div className="row d-flex justify-content-center mb-5">
+                          <div className="col-6">
+                              <form onSubmit={handleSubmit} >
+                              <div className="mb-3">
+                        <label htmlFor="propertyId" className="form-label">Property ID</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="propertyId"
+                          value={propertyId}
+                          readOnly // Make the input read-only since it's derived from the URL
+                        />
+                      </div>
+        
+                                  <div class="mb-3">
+                                      <label for="formFileMultiple" class="form-label">Select the images for Property</label>
+                                      <input class="form-control" type="file" id="formFileMultiple" multiple  onChange={handleFileChange} accept="image/png, image/gif, image/jpeg"/>
+                                  </div>
+                                  <div className='d-sm-flex justify-content-sm-center align-item-sm-center gap-3 text-center '>
+                                  <button type="submit" className="btn btn-primary mt-2">Submit</button>
+                                  <button onClick={()=> navigate('/allproperties')}  className="btn btn-primary mt-2 mt-0">Upload Later</button>
+                                  </div>
+                              </form>
+        
                           </div>
-                      </form>
-
+                      </div>
+        
                   </div>
-              </div>
-
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
-          </div>
+                  </>
+                }
+                 
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                
+      
+ 
           </Container>
     </>
   )

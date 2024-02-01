@@ -110,38 +110,133 @@ const editProperty =   (req, res) => {
     });
 };
 
-// method for delete property
+// method for delete property only not images
 
-const delete_Property =  (req, res) => {
-    const propertyId = req.params.propertyId;
+// const delete_Property =  (req, res) => {
+//     const propertyId = req.params.propertyId;
 
-    // Check if the property with the given ID exists
-    const checkSql = 'SELECT * FROM properties WHERE id = ?'; // Replace 'properties' with your actual table name
-    db.query(checkSql, propertyId, (checkErr, checkResult) => {
-        if (checkErr) {
-            console.error('Error checking property existence in MySQL:', checkErr);
-            res.status(500).json({success:false, error: 'Internal Server Error', message: 'Internal Server Error'  });
-        } else {
-            if (checkResult.length === 0) {
-                // No property found with the given ID
-                res.status(404).json({success:false,  error: 'Property not found', message: 'Property not found' });
-            } else {
-                // Delete the property from the MySQL database
-                const deleteSql = 'DELETE FROM properties WHERE id = ?'; // Replace 'properties' with your actual table name
-                db.query(deleteSql, propertyId, (deleteErr, deleteResult) => {
-                    if (deleteErr) {
-                        console.error('Error deleting data in MySQL:', deleteErr);
-                        res.status(500).json({ success:false, error: 'Internal Server Error', message: 'Internal Server Error' });
-                    } else {
-                        console.log('Property deleted successfully');
-                        res.status(200).json({ success:true, message: 'Property deleted successfully' });
-                    }
-                });
-            }
-        }
-    });
+//     // Check if the property with the given ID exists
+//     const checkSql = 'SELECT * FROM properties WHERE id = ?'; // Replace 'properties' with your actual table name
+//     db.query(checkSql, propertyId, (checkErr, checkResult) => {
+//         if (checkErr) {
+//             console.error('Error checking property existence in MySQL:', checkErr);
+//             res.status(500).json({success:false, error: 'Internal Server Error', message: 'Internal Server Error'  });
+//         } else {
+//             if (checkResult.length === 0) {
+//                 // No property found with the given ID
+//                 res.status(404).json({success:false,  error: 'Property not found', message: 'Property not found' });
+//             } else {
+//                 // Delete the property from the MySQL database
+//                 const deleteSql = 'DELETE FROM properties WHERE id = ?'; // Replace 'properties' with your actual table name
+//                 db.query(deleteSql, propertyId, (deleteErr, deleteResult) => {
+//                     if (deleteErr) {
+//                         console.error('Error deleting data in MySQL:', deleteErr);
+//                         res.status(500).json({ success:false, error: 'Internal Server Error', message: 'Internal Server Error' });
+//                     } else {
+//                         console.log('Property deleted successfully');
+//                         res.status(200).json({ success:true, message: 'Property deleted successfully' });
+//                     }
+//                 });
+//             }
+//         }
+//     });
+// };
+
+// method for delete all images when delete property
+const deletePropertyImages = (imageId, callback) => {
+  const sqlSelect = 'SELECT * FROM properties_images WHERE id = ?';
+  const sqlDelete = 'DELETE FROM properties_images WHERE id = ?';
+
+  db.query(sqlSelect, [imageId], (err, results) => {
+      if (err) {
+          console.error('Error fetching property image from MySQL:', err);
+          callback(err);
+      } else {
+          if (results.length > 0) {
+              const image = results[0].image;
+              const imageName = path.basename(image);
+              const imagePath = path.join(__dirname, '..', 'uploads', imageName);
+
+              if (fs.existsSync(imagePath)) {
+                  fs.unlinkSync(imagePath);
+              } else {
+                  console.error('File not found:', imagePath);
+              }
+
+              db.query(sqlDelete, [imageId], (errDelete) => {
+                  if (errDelete) {
+                      console.error('Error deleting property image from MySQL:', errDelete);
+                      callback(errDelete);
+                  } else {
+                      console.log('Property image deleted successfully');
+                      callback(null);
+                  }
+              });
+          } else {
+              console.error('Property image not found');
+              callback('Property image not found');
+          }
+      }
+  });
 };
 
+
+// method for delete property and all images associated with it.
+const delete_Property = (req, res) => {
+  const propertyId = req.params.propertyId;
+
+  // Check if the property with the given ID exists
+  const checkSql = 'SELECT * FROM properties WHERE id = ?';
+  db.query(checkSql, propertyId, (checkErr, checkResult) => {
+      if (checkErr) {
+          console.error('Error checking property existence in MySQL:', checkErr);
+          res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+      } else {
+          if (checkResult.length === 0) {
+              // No property found with the given ID
+              res.status(404).json({ success: false, error: 'Property not found', message: 'Property not found' });
+          } else {
+              // Delete all images associated with the property
+              const deleteImagesSql = 'SELECT id FROM properties_images WHERE property_id = ?';
+              db.query(deleteImagesSql, propertyId, (imageErr, imageResults) => {
+                  if (imageErr) {
+                      console.error('Error fetching property images from MySQL:', imageErr);
+                      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+                  } else {
+                      const deleteImagePromises = imageResults.map((image) => {
+                          return new Promise((resolve) => {
+                              deletePropertyImages(image.id, (err) => {
+                                  resolve(err);
+                              });
+                          });
+                      });
+
+                      // Wait for all image deletions to complete
+                      Promise.all(deleteImagePromises).then((errors) => {
+                          const hasError = errors.some((err) => err !== null);
+
+                          if (hasError) {
+                              res.status(500).json({ success: false, error: 'Error deleting property images', message: 'Error deleting property images' });
+                          } else {
+                              // All images deleted successfully, now delete the property
+                              const deleteSql = 'DELETE FROM properties WHERE id = ?';
+                              db.query(deleteSql, propertyId, (deleteErr) => {
+                                  if (deleteErr) {
+                                      console.error('Error deleting property in MySQL:', deleteErr);
+                                      res.status(500).json({ success: false, error: 'Internal Server Error', message: 'Internal Server Error' });
+                                  } else {
+                                      console.log('Property and associated images deleted successfully');
+                                      res.status(200).json({ success: true, message: 'Property and associated images deleted successfully' });
+                                  }
+                              });
+                          }
+                      });
+                  }
+              });
+          }
+      }
+  });
+};
 
 
 // method for upload images
