@@ -8,6 +8,7 @@ import { MdEmail } from "react-icons/md";
 import NavbarMob from "../components/NavbarMob";
 import cogoToast from 'cogo-toast';
 import axios from "axios";
+import ReactGa from "react-ga";
 
 function ContactUs() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -64,6 +65,7 @@ function ContactUs() {
 
 
     useEffect(()=>{
+      ReactGa.pageview(window.location.pathname);
       const handleTop = () => {
         window.scrollTo(0, 0);
       };
@@ -103,7 +105,7 @@ function ContactUs() {
                       <div className="d-flex align-items-center gap-3">
                       <span className="display-6"><MdEmail /></span>
                       <li className='mt-5'><h6> Email Address</h6>
-                          <p>bharatroofer.com</p>
+                          <p>info@bharatroofers.com</p>
                       </li>
                       </div>
                   </ul>

@@ -5,7 +5,7 @@ import { Link,useNavigate } from "react-router-dom";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import NavbarMob from "../components/NavbarMob";
-
+import ReactGa from "react-ga";
 
 
 const Registration = () => {
@@ -44,6 +44,7 @@ const Registration = () => {
 
 
   useEffect(()=>{
+    ReactGa.pageview(window.location.pathname);
     const handleTop = () => {
       window.scrollTo(0, 0);
     };

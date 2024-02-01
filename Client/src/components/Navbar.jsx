@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import makan_logo from '../images/Makaan_logo.jpg'
+import makan_logo from '../images/Real-Estate-Logo.png'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -50,7 +50,7 @@ const StickyNavbar = ({isScrolled}) => {
       className="transition-navbar-color"
     >
       <Navbar.Brand as={Link} to="/">
-        <img src={makan_logo} height={35} width={35} alt="" className='mx-2' />
+        <img src={makan_logo} height={60} width={70} alt="" className='mx-2' />
         </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" >

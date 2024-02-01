@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import NavbarMob from '../components/NavbarMob';
+import ReactGa from "react-ga";
 
 const PrivacyPolicy = () => {
+
+  useEffect(()=>{
+    const handleTop = () => {
+      ReactGa.pageview(window.location.pathname);
+      window.scrollTo(0, 0);
+    };
+    handleTop();
+  },[])
     
   return (
     <>

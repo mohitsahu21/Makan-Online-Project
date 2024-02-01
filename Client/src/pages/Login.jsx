@@ -7,6 +7,7 @@ import cogoToast from 'cogo-toast';
 import { signInFailure,signInStart,signInSuccess } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import NavbarMob from "../components/NavbarMob";
+import ReactGa from "react-ga";
 
 const Login = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,6 +49,7 @@ const Login = () => {
   }
 
   useEffect(()=>{
+    ReactGa.pageview(window.location.pathname);
      if(currentUser){
       cogoToast.error(`Already loged In`);
       navigate("/")

@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ContactUs from "./pages/ContactUs";
 import Blogs from "./pages/Blogs";
+import ReactGa from "react-ga";
 
 import SingleProperty from "./components/SingleProperty";
 
@@ -32,6 +33,9 @@ import ResaleProperty from "./components/FooterComponents/ResaleProperty";
 import TermsAndCondition from "./pages/TermsAndCondition";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ResetPassword from "./pages/ResetPassword";
+
+const Tracking_Id = "G-RK0FS7BLQL";
+ReactGa.initialize(Tracking_Id);
 
 function App() {
   
