@@ -9,7 +9,7 @@ import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ContactUs from "./pages/ContactUs";
 import Blogs from "./pages/Blogs";
-import ReactGa from "react-ga";
+import ReactGA from "react-ga4";
 
 import SingleProperty from "./components/SingleProperty";
 
@@ -34,8 +34,9 @@ import TermsAndCondition from "./pages/TermsAndCondition";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ResetPassword from "./pages/ResetPassword";
 
-const Tracking_Id = "G-RK0FS7BLQL";
-ReactGa.initialize(Tracking_Id);
+const Tracking_Id = "G-0XYJQVFWDJ";
+ReactGA.initialize(Tracking_Id);
+ReactGA.send({ hitType: "pageview", page: window.location.pathname });
 
 function App() {
   

@@ -5,7 +5,8 @@ import { Link,useNavigate} from "react-router-dom";
 import NavbarMob from "../components/NavbarMob";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
-import ReactGa from "react-ga";
+import ReactGA from "react-ga4";
+
 
 const ForgotPassword = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -50,7 +51,7 @@ const ForgotPassword = () => {
  }
   
     useEffect(()=>{
-      ReactGa.pageview(window.location.pathname);
+      ReactGA.send({ hitType: "pageview", page: window.location.pathname });
       const handleTop = () => {
         window.scrollTo(0, 0);
       };
