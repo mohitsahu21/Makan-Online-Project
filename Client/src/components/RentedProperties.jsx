@@ -13,7 +13,8 @@ import StickyNavbar from "./Navbar";
 import NavbarMob from "./NavbarMob";
 import moment from "moment";
 import { FaLocationDot } from "react-icons/fa6";
-import ReactGa from "react-ga";
+import ReactGA from "react-ga4";
+
 
 export default function RentedProperties() {
  
@@ -46,7 +47,7 @@ export default function RentedProperties() {
   useEffect(() => {
     getAllProperties();
     getAllPropertiesImages();
-    ReactGa.pageview(window.location.pathname);
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
   }, []);
 
   console.log(properties);

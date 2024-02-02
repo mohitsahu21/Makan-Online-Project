@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import NavbarMob from '../components/NavbarMob';
-import ReactGa from "react-ga";
+import ReactGA from "react-ga4";
+
 
 const TermsAndCondition = () => {
   useEffect(()=>{
     const handleTop = () => {
-      ReactGa.pageview(window.location.pathname);
+      ReactGA.send({ hitType: "pageview", page: window.location.pathname });
       window.scrollTo(0, 0);
     };
     handleTop();

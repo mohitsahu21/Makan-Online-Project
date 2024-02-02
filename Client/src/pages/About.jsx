@@ -10,11 +10,11 @@ import logo from '../images/logo.png'
 import profile from '../images/dummy-profile.jpg'
 import Navbar from "../components/Navbar";
 import NavbarMob from '../components/NavbarMob'
-import ReactGa from "react-ga";
+import ReactGA from "react-ga4";
 
 function About() {
   useEffect(()=>{
-    ReactGa.pageview(window.location.pathname);
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     const handleTop = () => {
       window.scrollTo(0, 0);
     };

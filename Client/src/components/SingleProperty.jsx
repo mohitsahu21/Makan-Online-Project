@@ -19,7 +19,8 @@ import SideBlog5 from "./Blogs/SideBlogs/SideBlog5";
 import { Carousel } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // Don't forget to import the styles
-import ReactGa from "react-ga";
+import ReactGA from "react-ga4";
+
 
 
 
@@ -213,7 +214,7 @@ const fetchPropertyImages = async (propertyId) => {
     };
 
     fetchPropertyData();
-    ReactGa.pageview(window.location.pathname);
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     const handleTop = () => {
       window.scrollTo(0, 0);
     };
