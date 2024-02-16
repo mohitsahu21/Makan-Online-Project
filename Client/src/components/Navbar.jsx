@@ -50,7 +50,7 @@ const StickyNavbar = ({isScrolled}) => {
       className="transition-navbar-color"
     >
       <Navbar.Brand as={Link} to="/">
-        <img src={makan_logo} height={60} width={70} alt="" className='mx-2' />
+        <img src={makan_logo} height={50} width={70} alt="" className='mx-2' />
         </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" >
