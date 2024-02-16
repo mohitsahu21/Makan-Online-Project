@@ -7,6 +7,7 @@ import { BiLogoInstagramAlt, BiLogoWhatsappSquare } from "react-icons/bi";
 
 import logo from '../images/Real-Estate-Logo.png'
 import { Link } from "react-router-dom";
+import { hover } from "@testing-library/user-event/dist/hover";
 
 const Footer = () => {
   return (
@@ -78,7 +79,7 @@ const Footer = () => {
                   <li><h5 className="mt-3 mx-5">Follow us on</h5></li>
                   <li><div className="d-flex gap-4 mt-3">
                     
-                  <BsFacebook size={30} style={{color:"#316FF6"}}/>
+                <Link to={"https://www.facebook.com/bharatroofers/"} target="blank">  <BsFacebook size={30} className="fbIcon" style={{color:"#316FF6"}}/></Link>
                   <BsInstagram size={30} style={{color:"#E4405F"}}/>
                   <Link className="" to={"https://wa.me/+918839280515"}><BsWhatsapp size={30} style={{color:"#128C7E"}} onMouseOver={({ target }) =>
                         (target.style.color = "#128C7E")
@@ -160,6 +161,11 @@ const Container = styled.div`
     text-decoration:none;
   
 
+  }
+  .fbIcon{
+    :hover{
+      color: #316FF6;
+    }
   }
 
 
