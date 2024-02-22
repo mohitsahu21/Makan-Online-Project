@@ -80,8 +80,8 @@ const Footer = () => {
                   <li><div className="d-flex gap-4 mt-3">
                     
                 <Link to={"https://www.facebook.com/bharatroofers/"} target="blank">  <BsFacebook size={30} className="fbIcon" style={{color:"#316FF6"}}/></Link>
-                  <BsInstagram size={30} style={{color:"#E4405F"}}/>
-                  <Link className="" to={"https://wa.me/+918839280515"}><BsWhatsapp size={30} style={{color:"#128C7E"}} onMouseOver={({ target }) =>
+                 <Link to={"https://www.instagram.com/bharatroofers?utm_source=qr&igsh=YzU1NGVlODEzOA=="} target="blank"> <BsInstagram size={30} style={{color:"#E4405F"}}/></Link>
+                  <Link className="" to={"https://wa.me/+918839280515"} target="blank"><BsWhatsapp size={30} style={{color:"#128C7E"}} onMouseOver={({ target }) =>
                         (target.style.color = "#128C7E")
                       }
                       onMouseOut={({ target }) =>
