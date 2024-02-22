@@ -20,6 +20,9 @@ import { Carousel } from 'react-bootstrap';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css'; // Don't forget to import the styles
 import ReactGA from "react-ga4";
+import {FacebookIcon, FacebookMessengerIcon, FacebookMessengerShareButton, FacebookShareButton, InstapaperShareButton,LinkedinShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton,WhatsappIcon,WhatsappShareButton, XIcon,
+
+} from "react-share";
 
 
 
@@ -32,6 +35,7 @@ function SingleProperty() {
   const [loading, setLoading] = useState(true);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const currentUrl = window.location.href;
   
 
   // Function to fetch property details by propertyId
@@ -279,7 +283,9 @@ const fetchPropertyImages = async (propertyId) => {
                 <h3 className="mt-3 text-capitalize">
                 {property?.property_name}
                 </h3>
-                <div className="d-flex gap-3 justify-content-start"><span className="text-muted text-capitalize"><FaLocationDot/> {property?.property_address}</span>   <h4 className="me-2 text-info"><FaRupeeSign /> {property?.price}</h4>
+                <div className="d-lg-flex gap-3 justify-content-start"><span className="text-muted text-capitalize"><FaLocationDot/> {property?.property_address}</span>   <h4 className="me-2 text-info"><FaRupeeSign /> {property?.price}</h4>
+                
+                
               </div>
 
            {/* carousel for property images */}
@@ -399,7 +405,13 @@ const fetchPropertyImages = async (propertyId) => {
             
 
             <div className="col-12 col-lg-8 mt-5">
-              
+              Share : 
+            <FacebookShareButton url={currentUrl}><FacebookIcon round  className="icons"/></FacebookShareButton>
+            <FacebookMessengerShareButton url={currentUrl}><FacebookMessengerIcon round className="icons"/></FacebookMessengerShareButton>
+                <WhatsappShareButton url={currentUrl}><WhatsappIcon round className="icons"/></WhatsappShareButton>
+                <TelegramShareButton url={currentUrl}><TelegramIcon round className="icons"/></TelegramShareButton>
+                <TwitterShareButton url={currentUrl}><XIcon round className="icons"/> </TwitterShareButton>
+                
               <h5 className="">PROPERTY DETAILS</h5>
               <div className="row mt-3 property-detail">
                 <div className="col-4">
@@ -906,6 +918,16 @@ const Container = styled.div`
   }
   .amenities{
     font-size: 13px;
+  }
+  .icons{
+     width: 30px;
+     height: 30px;
+     margin: 5px;
+     @media only screen and (max-width: 768px) {
+      width: 20px;
+     height: 20px;
+    }
+
   }
   
 
