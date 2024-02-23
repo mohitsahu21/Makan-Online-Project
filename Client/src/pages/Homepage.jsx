@@ -14,11 +14,17 @@ import axios from 'axios';
 import CommercialProperty from "../components/CommercialProperty";
 import RentProperty from "../components/RentProperty";
 import ReactGA from "react-ga4";
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
+
 
 export default function Homepage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [properties, setProperties] = useState([])
   const [propertiesImages,setPropertiesImages] = useState([])
+  const location = useLocation();
+  const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
+  console.log(canonicalUrl)
 
   const getAllPropeties = async() =>{
     const response = await axios.get('https://bharatroofers.com/api/property/getAllProperty');
@@ -44,11 +50,15 @@ export default function Homepage() {
     handleTop();
   },[])
 
-
+  console.log(window.location.pathname);
 
   
   return (
+    
     <Wrapper>
+       <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
        <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
           <div className="nav2"><NavbarMob /> </div>
       <div>

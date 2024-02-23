@@ -7,10 +7,14 @@ import { CgCalendarDates } from "react-icons/cg";
 import blog8 from "../../../images/blog8.avif";
 import NavbarMob from "../../NavbarMob";
 import ReactGA from "react-ga4";
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 
 function Singleblog8() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
   useEffect(()=>{
     const handleTop = () => {
       ReactGA.send({ hitType: "pageview", page: window.location.pathname });
@@ -21,6 +25,9 @@ function Singleblog8() {
   return (
     <>
       <Container>
+      <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
       <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
           <div className="nav2"><NavbarMob /> </div>
         <div className="container mt-5">

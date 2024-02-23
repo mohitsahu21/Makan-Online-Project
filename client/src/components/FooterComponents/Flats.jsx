@@ -14,6 +14,8 @@ import NavbarMob from "../NavbarMob";
 import moment from "moment";
 import { FaLocationDot } from "react-icons/fa6";
 import ReactGA from "react-ga4";
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 
 export default function Flats() {
@@ -23,6 +25,8 @@ export default function Flats() {
   const [propertiesImages, setPropertiesImages] = useState(null);
   const [loading, setLoading] = useState(true);
   const { propertyType, bhk } = useParams();
+  const location = useLocation();
+  const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
 
   const getAllProperties = async () => {
     try {
@@ -55,6 +59,9 @@ export default function Flats() {
 
   return (
     <Wrapper>
+       <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
        
         <div className="nav1"><StickyNavbar  /></div>
           <div className="nav2"><NavbarMob /> </div>

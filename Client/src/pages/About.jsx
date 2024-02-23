@@ -11,8 +11,15 @@ import profile from '../images/dummy-profile.jpg'
 import Navbar from "../components/Navbar";
 import NavbarMob from '../components/NavbarMob'
 import ReactGA from "react-ga4";
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 function About() {
+
+  const location = useLocation();
+  const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
+  console.log(canonicalUrl)
+
   useEffect(()=>{
     ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     const handleTop = () => {
@@ -23,6 +30,10 @@ function About() {
   return (
     <>
       <Container>
+      <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
+
       <div className="nav1"><Navbar   /></div>
           <div className="nav2"><NavbarMob /> </div>
         <div>

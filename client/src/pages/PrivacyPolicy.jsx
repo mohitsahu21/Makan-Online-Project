@@ -3,9 +3,13 @@ import Navbar from "../components/Navbar";
 import styled from "styled-components";
 import NavbarMob from '../components/NavbarMob';
 import ReactGA from "react-ga4";
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 
 const PrivacyPolicy = () => {
+  const location = useLocation();
+  const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
 
   useEffect(()=>{
     const handleTop = () => {
@@ -18,6 +22,9 @@ const PrivacyPolicy = () => {
   return (
     <>
     <Container>
+    <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
     <div className="nav1"><Navbar/></div>
         <div className="nav2"><NavbarMob /> </div>
         <div className="container mt-5">

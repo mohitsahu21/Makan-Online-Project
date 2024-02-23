@@ -9,10 +9,14 @@ import NavbarMob from "../components/NavbarMob";
 import cogoToast from 'cogo-toast';
 import axios from "axios";
 import ReactGA from "react-ga4";
-
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 function ContactUs() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const location = useLocation();
+    const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
+    
     
     const [formData,setFormData] = useState({
      
@@ -76,6 +80,9 @@ function ContactUs() {
   return (
     <>
     <Container>
+    <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
     <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
           <div className="nav2"><NavbarMob /> </div>
     <div className='container boxContainer mt-5'>

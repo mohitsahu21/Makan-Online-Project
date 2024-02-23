@@ -8,6 +8,8 @@ import { signInFailure,signInStart,signInSuccess } from "../redux/user/userSlice
 import { useDispatch, useSelector } from "react-redux";
 import NavbarMob from "../components/NavbarMob";
 import ReactGA from "react-ga4";
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 
 const Login = () => {
@@ -16,6 +18,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {currentUser,loading,error} = useSelector((state) => state.user)
+  const location = useLocation();
+  const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
 
   const handleChange = (e) =>{
     setFormData({...formData,[e.target.name] : e.target.value})
@@ -71,6 +75,9 @@ const Login = () => {
   return !currentUser && (
     <>
       <Container>
+      <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
       <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
           <div className="nav2"><NavbarMob /> </div>
         <div>

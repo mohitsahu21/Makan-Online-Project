@@ -23,6 +23,8 @@ import ReactGA from "react-ga4";
 import {FacebookIcon, FacebookMessengerIcon, FacebookMessengerShareButton, FacebookShareButton, InstapaperShareButton,LinkedinShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton,WhatsappIcon,WhatsappShareButton, XIcon,
 
 } from "react-share";
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -36,6 +38,8 @@ function SingleProperty() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const currentUrl = window.location.href;
+  const location = useLocation();
+  const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
   
 
   // Function to fetch property details by propertyId
@@ -247,6 +251,9 @@ const fetchPropertyImages = async (propertyId) => {
 
   return (
     <Container>
+       <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
     <div>
       
       <div className="nav1"><StickyNavbar  /></div>

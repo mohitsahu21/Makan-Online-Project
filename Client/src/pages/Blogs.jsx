@@ -105,11 +105,15 @@ import Blog7 from "../components/Blogs/Blog7";
 import Blog8 from "../components/Blogs/Blog8";
 import NavbarMob from "../components/NavbarMob";
 import ReactGA from "react-ga4";
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
 
 
 function Blogs() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [blogPosts, setBlogPosts] = useState([]);
+    const location = useLocation();
+    const canonicalUrl = 'https://bharatroofers.com' + location.pathname;
     // useEffect(() => {
     //     // Fetch data from your backend API
     //     fetch('your-backend-api-url')
@@ -128,6 +132,9 @@ function Blogs() {
   return (
     <>
     <Container>
+    <Helmet>
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
     <div className="nav1"><Navbar  isScrolled={isScrolled} /></div>
           <div className="nav2"><NavbarMob /> </div>
     <div className="container-fluid mt-5">
